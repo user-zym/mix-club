@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <!-- 设计基准尺寸: 375 × 812 (iPhone X / 11 / 12 / 13 标准) -->
+  <meta name="theme-color" content="#0a0a0a" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="MIX CLUB" />
+  <link rel="manifest" href="manifest.json?v=4" />
+  <link rel="icon" type="image/png" href="icon-192.png?v=4" />
+  <link rel="apple-touch-icon" href="icon-192.png?v=4" />
+  <title>MIX CLUB · 城市夜生活新坐标</title>
+  <link rel="stylesheet" href="css/main.css?v=5" />
+  <link rel="stylesheet" href="css/pages.css?v=6" />
+</head>
+<body>
+  <!-- Splash Screen - 启动页 -->
+  <div class="splash" id="splash">
+    <div class="splash-bg"></div>
+    <div class="splash-content">
+      <div class="splash-logo">
+        <span class="splash-mark">M</span>
+        <span class="splash-pulse"></span>
+      </div>
+      <h1 class="splash-title">MIX CLUB</h1>
+      <p class="splash-sub">城市夜生活新坐标</p>
+      <div class="splash-loader">
+        <div class="splash-loader-bar" id="splashBar"></div>
+      </div>
+      <p class="splash-tip" id="splashTip">正在加载精彩内容...</p>
+    </div>
+    <div class="splash-footer">
+      <span>v 2.8.0</span>
+      <span>·</span>
+    </div>
+  </div>
+
+  <!-- App Container - 移动端容器 -->
+  <div class="app-container" id="app" style="opacity:0;transition:opacity .6s;">
+
+    <!-- Status Bar - iOS Style -->
+    <div class="status-bar">
+      <span class="status-time" id="statusTime">21:30</span>
+      <span class="status-island"></span>
+      <span class="status-icons">
+        <!-- 信号 -->
+        <svg class="ic-signal" viewBox="0 0 18 12" width="18" height="12" aria-hidden="true">
+          <rect x="0"  y="8" width="3" height="4"  rx="0.7" fill="#fff"/>
+          <rect x="5"  y="6" width="3" height="6"  rx="0.7" fill="#fff"/>
+          <rect x="10" y="3" width="3" height="9"  rx="0.7" fill="#fff"/>
+          <rect x="15" y="0" width="3" height="12" rx="0.7" fill="#fff"/>
+        </svg>
+        <!-- WiFi -->
+        <svg class="ic-wifi" viewBox="0 0 16 12" width="16" height="12" aria-hidden="true">
+          <path d="M8 11.2a1.1 1.1 0 1 1 0-2.2 1.1 1.1 0 0 1 0 2.2Z" fill="#fff"/>
+          <path d="M3.6 7.4a6.2 6.2 0 0 1 8.8 0l-1.3 1.3a4.4 4.4 0 0 0-6.2 0L3.6 7.4Z" fill="#fff"/>
+          <path d="M0.6 4.4a10.2 10.2 0 0 1 14.8 0l-1.3 1.3a8.3 8.3 0 0 0-12.2 0L0.6 4.4Z" fill="#fff"/>
+        </svg>
+        <!-- 电池 -->
+        <span class="ic-battery">
+          <svg viewBox="0 0 28 14" width="28" height="14" aria-hidden="true">
+            <rect x="0.5" y="0.5" width="24" height="13" rx="3.2" fill="none" stroke="rgba(255,255,255,.45)" stroke-width="1"/>
+            <rect x="2.2" y="2.2" width="20.6" height="9.6" rx="1.8" fill="#fff"/>
+            <rect x="25.5" y="4.5" width="2" height="5" rx="1" fill="rgba(255,255,255,.45)"/>
+          </svg>
+        </span>
+      </span>
+    </div>
+
+    <!-- Top Navigation Bar (Page title + actions) -->
+    <header class="top-bar" id="topBar">
+      <div class="top-bar-left">
+        <button class="icon-btn back-btn" id="backBtn" aria-label="返回">
+          <svg viewBox="0 0 24 24" width="22" height="22"><path d="M15 18l-6-6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="top-bar-title" id="topBarTitle">MIX CLUB</div>
+      </div>
+      <div class="top-bar-right">
+        <button class="icon-btn" id="searchBtn" aria-label="搜索">
+          <svg viewBox="0 0 24 24" width="20" height="20"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="M21 21l-4.3-4.3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+        <button class="icon-btn" id="notifBtn" aria-label="消息">
+          <svg viewBox="0 0 24 24" width="20" height="20"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 7 3 9H3c0-2 3-2 3-9z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M10 21a2 2 0 0 0 4 0" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          <span class="badge-dot"></span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Page Container - 8 pages routed here -->
+    <main class="page-container" id="pageContainer">
+
+      <!-- HOME PAGE -->
+      <section class="page page-home active" data-page="home"></section>
+
+      <!-- MENU PAGE -->
+      <section class="page page-menu" data-page="menu"></section>
+
+      <!-- BOOKING PAGE -->
+      <section class="page page-booking" data-page="booking"></section>
+
+      <!-- TABLE BOOKING PAGE (散台/卡座) -->
+      <section class="page page-tablebooking" data-page="tablebooking"></section>
+
+      <!-- EVENTS PAGE -->
+      <section class="page page-events" data-page="events"></section>
+
+      <!-- QUEUE PAGE -->
+      <section class="page page-queue" data-page="queue"></section>
+
+      <!-- VIP PAGE -->
+      <section class="page page-vip" data-page="vip"></section>
+
+      <!-- MUSIC PAGE -->
+      <section class="page page-music" data-page="music"></section>
+
+      <!-- CART PAGE -->
+      <section class="page page-cart" data-page="cart"></section>
+
+      <!-- PROFILE PAGE -->
+      <section class="page page-profile" data-page="profile"></section>
+
+      <!-- MERCHANT PAGE -->
+      <section class="page page-merchant" data-page="merchant"></section>
+
+      <!-- LOGIN PAGE -->
+      <section class="page page-auth" data-page="login"></section>
+
+      <!-- REGISTER PAGE -->
+      <section class="page page-auth" data-page="register"></section>
+
+    </main>
+
+    <!-- Bottom Tab Bar -->
+    <nav class="tab-bar" id="tabBar">
+      <a class="tab-item active" data-tab="home" href="#home">
+        <span class="tab-icon">
+          <svg viewBox="0 0 24 24" width="22" height="22"><path d="M3 11l9-8 9 8v10a2 2 0 0 1-2 2h-4v-7H9v7H5a2 2 0 0 1-2-2V11z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+        </span>
+        <span class="tab-label">首页</span>
+      </a>
+      <a class="tab-item" data-tab="menu" href="#menu">
+        <span class="tab-icon">
+          <svg viewBox="0 0 24 24" width="22" height="22"><path d="M4 3v18M9 3v18M15 3v18M20 3v18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </span>
+        <span class="tab-label">点餐</span>
+      </a>
+      <a class="tab-item" data-tab="tablebooking" href="#tablebooking">
+        <span class="tab-icon">
+          <svg viewBox="0 0 24 24" width="22" height="22"><path d="M7 3l-2 5h14l-2-5M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8M9 13h6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+        <span class="tab-label">订台</span>
+        <span class="tab-badge" id="tabTbBadge"></span>
+      </a>
+      <a class="tab-item" data-tab="profile" href="#profile">
+        <span class="tab-icon">
+          <svg viewBox="0 0 24 24" width="22" height="22"><circle cx="12" cy="8" r="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M4 21a8 8 0 0 1 16 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </span>
+        <span class="tab-label">我的</span>
+      </a>
+    </nav>
+
+    <!-- Floating Action - Cart shortcut -->
+    <button class="fab-cart" id="fabCart" aria-label="购物车">
+      <svg viewBox="0 0 24 24" width="22" height="22"><path d="M3 3h2l2.4 13.4a2 2 0 0 0 2 1.6h8.7a2 2 0 0 0 2-1.6L21 8H6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="21" r="1.5" fill="currentColor"/><circle cx="18" cy="21" r="1.5" fill="currentColor"/></svg>
+      <span class="fab-cart-count" id="fabCartCount">0</span>
+    </button>
+
+    <!-- Toast -->
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <!-- Modal -->
+    <div class="modal-mask" id="modalMask"></div>
+
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/data.js?v=5"></script>
+  <script src="js/qrcode.js?v=5"></script>
+  <script src="js/utils.js?v=5"></script>
+  <script src="js/pages/home.js?v=5"></script>
+  <script src="js/pages/menu.js?v=5"></script>
+  <script src="js/pages/booking.js?v=8"></script>
+  <script src="js/pages/tablebooking.js?v=6"></script>
+  <script src="js/pages/events.js?v=5"></script>
+  <script src="js/pages/queue.js?v=5"></script>
+  <script src="js/pages/vip.js?v=5"></script>
+  <script src="js/pages/login.js?v=5"></script>
+  <script src="js/pages/register.js?v=5"></script>
+  <script src="js/pages/music.js?v=5"></script>
+  <script src="js/pages/cart.js?v=5"></script>
+  <script src="js/pages/profile.js?v=5"></script>
+  <script src="js/pages/merchant.js?v=7"></script>
+  <script src="js/app.js?v=5"></script>
+  <script>
+    // PWA Service Worker 注册（仅 HTTPS 或 localhost 生效）
+    if ('serviceWorker' in navigator && (location.protocol === 'https:' || ['localhost', '127.0.0.1'].indexOf(location.hostname) !== -1)) {
+      window.addEventListener('load', function () {
+        navigator.serviceWorker.register('./sw.js').catch(function (e) {
+          console.warn('[SW] 注册失败，不影响正常使用', e);
+        });
+      });
+    }
+  </script>
+</body>
+</html>
