@@ -2,7 +2,7 @@
   "name": "MIX CLUB · 城市夜生活新坐标",
   "short_name": "MIX CLUB",
   "description": "酒吧在线点单、包厢预订、排队取号、派对活动一站式移动应用",
-  "start_url": "./index.html",
+  "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
@@ -22,5 +22,11 @@
       "type": "image/png",
       "purpose": "any maskable"
     }
+  ],
+  "id": "./",
+  "display_override": [
+    "standalone",
+    "minimal-ui",
+    "browser"
   ]
 }
