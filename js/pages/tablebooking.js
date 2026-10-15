@@ -334,6 +334,8 @@ const TableBookingPage = {
 
     this.updateMap();
     this.updateBar();
+    // 修复：updateBar 用 outerHTML 替换确认按钮后需重新绑定点击
+    this.bindBarEvents();
   },
 
   updateMap() {
@@ -411,10 +413,17 @@ const TableBookingPage = {
   },
 
   bindBarEvents() {
-    const btn = document.getElementById('confirmTableBooking');
-    if (btn && !btn.disabled) {
-      btn.addEventListener('click', () => this.confirm());
-    }
+    // 事件委托：只注册一次，避免 updateBar 替换按钮后事件丢失 / 重复注册
+    if (this._barBound) return;
+    this._barBound = true;
+    const root = document.getElementById('pageContainer');
+    if (!root) return;
+    root.addEventListener('click', (e) => {
+      const btn = e.target;
+      if (btn && btn.id === 'confirmTableBooking' && !btn.disabled) {
+        this.confirm();
+      }
+    });
   },
 
   // ---------- 提交 ----------
@@ -440,18 +449,18 @@ const TableBookingPage = {
     bookings.unshift(newBk);
     LS.set(LS_KEYS.BOOKINGS, bookings);
 
-    const t = this.selectedTable;
-    const tagText = t.type === 'ka' ? (t.vip ? t('vipSeat') : t('zoneKa')) : t('zoneSan');
+    const sel = this.selectedTable;
+    const tagText = sel.type === 'ka' ? (sel.vip ? t('vipSeat') : t('zoneKa')) : t('zoneSan');
     openModal(`
       <div style="text-align:center;">
         <div style="font-size:50px;margin-bottom:10px;">🎉</div>
         <h3 style="margin:0 0 6px;">订台成功</h3>
         <p style="margin:0 0 18px;color:var(--text-3);font-size:12px;">订单号 ${esc(id)}</p>
         <div style="background:var(--bg-3);padding:14px;border-radius:12px;text-align:left;font-size:13px;line-height:1.9;">
-          <div><span style="color:var(--text-3);">桌台</span> <strong>${esc(t.name)}</strong> <span style="font-size:11px;color:var(--gold-2);">(${tagText})</span></div>
+          <div><span style="color:var(--text-3);">桌台</span> <strong>${esc(sel.name)}</strong> <span style="font-size:11px;color:var(--gold-2);">(${tagText})</span></div>
           <div><span style="color:var(--text-3);">日期</span> <strong>${esc(this.selectedDate)}</strong></div>
           <div><span style="color:var(--text-3);">${t('peopleLabel')}</span> <strong>${this.people}${LangService.isEn() ? '' : t('peopleUnit')}</strong></div>
-          <div><span style="color:var(--text-3);">金额</span> <strong style="color:var(--gold-2);">¥${t.price}</strong></div>
+          <div><span style="color:var(--text-3);">金额</span> <strong style="color:var(--gold-2);">¥${sel.price}</strong></div>
         </div>
         <p style="margin:14px 0 0;color:var(--text-3);font-size:11px;line-height:1.5;">${t('verifyHint1')} <b style="color:var(--gold-2);">${esc(id)}</b></p>
         <button class="btn btn-primary btn-block" style="margin-top:18px;" onclick="closeModal();navigate('profile');">查看我的预订</button>
