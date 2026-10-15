@@ -156,7 +156,7 @@ const QueuePage = {
           </div>
           <div class="qt-info-item">
             <small>${t('qtPeople')}</small>
-            <strong>${this.ticket.people}${t('peopleUnit')}</strong>
+            <strong>${this.ticket.people}${LangService.isEn() ? '' : t('peopleUnit')}</strong>
           </div>
           <div class="qt-info-item">
             <small>${t('qtAhead')}</small>
@@ -220,7 +220,7 @@ const QueuePage = {
       <div class="q-history-item">
         <div>
           <strong>A${String(h.no).padStart(3, '0')}</strong>
-          <small>${h.people}${t('peopleUnit')} · ${h.type === 'vip' ? 'VIP' : t('qHistoryNormal')} · ${esc(h.name)}</small>
+          <small>${h.people}${LangService.isEn() ? '' : t('peopleUnit')} · ${h.type === 'vip' ? 'VIP' : t('qHistoryNormal')} · ${esc(h.name)}</small>
         </div>
         <div class="q-history-right">
           <span class="q-status ${h.status}">${
