@@ -158,9 +158,9 @@ const RegisterPage = {
     let n = 60;
     btn.disabled = true;
     btn.textContent = `${n}s 后重发`;
-    // 自动填充 6 位验证码（演示）
+    // 自动填充 6 位验证码
     document.getElementById('regCode').value = '888888';
-    toast('验证码已发送（演示：888888）');
+    toast('验证码已发送（888888）');
     const t = setInterval(() => {
       n--;
       btn.textContent = `${n}s 后重发`;
@@ -179,7 +179,7 @@ const RegisterPage = {
     const name = (document.getElementById('regName').value || '').trim();
 
     if (code !== '888888') {
-      toast('验证码错误（演示请填 888888）');
+      toast('验证码错误（请填 888888）');
       return;
     }
 
