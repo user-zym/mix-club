@@ -334,8 +334,8 @@ const CartPage = {
       Cart.clear();
       this.coupon = null;
       if (finalRoot) this.mount(finalRoot);
-      // 弹出对应支付方式的二维码 modal
-      this.showPayQR(ctx);
+      // 支付完成后立即弹出支付成功弹窗
+      this.showPaySuccess(ctx);
     };
   },
 
