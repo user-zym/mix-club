@@ -257,7 +257,7 @@ const HomePage = {
 
   startCarousel(root) {
     this.stopCarousel();
-    this.bannerTimer = setInterval(() => this.next(), 2000);
+    this.bannerTimer = setInterval(() => this.next(), 3000);
   },
 
   stopCarousel() {
