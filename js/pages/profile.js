@@ -150,6 +150,11 @@ const ProfilePage = {
           <span class="extra">v${APP_VERSION}</span>
           <span class="arrow">›</span>
         </div>
+        <div class="menu-list-item" id="goPrivacy">
+          <div class="ico" style="background:rgba(16,185,129,.15);">🔐</div>
+          <span class="text">隐私说明</span>
+          <span class="arrow">›</span>
+        </div>
       </div>
 
       <div class="menu-list-card">
@@ -205,6 +210,7 @@ const ProfilePage = {
       'goAddress': () => this.showAddress(),
       'goHelp': () => this.showHelp(),
       'goAbout': () => this.showAbout(),
+      'goPrivacy': () => this.showPrivacy(),
       'goSettings': () => this.showSettings(),
       'logoutBtn': () => this.logout()
     };
@@ -573,6 +579,20 @@ const ProfilePage = {
         <button class="btn btn-ghost btn-block">💬 在线咨询</button>
         <button class="btn btn-ghost btn-block">📞 电话客服</button>
       </div>
+    `);
+  },
+
+  // 隐私说明（合规）
+  showPrivacy() {
+    openModal(`
+      <h3 style="margin:0 0 14px;">🔐 隐私说明</h3>
+      <div style="font-size:12px;color:var(--text-3);line-height:1.8;">
+        <p style="margin:0 0 8px;">· 本应用仅将您的偏好设置与订单记录保存在本机，用于提供点单、订台、会员等服务。</p>
+        <p style="margin:0 0 8px;">· 我们不会将您的个人信息分享给任何第三方。</p>
+        <p style="margin:0 0 8px;">· 您可以在「设置」中随时清除本地数据。</p>
+        <p style="margin:0;">· 如对隐私保护有任何疑问，欢迎联系门店工作人员。</p>
+      </div>
+      <button class="btn btn-primary btn-block" style="margin-top:16px;" onclick="closeModal()">知道了</button>
     `);
   },
 
