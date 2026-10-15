@@ -10,16 +10,21 @@ const MerchantPage = {
     const todayStr = fmtDate(Date.now());
     const today = orders.filter(o => fmtDate(o.created) === todayStr);
     const todaySales = today.reduce((s, o) => s + o.total, 0);
-    const paid = orders.filter(o => o.status === 'paid').length;
-    const completed = orders.filter(o => o.status === 'completed').length;
-    const cancelled = orders.filter(o => o.status === 'cancelled').length;
+    const paid = OrderService.countByStatus(ORDER_STATUS.PAID);
+    const completed = OrderService.countByStatus(ORDER_STATUS.COMPLETED);
+    const cancelled = OrderService.countByStatus(ORDER_STATUS.CANCELLED);
+    const pending = OrderService.countByStatus(ORDER_STATUS.PENDING);
     const verifyRate = orders.length ? Math.round(completed / orders.length * 100) : 0;
     // 商品销量 Top5
     const prod = {};
     orders.forEach(o => o.items.forEach(it => { prod[it.name] = (prod[it.name] || 0) + it.qty; }));
     const top = Object.keys(prod).map(n => ({ name: n, qty: prod[n] })).sort((a, b) => b.qty - a.qty).slice(0, 5);
     const maxQty = top.length ? top[0].qty : 1;
-    return { orders, today, todaySales, paid, completed, cancelled, verifyRate, top, maxQty };
+    // 图表数据（近7日营收 / 时段客流 / 桌台翻台率）
+    const revenue = OrderService.revenueByDay(7);
+    const hourFlow = OrderService.ordersByHour();
+    const turnover = OrderService.tableTurnover();
+    return { orders, today, todaySales, paid, completed, cancelled, pending, verifyRate, top, maxQty, revenue, hourFlow, turnover };
   },
 
   render() {
@@ -88,13 +93,35 @@ const MerchantPage = {
             <div style="color:var(--text-3);font-size:12px;padding:20px 0;">选择桌号生成点单码</div>
           </div>
         </div>
-        <p style="margin:8px 0 0;font-size:10px;color:var(--text-3);">顾客端在首页「扫码点单」输入桌号即可自动绑定桌台。</p>
+        <p style="margin:8px 0 0;font-size:10px;color:var(--text-3);">顾客使用微信/相机扫描桌台码，自动绑定桌台并进入点餐；也可在首页「扫码点单」手动输入桌号。</p>
       </div>
 
       <!-- 销量 Top -->
       <div class="merchant-card">
         <h3 class="merchant-card-title">热销商品 Top5</h3>
         ${topList}
+      </div>
+
+      <!-- 订单状态概览 -->
+      <div class="merchant-flow-stats">
+        <span>待支付 <b style="color:#facc15;">${s.pending}</b></span>
+        <span>待核销 <b style="color:#22d3ee;">${s.paid}</b></span>
+        <span>已完成 <b style="color:#4ade80;">${s.completed}</b></span>
+        <span>已取消 <b style="color:#9ca3af;">${s.cancelled}</b></span>
+      </div>
+
+      <!-- 经营图表 -->
+      <div class="merchant-card">
+        <h3 class="merchant-card-title">近 7 日营收趋势 <small>按订单实付汇总</small></h3>
+        <div id="chartRevenue" style="height:200px;width:100%;"></div>
+      </div>
+      <div class="merchant-card">
+        <h3 class="merchant-card-title">时段客流分布 <small>营业时段 19:00–03:00</small></h3>
+        <div id="chartHour" style="height:200px;width:100%;"></div>
+      </div>
+      <div class="merchant-card">
+        <h3 class="merchant-card-title">桌台翻台率 <small>已核销桌台订单 ÷ 桌台总数</small></h3>
+        <div id="chartTurnover" style="height:170px;width:100%;"></div>
       </div>
 
       <!-- 订单流水 -->
@@ -115,6 +142,101 @@ const MerchantPage = {
   mount(root) {
     root.innerHTML = this.render();
     this.bindEvents(root);
+    // 等页面激活与 reflow 完成后初始化 ECharts（隐藏容器拿不到尺寸）
+    this._charts = this._charts || [];
+    setTimeout(() => this.initCharts(root), 160);
+  },
+
+  // 经营图表（ECharts 本地构建，离线可用；库缺失时降级为文字数据）
+  initCharts(root) {
+    const s = this.stats();
+    const hasData = s.orders.length > 0;
+    const fallback = (el) => {
+      if (!el) return;
+      el.innerHTML = '<p style="color:var(--text-3);font-size:12px;text-align:center;padding:64px 0;">暂无数据 · 完成第一笔订单后自动生成</p>';
+    };
+    if (typeof echarts === 'undefined') {
+      ['chartRevenue', 'chartHour', 'chartTurnover'].forEach(id => fallback(root.querySelector('#' + id)));
+      return;
+    }
+
+    // 1) 近 7 日营收趋势
+    const revEl = root.querySelector('#chartRevenue');
+    if (revEl) {
+      if (!hasData) fallback(revEl);
+      else {
+        const c = echarts.init(revEl);
+        this._charts.push(c);
+        c.setOption({
+          backgroundColor: 'transparent',
+          grid: { left: 44, right: 10, top: 28, bottom: 22 },
+          tooltip: { trigger: 'axis', backgroundColor: '#1a1426', borderColor: '#3a3550', textStyle: { color: '#f2ede3', fontSize: 11 } },
+          xAxis: { type: 'category', data: s.revenue.map(r => r.date.slice(5)), axisLine: { lineStyle: { color: '#3a3550' } }, axisLabel: { color: '#9a94a8', fontSize: 10 } },
+          yAxis: { type: 'value', splitLine: { lineStyle: { color: 'rgba(255,255,255,.06)' } }, axisLabel: { color: '#9a94a8', fontSize: 10 } },
+          series: [{
+            name: '营收', type: 'line', smooth: true, symbolSize: 6,
+            data: s.revenue.map(r => r.total),
+            lineStyle: { color: '#d4af37', width: 2 },
+            itemStyle: { color: '#d4af37' },
+            areaStyle: { color: { type: 'linear', x: 0, y: 0, x2: 0, y2: 1, colorStops: [{ offset: 0, color: 'rgba(212,175,55,.35)' }, { offset: 1, color: 'rgba(212,175,55,0)' }] } }
+          }]
+        });
+      }
+    }
+
+    // 2) 时段客流分布
+    const hourEl = root.querySelector('#chartHour');
+    if (hourEl) {
+      if (!hasData) fallback(hourEl);
+      else {
+        const c = echarts.init(hourEl);
+        this._charts.push(c);
+        c.setOption({
+          backgroundColor: 'transparent',
+          grid: { left: 38, right: 10, top: 28, bottom: 22 },
+          tooltip: { trigger: 'axis', backgroundColor: '#1a1426', borderColor: '#3a3550', textStyle: { color: '#f2ede3', fontSize: 11 } },
+          xAxis: { type: 'category', data: s.hourFlow.map(h => h.label), axisLine: { lineStyle: { color: '#3a3550' } }, axisLabel: { color: '#9a94a8', fontSize: 10 } },
+          yAxis: { type: 'value', splitLine: { lineStyle: { color: 'rgba(255,255,255,.06)' } }, axisLabel: { color: '#9a94a8', fontSize: 10 } },
+          series: [{
+            name: '订单量', type: 'bar', barWidth: '55%',
+            data: s.hourFlow.map(h => h.count),
+            itemStyle: { color: { type: 'linear', x: 0, y: 0, x2: 0, y2: 1, colorStops: [{ offset: 0, color: '#d4af37' }, { offset: 1, color: '#7c3aed' }] }, borderRadius: [6, 6, 0, 0] }
+          }]
+        });
+      }
+    }
+
+    // 3) 桌台翻台率（仪表盘）
+    const ttEl = root.querySelector('#chartTurnover');
+    if (ttEl) {
+      const c = echarts.init(ttEl);
+      this._charts.push(c);
+      c.setOption({
+        backgroundColor: 'transparent',
+        series: [{
+          name: '翻台率', type: 'gauge',
+          startAngle: 210, endAngle: -30, min: 0, max: 200,
+          progress: { show: true, width: 14, itemStyle: { color: '#d4af37' } },
+          axisLine: { lineStyle: { width: 14, color: [[1, 'rgba(255,255,255,.1)']] } },
+          axisTick: { show: false },
+          splitLine: { show: false },
+          axisLabel: { show: false },
+          pointer: { show: false },
+          anchor: { show: false },
+          title: { offsetCenter: [0, '38%'], color: '#9a94a8', fontSize: 11 },
+          detail: { valueAnimation: true, offsetCenter: [0, '0%'], formatter: '{value}%', color: '#d4af37', fontSize: 26, fontWeight: 800 },
+          data: [{ value: s.turnover, name: '桌台翻台率' }]
+        }]
+      });
+    }
+
+    // 视口变化时自适应
+    if (!this._resizeBound) {
+      this._resizeBound = true;
+      window.addEventListener('resize', () => {
+        this._charts.forEach(x => { try { x.resize(); } catch (e) {} });
+      });
+    }
   },
 
   bindEvents(root) {
@@ -132,12 +254,13 @@ const MerchantPage = {
         const no = chip.getAttribute('data-table');
         const box = root.querySelector('#tableQrBox');
         if (!box) return;
-        const payload = 'MIXCLUB://TABLE?no=' + no;
+        // 可扫描直达：顾客扫码打开 URL → 自动绑定桌台并进入点餐
+        const payload = location.href.split('#')[0].split('?')[0] + '?table=' + no;
         box.innerHTML = `
           <div class="table-qr-wrap">
             ${generateQRCodeSVG(payload, 150)}
             <div style="font-weight:800;letter-spacing:1px;margin-top:6px;">桌台 ${esc(no)}</div>
-            <div style="font-size:10px;color:var(--text-3);">扫码内容：${esc(payload)}</div>
+            <div style="font-size:10px;color:var(--text-3);">扫码即自动绑定桌台并进入点餐</div>
           </div>`;
       });
     });
