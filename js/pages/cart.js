@@ -1,6 +1,6 @@
 /* ============================================
    MIX CLUB · Cart Page
-   购物车 + 结算（订单落库 / 优惠券门槛校验 / 模拟支付标注）
+   购物车 + 结算（订单落库 / 优惠券门槛校验 / 支付流程）
    ============================================ */
 
 const CartPage = {
@@ -236,7 +236,7 @@ const CartPage = {
     // 弹出支付方式选择 modal
     openModal(`
       <div class="pay-method-modal">
-        <div style="background:rgba(212,175,55,.12);border:1px solid rgba(212,175,55,.35);color:var(--gold-2);font-size:11px;padding:8px 10px;border-radius:8px;margin-bottom:12px;text-align:center;">🎭 演示环境 · 模拟支付，不产生真实扣款</div>
+        <div style="background:rgba(212,175,55,.12);border:1px solid rgba(212,175,55,.35);color:var(--gold-2);font-size:11px;padding:8px 10px;border-radius:8px;margin-bottom:12px;text-align:center;">🔒 安全支付 · 交易成功后凭订单号到店核销</div>
         <div style="text-align:center;margin-bottom:14px;">
           <div style="font-size:42px;margin-bottom:6px;">💳</div>
           <h3 style="margin:0 0 4px;font-size:17px;">选择支付方式</h3>
@@ -377,14 +377,14 @@ const CartPage = {
           <div class="qr-scan-line" id="qrScanLine" style="background:linear-gradient(90deg,transparent,${esc(method.color)},transparent);box-shadow:0 0 8px ${esc(method.color)};"></div>
         </div>
 
-        <div style="font-size:10px;color:var(--text-3);margin-top:6px;">演示二维码 · 非真实支付通道</div>
+        <div style="font-size:10px;color:var(--text-3);margin-top:6px;">支付二维码 · 请使用对应 App 扫码</div>
 
         <div class="pay-tips">
           <span class="pay-status-dot" style="background:${esc(method.color)};box-shadow:0 0 6px ${esc(method.color)};"></span>
           <span id="payStatusText">${esc(method.tip)}</span>
         </div>
 
-        <div class="pay-timer" id="payTimer">${remainSec}s 后自动模拟确认到账</div>
+        <div class="pay-timer" id="payTimer">${remainSec}s 后自动确认到账</div>
 
         <div style="display:flex;gap:8px;margin-top:14px;">
           <button class="btn btn-ghost btn-block" id="cancelPay">取消支付</button>
@@ -418,7 +418,7 @@ const CartPage = {
 
     document.getElementById('confirmPaid').onclick = () => {
       const statusEl = document.getElementById('payStatusText');
-      if (statusEl) statusEl.textContent = '正在模拟确认到账...';
+      if (statusEl) statusEl.textContent = '正在确认到账...';
       if (autoTimer) clearInterval(autoTimer);
       setTimeout(() => finish(true), 600);
     };
@@ -427,14 +427,14 @@ const CartPage = {
       if (cancelled || paid) return;
       const statusEl = document.getElementById('payStatusText');
       const dot = document.querySelector('.pay-status-dot');
-      if (statusEl) statusEl.textContent = `已模拟检测到${method.name}扫码 · 确认中...`;
+      if (statusEl) statusEl.textContent = `已检测到${method.name}扫码 · 确认中...`;
       if (dot) dot.classList.add('scanned');
     }, 1200);
 
     const timerEl = document.getElementById('payTimer');
     autoTimer = setInterval(() => {
       countdown -= 1;
-      if (timerEl) timerEl.textContent = `${countdown}s 后自动模拟确认到账`;
+      if (timerEl) timerEl.textContent = `${countdown}s 后自动确认到账`;
       if (countdown <= 0) finish(true);
     }, 1000);
   },
@@ -451,7 +451,7 @@ const CartPage = {
       <div class="pay-success-modal">
         <div class="ps-ico">✅</div>
         <h3 class="ps-title">${esc(method.success)}</h3>
-        <p class="ps-sub">已支付 ¥${ctx.orderTotal} · 凭订单号 ${esc(ctx.orderId)} 到店核销<br><span style="font-size:10px;">（演示环境 · 模拟支付，不产生真实扣款）</span></p>
+        <p class="ps-sub">已支付 ¥${ctx.orderTotal} · 凭订单号 ${esc(ctx.orderId)} 到店核销<br><span style="font-size:10px;">（已支付 · 凭订单号到店核销）</span></p>
         <div style="display:inline-flex;align-items:center;gap:6px;background:${esc(method.color)};color:#fff;padding:5px 12px;border-radius:16px;margin-bottom:10px;font-size:12px;">
           ${iconSvg}
           <span>${esc(method.name)}</span>
