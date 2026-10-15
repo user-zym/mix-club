@@ -153,26 +153,26 @@ const TableBookingPage = {
 
   // ---------- 座位图渲染 ----------
   renderMapSeats() {
-    return this.tables.map(t => {
-      const isSel = this.selectedTable && this.selectedTable.id === t.id;
-      const dim = this.activeZone !== 'all' && t.type !== this.activeZone;
-      const st = this.getStatus(t);
+    return this.tables.map(tb => {
+      const isSel = this.selectedTable && this.selectedTable.id === tb.id;
+      const dim = this.activeZone !== 'all' && tb.type !== this.activeZone;
+      const st = this.getStatus(tb);
       const statusText = isSel ? t('seatSelected')
                        : st === 'sold' ? t('seatSold')
                        : st === 'booked' ? t('seatBooked')
                        : t('seatAvailable');
 
-      let cls = 'tb-seat ' + (t.type === 'ka' ? 'ka' : 'san');
+      let cls = 'tb-seat ' + (tb.type === 'ka' ? 'ka' : 'san');
       cls += st === 'available' ? ' free' : (st === 'booked' ? ' booked' : ' sold');
       if (isSel) cls += ' selected';
-      if (t.vip) cls += ' vip';
+      if (tb.vip) cls += ' vip';
       if (dim) cls += ' dim';
 
       return `
-        <div class="${cls}" data-table-id="${esc(t.id)}" role="button"
-             style="left:${t.x}%;top:${t.y}%;"
-             aria-label="${esc(t.name)}·${statusText}">
-          <span class="tb-seat-name">${esc(t.name)}</span>
+        <div class="${cls}" data-table-id="${esc(tb.id)}" role="button"
+             style="left:${tb.x}%;top:${tb.y}%;"
+             aria-label="${esc(tb.name)}·${statusText}">
+          <span class="tb-seat-name">${esc(tb.name)}</span>
         </div>
       `;
     }).join('');
