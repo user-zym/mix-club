@@ -123,7 +123,7 @@ const TableBookingPage = {
         </div>
         <div class="tb-people-row" id="tbPeopleRow">
           ${[1, 2, 3, 4, 5, 6, 8, 10].map(n => `
-            <button class="tb-people-btn ${this.people === n ? 'active' : ''}" data-people="${n}">${n}${t('peopleUnit')}</button>
+            <button class="tb-people-btn ${this.people === n ? 'active' : ''}" data-people="${n}">${n}${LangService.isEn() ? '' : t('peopleUnit')}</button>
           `).join('')}
         </div>
       </div>
@@ -450,7 +450,7 @@ const TableBookingPage = {
         <div style="background:var(--bg-3);padding:14px;border-radius:12px;text-align:left;font-size:13px;line-height:1.9;">
           <div><span style="color:var(--text-3);">桌台</span> <strong>${esc(t.name)}</strong> <span style="font-size:11px;color:var(--gold-2);">(${tagText})</span></div>
           <div><span style="color:var(--text-3);">日期</span> <strong>${esc(this.selectedDate)}</strong></div>
-          <div><span style="color:var(--text-3);">${t('peopleLabel')}</span> <strong>${this.people}${t('peopleUnit')}</strong></div>
+          <div><span style="color:var(--text-3);">${t('peopleLabel')}</span> <strong>${this.people}${LangService.isEn() ? '' : t('peopleUnit')}</strong></div>
           <div><span style="color:var(--text-3);">金额</span> <strong style="color:var(--gold-2);">¥${t.price}</strong></div>
         </div>
         <p style="margin:14px 0 0;color:var(--text-3);font-size:11px;line-height:1.5;">${t('verifyHint1')} <b style="color:var(--gold-2);">${esc(id)}</b></p>
