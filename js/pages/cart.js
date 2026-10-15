@@ -334,8 +334,9 @@ const CartPage = {
       Cart.clear();
       this.coupon = null;
       if (finalRoot) this.mount(finalRoot);
-      // 进入扫码支付：确认到账后状态流转为已支付
-      this.showPayQR(ctx);
+      // 支付成功：状态机 待支付 → 已支付（待核销），直接展示支付成功弹窗
+      if (ctx.order) OrderService.updateStatus(ctx.order.id, ORDER_STATUS.PAID);
+      this.showPaySuccess(ctx);
     };
   },
 
