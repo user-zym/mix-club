@@ -9,39 +9,12 @@
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="MIX CLUB" />
-  <link rel="manifest" href="manifest.json?v=5" />
-  <link rel="icon" type="image/png" href="icon-192.png?v=5" />
-  <link rel="apple-touch-icon" href="icon-192.png?v=5" />
+  <link rel="manifest" href="manifest.json?v=4" />
+  <link rel="icon" type="image/png" href="icon-192.png?v=4" />
+  <link rel="apple-touch-icon" href="icon-192.png?v=4" />
   <title>MIX CLUB · 城市夜生活新坐标</title>
-  <link rel="stylesheet" href="css/main.css?v=20" />
+  <link rel="stylesheet" href="css/main.css?v=16" />
   <link rel="stylesheet" href="css/pages.css?v=6" />
-  <script>
-  /* iOS 全屏铁拳：iOS 视口高度可能 < 物理屏幕，用 screen 物理尺寸强制铺满容器 */
-  (function () {
-    var isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent || '');
-    function fit() {
-      var c = document.getElementById('app');
-      if (!c) return;
-      var w = window.screen.width, h = window.screen.height;
-      if (!w || !h) return;
-      c.style.position = 'fixed';
-      c.style.top = '0';
-      c.style.left = '0';
-      c.style.width = w + 'px';
-      c.style.height = h + 'px';
-      c.style.margin = '0';
-      c.style.maxWidth = 'none';
-      c.style.borderRadius = '0';
-    }
-    if (isIOS) {
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', fit);
-      } else { fit(); }
-      window.addEventListener('resize', fit);
-      window.addEventListener('orientationchange', function () { setTimeout(fit, 350); });
-    }
-  })();
-  </script>
 </head>
 <body>
   <!-- Splash Screen - 启动页 -->
