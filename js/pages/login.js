@@ -21,7 +21,7 @@ const LoginPage = {
           <div class="auth-logo">
             <span>M</span>
           </div>
-          <h1>欢迎回来</h1>
+          <h1>${t('welcomeBack')}</h1>
           <p>${t('loginSub')}</p>
         </div>
 
@@ -48,12 +48,12 @@ const LoginPage = {
           <div class="auth-row">
             <label class="auth-check">
               <input type="checkbox" id="rememberMe" checked>
-              <span>记住我</span>
+              <span>${t('rememberMe')}</span>
             </label>
             <a class="auth-link" id="forgotBtn">${t('forgotPwd')}</a>
           </div>
 
-          <button class="btn btn-primary btn-block auth-submit" id="loginSubmit">登 录</button>
+          <button class="btn btn-primary btn-block auth-submit" id="loginSubmit">${t('loginBtn')}</button>
 
           <!-- 第三方登录 -->
           <div class="auth-divider"><span>${t('otherLogin')}</span></div>
@@ -62,7 +62,7 @@ const LoginPage = {
               <div class="auth-third-ic" style="background:#07c160;">
                 <svg viewBox="0 0 24 24" width="22" height="22" fill="#fff"><path d="M9 4C5 4 2 6.7 2 10c0 1.8.8 3.4 2.2 4.5L3 17l3-1.5c.6.1 1.3.2 2 .2.2 0 .4 0 .6-.1A6 6 0 0 1 8 13c0-3.3 3.4-6 7.5-6h.6C15.4 5.1 12.5 4 9 4zm-2.5 4a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm5 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2zM16 9c-3.3 0-6 2.2-6 5s2.7 5 6 5c.6 0 1.1-.1 1.7-.2L20 20l-.7-2c1.2-.9 1.7-2.2 1.7-3.5C21 11.5 18.8 9 16 9zm-2 3.5a.8.8 0 1 1 0-1.6.8.8 0 0 1 0 1.6zm4 0a.8.8 0 1 1 0-1.6.8.8 0 0 1 0 1.6z"/></svg>
               </div>
-              <span>微信</span>
+              <span>${t('wechatName')}</span>
             </div>
             <div class="auth-third-item" data-third="apple">
               <div class="auth-third-ic" style="background:#000;">
@@ -81,7 +81,7 @@ const LoginPage = {
 
         <!-- 底部注册 -->
         <div class="auth-foot">
-          <span>还没有账号?</span>
+          <span>${t('noAccount')}</span>
           <a id="gotoRegister">${t('registerNow')}</a>
         </div>
 
@@ -151,7 +151,7 @@ const LoginPage = {
     root.querySelectorAll('[data-third]').forEach(el => {
       el.onclick = () => {
         const which = el.getAttribute('data-third');
-        toast(`${which === 'wechat' ? '微信' : which === 'apple' ? 'Apple' : 'QQ'} 登录开发中`);
+        toast(`${which === 'wechat' ? t('wechatName') : which === 'apple' ? 'Apple' : 'QQ'}${LangService.isEn() ? ' login coming soon' : ' 登录开发中'}`);
       };
     });
 
@@ -174,7 +174,7 @@ const LoginPage = {
     // 会员账号直接走预置数据
     if (phone === '13800000000' && pwd === '123456') {
       Auth.reset();
-      toast('登录成功，欢迎回来 👋');
+      toast(t('loginOk'));
       setTimeout(() => navigate('profile'), 400);
       return;
     }
