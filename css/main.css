@@ -944,7 +944,7 @@ ul,ol{list-style:none;margin:0;padding:0;}
 .modal{
   position:relative;
   width:calc(100% - 56px);
-  max-width:320px;
+  max-width:280px;
   background:var(--bg-2);
   border-radius:var(--radius-l);
   padding:20px 18px;
