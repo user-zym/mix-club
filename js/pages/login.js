@@ -85,9 +85,9 @@ const LoginPage = {
           <a id="gotoRegister">${t('registerNow')}</a>
         </div>
 
-        <!-- 体验账号提示 -->
+        <!-- 会员账号提示 -->
         <div class="auth-demo">
-          <p>📌 体验账号：13800000000 / 123456</p>
+          <p>📌 ${t('accountHint')}${t('accountFree')}</p>
           <p>${t('useGuest')} <a id="useDemo">${t('useGuestBtn')}</a></p>
         </div>
       </div>
@@ -171,7 +171,7 @@ const LoginPage = {
       return;
     }
 
-    // 体验账号直接走预置数据
+    // 会员账号直接走预置数据
     if (phone === '13800000000' && pwd === '123456') {
       Auth.reset();
       toast('登录成功，欢迎回来 👋');
