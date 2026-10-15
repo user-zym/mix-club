@@ -2031,3 +2031,13 @@
 .tb-map-dot.dot-booked{border-color:#f59e0b;background:rgba(245,158,11,.25);}
 .tb-map-dot.dot-sold{border-color:#6b7280;background:repeating-linear-gradient(45deg,rgba(107,114,128,.35) 0 3px,transparent 3px 6px);}
 .tb-map-dot.dot-vip{border-color:rgba(240,199,94,.8);background:transparent;box-shadow:0 0 6px rgba(240,199,94,.3);}
+
+/* ============================================
+   P1 新增：菜单桌台条 / 门店状态概览
+   ============================================ */
+.menu-table-bar{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:10px 14px 0;padding:10px 14px;background:linear-gradient(135deg,rgba(212,175,55,.15),rgba(124,58,237,.12));border:1px solid rgba(212,175,55,.35);border-radius:12px;font-size:12.5px;color:var(--text-2);}
+.mtb-info b{color:var(--gold-2);font-size:14px;}
+.mtb-switch{background:var(--bg-3);border:1px solid var(--line);color:var(--text-2);border-radius:8px;padding:5px 12px;font-size:11.5px;cursor:pointer;}
+.mtb-switch:active{opacity:.7;}
+.merchant-flow-stats{display:flex;gap:10px;flex-wrap:wrap;padding:10px 14px;background:var(--bg-2);border:1px solid var(--line);border-radius:12px;margin:0 0 10px;font-size:11.5px;color:var(--text-3);}
+.merchant-flow-stats b{font-size:13px;margin-left:2px;}
