@@ -72,11 +72,11 @@ const BookingPage = {
         <div class="bk-notice">
           <div class="bk-notice-icon">💡</div>
           <div class="bk-notice-body">
-            <h4>预订须知</h4>
+            <h4>${t('bkNoticeTitle')}</h4>
             <ul>
-              <li>预订需提前 <b>2 小时</b>，到店即安排入场</li>
-              <li>预订成功后将发送短信确认，VIP 会员享 <b>8 折</b></li>
-              <li>取消请提前 1 小时，逾期扣除定金 ¥200</li>
+              <li>${t('bkNotice1')}</li>
+              <li>${t('bkNotice2')}</li>
+              <li>${t('bkNotice3')}</li>
             </ul>
           </div>
         </div>
