@@ -12,7 +12,7 @@ const LoginPage = {
           <button class="icon-btn" id="goBackFromLogin" aria-label="返回">
             <svg viewBox="0 0 24 24" width="22" height="22"><path d="M15 18l-6-6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </button>
-          <span class="auth-top-title">登录 MIX CLUB</span>
+          <span class="auth-top-title">${t('loginTitle')}</span>
           <span style="width:36px;"></span>
         </div>
 
@@ -22,13 +22,13 @@ const LoginPage = {
             <span>M</span>
           </div>
           <h1>欢迎回来</h1>
-          <p>登录以查看会员积分、订单与专属权益</p>
+          <p>${t('loginSub')}</p>
         </div>
 
         <!-- 表单 -->
         <div class="auth-form">
           <div class="auth-field">
-            <label>手机号</label>
+            <label>${t('phoneLabel')}</label>
             <div class="auth-input-wrap">
               <span class="auth-prefix">+86</span>
               <input type="tel" inputmode="numeric" maxlength="11" id="loginPhone" placeholder="请输入手机号" autocomplete="tel">
@@ -36,7 +36,7 @@ const LoginPage = {
           </div>
 
           <div class="auth-field">
-            <label>密码</label>
+            <label>${t('pwdLabel')}</label>
             <div class="auth-input-wrap">
               <input type="password" id="loginPwd" placeholder="请输入密码" autocomplete="current-password">
               <button class="auth-eye" id="loginEye" type="button" aria-label="显示密码">
@@ -50,13 +50,13 @@ const LoginPage = {
               <input type="checkbox" id="rememberMe" checked>
               <span>记住我</span>
             </label>
-            <a class="auth-link" id="forgotBtn">忘记密码?</a>
+            <a class="auth-link" id="forgotBtn">${t('forgotPwd')}</a>
           </div>
 
           <button class="btn btn-primary btn-block auth-submit" id="loginSubmit">登 录</button>
 
           <!-- 第三方登录 -->
-          <div class="auth-divider"><span>其他方式登录</span></div>
+          <div class="auth-divider"><span>${t('otherLogin')}</span></div>
           <div class="auth-third">
             <div class="auth-third-item" data-third="wechat">
               <div class="auth-third-ic" style="background:#07c160;">
@@ -82,13 +82,13 @@ const LoginPage = {
         <!-- 底部注册 -->
         <div class="auth-foot">
           <span>还没有账号?</span>
-          <a id="gotoRegister">立即注册</a>
+          <a id="gotoRegister">${t('registerNow')}</a>
         </div>
 
         <!-- 体验账号提示 -->
         <div class="auth-demo">
           <p>📌 体验账号：13800000000 / 123456</p>
-          <p>或点击 <a id="useDemo">直接使用体验账号登录</a></p>
+          <p>${t('useGuest')} <a id="useDemo">${t('useGuestBtn')}</a></p>
         </div>
       </div>
     `;
