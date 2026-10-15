@@ -80,7 +80,7 @@ const RegisterPage = {
         <!-- 底部 -->
         <div class="auth-foot">
           <span>${t('haveAccount')}</span>
-          <a id="gotoLogin">立即登录</a>
+          <a id="gotoLogin">${t('signInNow')}</a>
         </div>
       </div>
     `;
