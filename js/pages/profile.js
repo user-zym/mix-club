@@ -46,8 +46,8 @@ const ProfilePage = {
       ${bookings.length > 0 ? `
         <div class="section">
           <div class="section-head">
-            <h3 class="section-title">我的预订<small>${bookings.length} 条</small></h3>
-            <a class="section-more" data-go="booking">新增 →</a>
+            <h3 class="section-title">${t('myBookings')}<small>${bookings.length} ${LangService.isEn() ? 'items' : '条'}</small></h3>
+            <a class="section-more" data-go="booking">${t('newBooking')}</a>
           </div>
           ${bookings.slice(0, 3).map(b => `
             <div class="event-card" style="margin-bottom:8px;">
@@ -76,8 +76,8 @@ const ProfilePage = {
       ${orders.length > 0 ? `
         <div class="section">
           <div class="section-head">
-            <h3 class="section-title">我的订单<small>${orders.length} 单</small></h3>
-            <a class="section-more" data-go="cart">去下单 →</a>
+            <h3 class="section-title">${t('myOrders')}<small>${orders.length} ${LangService.isEn() ? 'orders' : '单'}</small></h3>
+            <a class="section-more" data-go="cart">${LangService.isEn() ? 'Order →' : '去下单 →'}</a>
           </div>
           ${orders.slice(0, 3).map(o => this.orderCard(o)).join('')}
         </div>
@@ -146,23 +146,23 @@ const ProfilePage = {
         </div>
         <div class="menu-list-item" id="goAbout">
           <div class="ico" style="background:rgba(245,158,11,.15);">ℹ️</div>
-          <span class="text">关于MIX CLUB</span>
+          <span class="text">${t('about')}</span>
           <span class="extra">v${APP_VERSION}</span>
           <span class="arrow">›</span>
         </div>
         <div class="menu-list-item" id="goPrivacy">
           <div class="ico" style="background:rgba(16,185,129,.15);">🔐</div>
-          <span class="text">隐私说明</span>
+          <span class="text">${t('privacy')}</span>
           <span class="arrow">›</span>
         </div>
       </div>
 
       <div class="menu-list-card">
         <div class="menu-list-item" id="goSettings" style="justify-content:center;color:var(--text-2);">
-          <span class="text">⚙️ 设置</span>
+          <span class="text">${t('settings')}</span>
         </div>
         <div class="menu-list-item" id="logoutBtn" style="justify-content:center;color:var(--pink);">
-          <span class="text">退出登录</span>
+          <span class="text">${t('logout')}</span>
         </div>
       </div>
 
@@ -219,6 +219,20 @@ const ProfilePage = {
       const el = root.querySelector('#' + id);
       if (el) el.addEventListener('click', map[id]);
     });
+
+    // 语言切换（设置弹窗内）
+    const applyLang = (lang) => {
+      LangService.set(lang);
+      closeModal();
+      if (window.MIX_APP && MIX_APP.applyLangUI) MIX_APP.applyLangUI();
+      toast(lang === 'en' ? t('langSwitchedEn') : t('langSwitchedZh'));
+      const r = document.querySelector('[data-page="profile"]');
+      if (r) this.mount(r);
+    };
+    const langZh = document.getElementById('langZhBtn');
+    if (langZh) langZh.addEventListener('click', () => applyLang('zh'));
+    const langEn = document.getElementById('langEnBtn');
+    if (langEn) langEn.addEventListener('click', () => applyLang('en'));
 
     // 订单卡片 → 详情
     root.querySelectorAll('[data-order]').forEach(el => {
@@ -613,8 +627,16 @@ const ProfilePage = {
   },
 
   showSettings() {
+    const lang = LangService.current;
     openModal(`
-      <h3 style="margin:0 0 14px;">设置</h3>
+      <h3 style="margin:0 0 14px;">${t('settingsTitle')}</h3>
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--line);font-size:13px;">
+        <span>${t('langLabel')}</span>
+        <div style="display:flex;gap:8px;">
+          <button class="btn ${lang === 'zh' ? 'btn-primary' : 'btn-ghost'}" style="padding:5px 14px;font-size:12px;" id="langZhBtn">${t('langZh')}</button>
+          <button class="btn ${lang === 'en' ? 'btn-primary' : 'btn-ghost'}" style="padding:5px 14px;font-size:12px;" id="langEnBtn">${t('langEn')}</button>
+        </div>
+      </div>
       ${[
         {n:'消息通知',on:true},
         {n:'个性化推荐',on:true},
