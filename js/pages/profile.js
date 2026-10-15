@@ -53,8 +53,8 @@ const ProfilePage = {
             <div class="event-card" style="margin-bottom:8px;">
               <div class="event-thumb" style="background:linear-gradient(135deg,#d4af37,#7c3aed);display:flex;align-items:center;justify-content:center;font-size:24px;">📅</div>
               <div class="event-info">
-                <h4>${esc(b.room)}</h4>
-                <p>${esc(b.date)} ${esc(b.time)} · ${esc(b.type)}</p>
+                <h4>${esc(b.room || b.table)}</h4>
+                <p>${esc(b.date)}${b.time ? ' ' + esc(b.time) : ''} · ${b.type === 'table' ? '桌台' : '包厢'}</p>
                 <div class="row">
                   <span class="chip green">已确认</span>
                   <span style="color:var(--gold-2);font-weight:700;">¥${b.price}</span>
