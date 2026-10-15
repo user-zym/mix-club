@@ -9,7 +9,7 @@ const APP_DATA = {
     { img: 'images/banner3.jpg',  title: '「极光」系列',     sub: '调酒师 Allan 主理 · 限时供应' },
     { img: 'images/banner4.jpg',  title: '周末电音之夜',     sub: '百大 DJ 阵容 · 三屏 VJ 视觉' },
     { img: 'images/banner5.jpg',  title: '招牌鸡尾酒买二送一', sub: '工作日 20:00–22:00 专享' },
-    { img: 'images/banner6.jpg',  title: 'MIX CLUB 第二季',   sub: '全新主题包厢 · 8 月璀璨启幕' },
+    { img: 'images/banner6.jpg',  title: 'MIX CLUB 第二季',   sub: '全新主题包厢 · 璀璨启幕' },
     { img: 'images/banner7.jpg',  title: '生日月专属特调',    sub: '凭身份证到店即享免费一杯' },
     { img: 'images/banner8.jpg',  title: 'KUMA 现场点播',     sub: '每周更新 · 嗨到天亮' },
     { img: 'images/banner9.jpg',  title: '在线排队免等候',    sub: '实时叫号 · 一键取号' },
