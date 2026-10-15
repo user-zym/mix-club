@@ -219,9 +219,20 @@
     // 初始badge
     Cart.updateBadge();
 
+    // 桌台码扫码直达：URL 带 ?table= 参数 → 自动绑定桌台并进入点餐
+    const qs = new URLSearchParams(location.search);
+    const tno = ((qs.get('table') || '').trim()).toUpperCase();
+    let scanPage = null;
+    if (tno) {
+      const r = TableService.bind(tno);
+      if (r.ok) scanPage = 'menu';
+    }
+
     // 默认页 hash
     const hash = (location.hash || '').replace('#', '');
-    if (hash && PAGES.includes(hash)) {
+    if (scanPage) {
+      go(scanPage);
+    } else if (hash && PAGES.includes(hash)) {
       go(hash);
     } else {
       go('home');
