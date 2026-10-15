@@ -66,10 +66,10 @@ ul,ol{list-style:none;margin:0;padding:0;}
    App Container - 移动端容器 (375 × 812, iPhone X/11/12/13 标准)
    ============================================ */
 .app-container{
-  position:relative;
+  /* fixed inset:0 强制铺满视口（含安全区），iOS standalone 全屏最稳 */
+  position:fixed;
+  top:0;right:0;bottom:0;left:0;
   width:100%;
-  max-width:100%;
-  /* 高度自适应：百分比链全屏（含 iOS 安全区）；dvh 在 standalone 下不含安全区会留黑边 */
   height:812px;
   height:100vh;
   height:100dvh;
@@ -92,10 +92,13 @@ ul,ol{list-style:none;margin:0;padding:0;}
     overflow:hidden;
   }
   .app-container{
+    position:relative;
+    top:auto;right:auto;bottom:auto;left:auto;
     width:375px;
     /* 高度自适应：最大 812px，不超过视口减去 body padding */
     height:min(812px, calc(100vh - 40px));
     height:min(812px, calc(100dvh - 40px));
+    margin:0 auto;
     border-radius:36px;
     box-shadow:none;
   }
