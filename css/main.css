@@ -943,8 +943,8 @@ ul,ol{list-style:none;margin:0;padding:0;}
 .modal-mask.show{opacity:1;pointer-events:auto;}
 .modal{
   position:relative;
-  width:calc(100% - 48px);
-  max-width:360px;
+  width:calc(100% - 56px);
+  max-width:320px;
   background:var(--bg-2);
   border-radius:var(--radius-l);
   padding:20px 18px;
@@ -962,28 +962,28 @@ ul,ol{list-style:none;margin:0;padding:0;}
   text-align:center;
 }
 .pay-success-modal .ps-ico{
-  width:64px;height:64px;border-radius:50%;
+  width:46px;height:46px;border-radius:50%;
   background:linear-gradient(135deg,#10b981,#22d3ee);
   display:flex;align-items:center;justify-content:center;
-  margin:0 auto 12px;
-  font-size:32px;
-  box-shadow:0 6px 18px rgba(16,185,129,.35);
+  margin:0 auto 10px;
+  font-size:24px;
+  box-shadow:0 5px 14px rgba(16,185,129,.3);
 }
 .pay-success-modal .ps-title{
-  font-size:18px;font-weight:800;color:var(--text-1);
-  margin:0 0 4px;
+  font-size:16px;font-weight:800;color:var(--text-1);
+  margin:0 0 3px;
 }
 .pay-success-modal .ps-sub{
-  font-size:12px;color:var(--text-3);line-height:1.7;
-  margin:0 0 14px;
+  font-size:11px;color:var(--text-3);line-height:1.6;
+  margin:0 0 12px;
 }
 .pay-success-modal .ps-points{
   background:linear-gradient(135deg,#10b981,#22d3ee);
-  color:#fff;padding:14px;border-radius:12px;margin:0 0 14px;
+  color:#fff;padding:10px 12px;border-radius:10px;margin:0 0 12px;
   text-align:center;
 }
-.pay-success-modal .ps-points small{font-size:11px;opacity:.85;display:block;margin-bottom:2px;}
-.pay-success-modal .ps-points b{font-size:22px;font-weight:800;}
+.pay-success-modal .ps-points small{font-size:10px;opacity:.85;display:block;margin-bottom:2px;}
+.pay-success-modal .ps-points b{font-size:18px;font-weight:800;}
 
 /* QR Pay Modal */
 .pay-modal{
