@@ -3,7 +3,7 @@
    离线优先缓存：应用外壳 + 运行时资源（图片等）
    ============================================ */
 
-const CACHE_NAME = 'mix-club-v26';
+const CACHE_NAME = 'mix-club-v27';
 
 // 应用外壳：首装即缓存，保证离线可打开
 const APP_SHELL = [
@@ -15,6 +15,7 @@ const APP_SHELL = [
   './js/data.js',
   './js/qrcode.js',
   './js/utils.js',
+  './js/i18n.js',
   './js/echarts.min.js',
   './js/app.js',
   './js/pages/home.js',
