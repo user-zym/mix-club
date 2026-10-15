@@ -15,8 +15,8 @@ const VipPage = {
       <div class="benefit ${b.unlocked ? '' : 'locked'}">
         <div class="benefit-icon">${esc(b.icon)}</div>
         <div>
-          <b>${esc(b.name)}</b>
-          <small>${esc(b.desc)}${!b.unlocked ? ' · '+esc(b.need) : ''}</small>
+          <b>${esc(L(b.name, b.nameEn))}</b>
+          <small>${esc(L(b.desc, b.descEn))}${!b.unlocked ? ' · '+esc(L(b.need, b.needEn)) : ''}</small>
         </div>
       </div>
     `).join('');
@@ -25,8 +25,8 @@ const VipPage = {
       <div class="vip-card">
         <div class="vip-card-icon">${esc(c.icon)}</div>
         <div class="vip-card-info">
-          <h4>${esc(c.type)}</h4>
-          <p>${esc(c.desc)}</p>
+          <h4>${esc(L(c.type, c.typeEn))}</h4>
+          <p>${esc(L(c.desc, c.descEn))}</p>
           <div class="num">${esc(c.num)}</div>
         </div>
       </div>
@@ -35,15 +35,15 @@ const VipPage = {
     return `
       <!-- Hero -->
       <div class="vip-hero">
-        <div class="lvl">CURRENT LEVEL <b>${cur.name}</b></div>
-        <h2>${cur.name}</h2>
+        <div class="lvl">CURRENT LEVEL <b>${esc(L(cur.name, cur.nameEn))}</b></div>
+        <h2>${esc(L(cur.name, cur.nameEn))}</h2>
         <div class="points"><b>${fmtNum(u.points)}</b> ${t('vipPts')}</div>
         <div class="vip-progress">
           <div class="bar" style="width:${progress}%"></div>
         </div>
         <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text-3);position:relative;">
-          <span>${cur.name}</span>
-          <span>${next ? (LangService.isEn() ? `Only ${fmtNum(toNext)} pts to ${esc(next.name)}` : `距离 ${esc(next.name)} 还差 ${fmtNum(toNext)} 积分`) : t('vipMax')}</span>
+          <span>${esc(L(cur.name, cur.nameEn))}</span>
+          <span>${next ? (LangService.isEn() ? `Only ${fmtNum(toNext)} pts to ${esc(L(next.name, next.nameEn))}` : `距离 ${esc(next.name)} 还差 ${fmtNum(toNext)} 积分`) : t('vipMax')}</span>
         </div>
       </div>
 
