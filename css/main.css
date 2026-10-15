@@ -1679,3 +1679,40 @@ ul,ol{list-style:none;margin:0;padding:0;}
   color:var(--text-2);
 }
 .merchant-tb-badge b{color:var(--green);}
+
+/* ============================================
+   P2：合规标注 / 品牌空状态 / 微动效
+   ============================================ */
+.splash-legal{position:absolute;left:0;right:0;bottom:34px;text-align:center;font-size:10px;color:var(--text-4);letter-spacing:1px;}
+.legal-line{margin-top:8px;font-size:9.5px;color:var(--text-4);letter-spacing:1px;}
+
+/* 支付成功 · 勾选动画 */
+.pay-success-modal .ps-ico{
+  width:66px;height:66px;border-radius:50%;
+  background:rgba(74,222,128,.12);
+  border:1px solid rgba(74,222,128,.3);
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 12px;
+  box-shadow:0 6px 18px rgba(16,185,129,.22);
+}
+.ps-ico svg{width:58px;height:58px;display:block;}
+.ok-circle{fill:none;stroke:#4ade80;stroke-width:3;stroke-linecap:round;stroke-dasharray:166;stroke-dashoffset:166;animation:okDraw .55s ease-out forwards;}
+.ok-check{fill:none;stroke:#4ade80;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:48;stroke-dashoffset:48;animation:okDraw .35s ease-out .5s forwards;}
+@keyframes okDraw{to{stroke-dashoffset:0;}}
+
+/* 空状态统一组件（品牌插画） */
+.empty-state{display:flex;flex-direction:column;align-items:center;text-align:center;padding:52px 32px;gap:10px;}
+.empty-state .es-ico{width:76px;height:76px;border-radius:22px;background:linear-gradient(135deg,rgba(212,175,55,.16),rgba(124,58,237,.14));border:1px solid rgba(212,175,55,.28);display:flex;align-items:center;justify-content:center;font-size:36px;margin-bottom:2px;box-shadow:0 8px 24px rgba(212,175,55,.12);}
+.empty-state h3{margin:0;font-size:16px;color:var(--text-1);}
+.empty-state p{margin:0;font-size:12px;color:var(--text-3);line-height:1.6;}
+.empty-state .btn{margin-top:8px;}
+
+/* 卡片/条目按压反馈 */
+.event-card:active,.cocktail-card:active,.svc-card:active,.menu-item:active,.cart-item:active,.ai-preset:active,.seat:active,.tb-seat:active{transform:scale(.985);}
+.cocktail-card,.svc-card,.menu-item,.cart-item,.ai-preset,.tb-seat{transition:transform .15s ease;}
+
+/* 图片加载底色调（占位防白闪） */
+.menu-img,.cocktail-img,.event-thumb,.cart-img,.banner-slide{background-color:var(--bg-3);}
+
+/* 页面转场曲线增强 */
+.page{transition:opacity .32s cubic-bezier(.22,.61,.36,1),transform .32s cubic-bezier(.22,.61,.36,1);}
