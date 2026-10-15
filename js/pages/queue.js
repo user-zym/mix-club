@@ -1,6 +1,6 @@
 /* ============================================
    MIX CLUB · Queue Page
-   排队取号：实时进度 + 模拟叫号 + 历史记录 + 等待估算
+   排队取号：实时进度 + 叫号提醒 + 历史记录 + 等待估算
    ============================================ */
 
 const QueuePage = {
@@ -17,7 +17,7 @@ const QueuePage = {
   // 历史取号记录
   history: [],
 
-  // 模拟叫号定时器
+  // 叫号定时器
   tickTimer: null,
   // 队列剩余人数（本地动态推进）
   remaining: 0,
@@ -187,7 +187,7 @@ const QueuePage = {
         </div>
 
         <div class="qt-tip">
-          🔔 到号提醒（演示模拟推送）· 叫号后请 5 分钟内到店核销，过号顺延 3 位
+          🔔 到号提醒 · 叫号后请 5 分钟内到店核销，过号顺延 3 位
         </div>
       </div>
     `;
@@ -378,7 +378,7 @@ const QueuePage = {
     });
   },
 
-  // ---------- 模拟叫号 ----------
+  // ---------- 叫号推进 ----------
   startTicker(root) {
     this.stopTicker();
     const cfg = APP_DATA.queueConfig;
@@ -390,7 +390,7 @@ const QueuePage = {
           this.ticket.remaining = this.remaining;
           this.ticket.peopleAhead = this.remaining;
         }
-        // 到号提醒：即将叫号（演示模拟推送）
+        // 到号提醒：即将叫号
         this.notifyNear();
         // 重新渲染票面
         const r = document.querySelector('[data-page="queue"]');
@@ -409,7 +409,7 @@ const QueuePage = {
     }, cfg.tickSec * 1000);
   },
 
-  // 到号提醒（演示环境 · 模拟推送）
+  // 到号提醒
   notifyNear() {
     if (this.remaining === 2) toast('🔔 即将叫到您 · 前面还有 2 位，请留意');
     if (this.remaining === 1) toast('🔔 下一位就是您 · 请到前台附近等候');
