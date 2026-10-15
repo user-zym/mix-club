@@ -9,7 +9,7 @@ const MenuPage = {
 
   render() {
     const tabs = APP_DATA.menuCategories.map(c =>
-      `<button class="menu-tab ${c.id === this.curCat ? 'active' : ''}" data-cat="${esc(c.id)}">${esc(c.id === 'all' ? (LangService.isEn() ? 'All' : c.name) : c.name)}</button>`
+      `<button class="menu-tab ${c.id === this.curCat ? 'active' : ''}" data-cat="${esc(c.id)}">${esc(L(c.name, c.nameEn))}</button>`
     ).join('');
 
     const list = this.filterList();
@@ -21,10 +21,10 @@ const MenuPage = {
         </div>
         <div class="menu-content">
           <div>
-            <h3 class="menu-name">${esc(p.name)}</h3>
-            <p class="menu-desc">${esc(p.desc)}</p>
+            <h3 class="menu-name">${esc(L(p.name, p.nameEn))}</h3>
+            <p class="menu-desc">${esc(L(p.desc, p.descEn))}</p>
             <div class="menu-tags">
-              ${p.tags.map(t => `<span>${esc(t)}</span>`).join('')}
+              ${(LangService.isEn() ? (p.tagsEn || p.tags) : p.tags).map(t => `<span>${esc(t)}</span>`).join('')}
             </div>
           </div>
           <div class="menu-row">
@@ -73,7 +73,7 @@ const MenuPage = {
             ${AiService.PRESETS.map(p => `
               <button class="ai-preset" data-preset="${esc(p.id)}">
                 <span class="ai-preset-em">${esc(p.emoji)}</span>
-                <span class="ai-preset-name">${esc(p.name)}</span>
+                <span class="ai-preset-name">${esc(L(p.name, p.nameEn))}</span>
               </button>
             `).join('')}
           </div>
@@ -455,10 +455,10 @@ const MenuPage = {
           <div class="ai-r-img" style="background-image:url('${esc(r.product.img)}')"></div>
           <div class="ai-r-body">
             <div class="ai-r-head">
-              <h4>${esc(r.product.name)}</h4>
+              <h4>${esc(L(r.product.name, r.product.nameEn))}</h4>
               <span class="ai-r-score">${r.score}<small>分</small></span>
             </div>
-            <p class="ai-r-desc">${esc(r.product.desc)}</p>
+            <p class="ai-r-desc">${esc(L(r.product.desc, r.product.descEn))}</p>
             <div class="ai-r-reasons">${reasonChips}</div>
             <div class="ai-r-foot">
               <div class="ai-r-price">
