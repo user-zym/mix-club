@@ -18,19 +18,19 @@ const BookingPage = {
         <div class="bk-hero-content">
           <div class="bk-hero-eyebrow">
             <span class="bk-hero-dot"></span>
-            <span>MIX CLUB · 包厢预订</span>
+            <span>MIX CLUB · ${t('titleBooking')}</span>
           </div>
           <h2 class="bk-hero-title">专属你的<br>派对之夜</h2>
-          <p class="bk-hero-sub">提前预订享 8 折 · 生日派对可享专属布置</p>
+          <p class="bk-hero-sub">${t('bookingDiscount')}</p>
           <div class="bk-hero-stats">
             <div class="bk-hero-stat">
-              <b>${APP_DATA.rooms.length}</b><small>包厢可选</small>
+              <b>${APP_DATA.rooms.length}</b><small>${t('roomsAvailable')}</small>
             </div>
             <div class="bk-hero-stat">
-              <b>${stats.available}</b><small>可预订</small>
+              <b>${stats.available}</b><small>${t('bookable')}</small>
             </div>
             <div class="bk-hero-stat">
-              <b>${stats.sold}</b><small>已售出</small>
+              <b>${stats.sold}</b><small>${t('soldOut')}</small>
             </div>
           </div>
         </div>
@@ -39,7 +39,7 @@ const BookingPage = {
       <!-- 日期 -->
       <div class="bk-section">
         <div class="bk-section-head">
-          <h3 class="section-title">选择日期<small>${this.calendarMonthLabel()}</small></h3>
+          <h3 class="section-title">${t('selectDate')}<small>${this.calendarMonthLabel()}</small></h3>
         </div>
         <div class="bk-calendar">
           <div class="bk-cal-weekdays">
@@ -49,9 +49,9 @@ const BookingPage = {
             ${this.renderCalendar()}
           </div>
           <div class="bk-cal-legend">
-            <span><i class="dot-free"></i>可预订</span>
-            <span><i class="dot-hot"></i>热门</span>
-            <span><i class="dot-full"></i>已满</span>
+            <span><i class="dot-free"></i>${t('bookable')}</span>
+            <span><i class="dot-hot"></i>${t('hotTag')}</span>
+            <span><i class="dot-full"></i>${t('fullTag')}</span>
           </div>
         </div>
       </div>
@@ -60,7 +60,7 @@ const BookingPage = {
       <!-- 推荐包厢 -->
       <div class="bk-section">
         <div class="bk-section-head">
-          <h3 class="section-title">推荐包厢<small>${APP_DATA.rooms.length} 款可选</small></h3>
+          <h3 class="section-title">${t('featuredRooms')}<small>${APP_DATA.rooms.length} ${t('roomsCountSuffix')}</small></h3>
         </div>
         <div class="bk-rooms">
           ${this.renderRooms()}
@@ -86,7 +86,7 @@ const BookingPage = {
       ${this.renderBookingBar()}
 
       <div class="page-footer">
-        © 2026 MIX CLUB · 包厢在线预订
+        © 2026 MIX CLUB · ${t('footerRoomBooking')}
       </div>
     `;
   },
@@ -182,8 +182,8 @@ const BookingPage = {
 
   renderBookingBar() {
     const steps = [
-      { k: 'date', label: '日期', done: !!this.selectedDate },
-      { k: 'room', label: '包厢', done: !!this.selectedRoom }
+      { k: 'date', label: t('dateWord'), done: !!this.selectedDate },
+      { k: 'room', label: t('roomWord'), done: !!this.selectedRoom }
     ];
 
     const hasAll = this.selectedDate && this.selectedRoom;
@@ -193,7 +193,7 @@ const BookingPage = {
       const room = APP_DATA.rooms.find(r => r.id === this.selectedRoom);
       infoContent = `<strong>${room.name}</strong><small>${this.selectedDate || ''} · ${this.people}人</small>`;
     } else {
-      infoContent = `<strong>请选择包厢</strong><small>选择下方包厢完成预订</small>`;
+      infoContent = `<strong>${t('pickRoomFirst')}</strong><small>${t('pickRoomHint')}</small>`;
     }
 
     return `
@@ -212,7 +212,7 @@ const BookingPage = {
             ${infoContent}
           </div>
           <button class="btn btn-primary bk-bar-btn" id="confirmBooking" ${hasAll ? '' : 'disabled'}>
-            ${hasAll ? '确认预订' : '去选择'}
+            ${hasAll ? t('confirmBookingRoom') : t('goSelect')}
           </button>
         </div>
       </div>
@@ -239,7 +239,7 @@ const BookingPage = {
       el.addEventListener('click', () => {
         this.selectedRoom = el.getAttribute('data-room');
         this.mount(root);
-        toast('已选择包厢');
+        toast(t('roomSelected'));
       });
     });
 
@@ -249,7 +249,7 @@ const BookingPage = {
         e.stopPropagation();
         this.selectedRoom = b.getAttribute('data-select-room');
         this.mount(root);
-        toast('已选择包厢');
+        toast(t('roomSelected'));
       });
     });
 
@@ -285,8 +285,8 @@ const BookingPage = {
     // 弹出成功提示
     let detailHtml = '';
     if (roomBookings.length > 0) {
-      detailHtml += `<div><span style="color:var(--text-3);">包厢</span> <strong>${esc(roomBookings[0].room)}</strong></div>`;
-      detailHtml += `<div><span style="color:var(--text-3);">日期</span> <strong>${esc(this.selectedDate)}</strong></div>`;
+      detailHtml += `<div><span style="color:var(--text-3);">${t('roomWord')}</span> <strong>${esc(roomBookings[0].room)}</strong></div>`;
+      detailHtml += `<div><span style="color:var(--text-3);">${t('dateWord')}</span> <strong>${esc(this.selectedDate)}</strong></div>`;
       detailHtml += `<div><span style="color:var(--text-3);">金额</span> <strong style="color:var(--gold-2);">¥${roomBookings[0].price}</strong></div>`;
     }
 
