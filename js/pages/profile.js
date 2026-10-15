@@ -56,9 +56,16 @@ const ProfilePage = {
                 <h4>${esc(b.room || b.table)}</h4>
                 <p>${esc(b.date)}${b.time ? ' ' + esc(b.time) : ''} · ${b.type === 'table' ? '桌台' : '包厢'}</p>
                 <div class="row">
-                  <span class="chip green">已确认</span>
+                  ${b.status === 'cancelled'
+                    ? '<span class="chip" style="background:rgba(120,120,120,.15);color:#999;">已取消</span>'
+                    : '<span class="chip green">已确认</span>'}
                   <span style="color:var(--gold-2);font-weight:700;">¥${b.price}</span>
                 </div>
+                ${b.status !== 'cancelled' ? `
+                <div style="margin-top:8px;display:flex;gap:8px;">
+                  <button class="btn btn-ghost" style="padding:5px 12px;font-size:11px;" data-cancel-bk="${esc(b.id)}">取消预订</button>
+                  <span style="font-size:10px;color:var(--text-4);align-self:center;">${b.type === 'table' ? '取消后该桌台即时释放' : '取消后包厢即时释放'}</span>
+                </div>` : ''}
               </div>
             </div>
           `).join('')}
@@ -211,15 +218,51 @@ const ProfilePage = {
     root.querySelectorAll('[data-order]').forEach(el => {
       el.addEventListener('click', () => this.showOrderDetail(el.getAttribute('data-order')));
     });
+
+    // 取消预订 → 释放桌台/包厢占用
+    root.querySelectorAll('[data-cancel-bk]').forEach(el => {
+      el.addEventListener('click', e => {
+        e.stopPropagation();
+        const id = el.getAttribute('data-cancel-bk');
+        this.confirmCancelBooking(id);
+      });
+    });
+  },
+
+  confirmCancelBooking(id) {
+    const bookings = LS.get(LS_KEYS.BOOKINGS, []);
+    const b = bookings.find(x => x.id === id);
+    if (!b) { toast('预订不存在'); return; }
+    openModal(`
+      <div style="text-align:center;padding:4px 2px;">
+        <div style="font-size:42px;margin-bottom:10px;">🗓️</div>
+        <h3 style="margin:0 0 6px;font-size:17px;">确认取消预订？</h3>
+        <p style="margin:0 0 4px;color:var(--text-3);font-size:12px;">${esc(b.room || b.table)} · ${esc(b.date)}${b.time ? ' ' + esc(b.time) : ''}</p>
+        <p style="margin:0 0 18px;color:var(--text-3);font-size:11px;">${b.type === 'table' ? '取消后该桌台将被释放，可被其他顾客预订' : '取消后该包厢将被释放，可被其他顾客预订'}</p>
+        <div style="display:flex;gap:10px;">
+          <button class="btn btn-ghost btn-block" style="flex:1;" onclick="closeModal()">保留预订</button>
+          <button class="btn btn-primary btn-block" style="flex:1;" id="okCancelBk">确认取消</button>
+        </div>
+      </div>
+    `);
+    const ok = document.getElementById('okCancelBk');
+    if (ok) ok.onclick = () => {
+      b.status = 'cancelled';
+      LS.set(LS_KEYS.BOOKINGS, bookings);
+      closeModal();
+      toast('预订已取消 · 座位已释放');
+      this.refresh();
+    };
   },
 
   // ---------- 订单中心 ----------
   orderStatusLabel(o) {
-    return { paid: '待核销', completed: '已完成', cancelled: '已取消' }[o.status] || '处理中';
+    return { pending: '待支付', paid: '待核销', completed: '已完成', cancelled: '已取消' }[o.status] || '处理中';
   },
   orderChip(o) {
     const label = this.orderStatusLabel(o);
     if (o.status === 'paid') return `<span class="chip green">${esc(label)}</span>`;
+    if (o.status === 'pending') return `<span class="chip" style="background:rgba(250,204,21,.15);color:#facc15;">${esc(label)}</span>`;
     if (o.status === 'completed') return `<span class="chip" style="background:rgba(34,211,238,.15);color:#22d3ee;">${esc(label)}</span>`;
     if (o.status === 'cancelled') return `<span class="chip" style="background:rgba(120,120,120,.15);color:#999;">${esc(label)}</span>`;
     return `<span class="chip">${esc(label)}</span>`;
