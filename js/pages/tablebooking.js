@@ -188,16 +188,19 @@ const TableBookingPage = {
     return this.tables.find(t => t.id === id);
   },
 
-  // 座位状态：未选日期用默认状态；选中日期后按该日期随机生成
+  // 座位状态：已选日期 → 真实预订占用优先（跨页一致）→ 再按该日期随机生成；未选日期用默认状态
   getStatus(t) {
+    if (this.selectedDate && SeatService.isOccupied(this.selectedDate, t.id)) return 'booked';
     if (this.seatStatuses && this.seatStatuses[t.id]) return this.seatStatuses[t.id];
     return t.status;
   },
 
-  // 按日期随机生成座位状态（保证可选 ≥ 一半，确保有座可订）
+  // 按日期随机生成座位状态（保证可选 ≥ 一半；真实预订占用优先，不可被随机覆盖）
   generateStatuses(date) {
+    const occ = SeatService.occupiedMap(date);
     const map = {};
     this.tables.forEach(t => {
+      if (occ[t.id]) { map[t.id] = 'booked'; return; }
       const r = Math.random();
       let st = 'available';
       if (r < 0.16) st = 'sold';
@@ -205,10 +208,11 @@ const TableBookingPage = {
       map[t.id] = st;
     });
     const avail = this.tables.filter(t => map[t.id] === 'available').length;
-    if (avail < Math.ceil(this.tables.length / 2)) {
-      const need = Math.ceil(this.tables.length / 2) - avail;
+    const freeNeeded = Math.ceil(this.tables.length / 2);
+    if (avail < freeNeeded) {
+      const need = freeNeeded - avail;
       this.tables
-        .filter(t => map[t.id] !== 'available')
+        .filter(t => map[t.id] !== 'available' && !occ[t.id])
         .sort(() => Math.random() - 0.5)
         .slice(0, need)
         .forEach(t => { map[t.id] = 'available'; });
@@ -430,6 +434,7 @@ const TableBookingPage = {
       price: this.selectedTable.price,
       date: this.selectedDate,
       people: this.people,
+      status: 'confirmed',   // 座位占用依据：非 cancelled 即占用该日期桌台
       created: Date.now()
     };
     bookings.unshift(newBk);
