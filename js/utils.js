@@ -135,6 +135,17 @@ const User = {
 const APP_VERSION = '2.8.0';
 
 // ============================================
+// 订单状态机：待支付 → 已支付 → 已核销 / 已取消
+// 全站订单状态以此为唯一口径（点餐订单 / 订台·包厢预订为独立记录）
+// ============================================
+const ORDER_STATUS = {
+  PENDING: 'pending',      // 待支付
+  PAID: 'paid',            // 已支付 · 待核销
+  COMPLETED: 'completed',  // 已完成 · 已核销
+  CANCELLED: 'cancelled'   // 已取消
+};
+
+// ============================================
 // 订单服务：订单持久化与状态流转
 // 将"下单-落库-查询-核销"收敛为统一数据层，页面只负责展示
 // ============================================
@@ -159,6 +170,82 @@ const OrderService = {
     o.updatedAt = Date.now();
     LS.set(LS_KEYS.ORDERS, orders);
     return o;
+  },
+  // 按状态计数（看板/个人中心用）
+  countByStatus(status) {
+    return this.list().filter(o => o.status === status).length;
+  },
+  // 近 N 日营收与单量（按订单创建日汇总实付金额）
+  revenueByDay(days) {
+    const n = days || 7;
+    const map = {};
+    for (let i = n - 1; i >= 0; i--) {
+      const d = new Date();
+      d.setDate(d.getDate() - i);
+      const k = fmtDate(d.getTime());
+      map[k] = { date: k, total: 0, count: 0 };
+    }
+    this.list().forEach(o => {
+      const k = fmtDate(o.created);
+      if (map[k]) { map[k].total += o.total; map[k].count += 1; }
+    });
+    return Object.keys(map).map(k => map[k]);
+  },
+  // 营业时段客流分布：按订单创建小时分桶（19:00–03:00 营业时段）
+  ordersByHour() {
+    const buckets = [];
+    for (let h = 19; h <= 23; h++) buckets.push({ label: h + ':00', count: 0 });
+    buckets.push({ label: '00:00', count: 0 });
+    buckets.push({ label: '01:00', count: 0 });
+    buckets.push({ label: '02:00', count: 0 });
+    buckets.push({ label: '03:00', count: 0 });
+    this.list().forEach(o => {
+      const h = new Date(o.created).getHours();
+      if (h >= 19 && h <= 23) buckets[h - 19].count += 1;
+      else if (h === 0) buckets[5].count += 1;
+      else if (h === 1) buckets[6].count += 1;
+      else if (h === 2) buckets[7].count += 1;
+      else if (h === 3) buckets[8].count += 1;
+    });
+    return buckets;
+  },
+  // 桌台翻台率：已核销且带桌台的订单 / 营业桌台总数 ×100%
+  tableTurnover() {
+    const total = APP_TABLES.length || 1;
+    const done = this.list().filter(o => o.status === ORDER_STATUS.COMPLETED && o.table).length;
+    return Math.round(done / total * 100);
+  },
+  // 今日实收
+  todayRevenue() {
+    const todayStr = fmtDate(Date.now());
+    return this.list()
+      .filter(o => fmtDate(o.created) === todayStr && o.status === ORDER_STATUS.PAID || o.status === ORDER_STATUS.COMPLETED)
+      .reduce((s, o) => s + o.total, 0);
+  }
+};
+
+// ============================================
+// 座位占用服务：订台占用由预订记录（BOOKINGS）实时推导
+// 订台成功 → 该日期该桌台即"已订"（跨页一致）；取消预订即释放
+// ============================================
+const SeatService = {
+  // 某日期某桌台是否已被有效预订占用
+  isOccupied(date, tableId) {
+    return LS.get(LS_KEYS.BOOKINGS, []).some(b =>
+      b.type === 'table' && b.tableId === tableId && b.date === date && b.status !== 'cancelled'
+    );
+  },
+  // 某日期全部被占用的桌台集合 {tableId: true}
+  occupiedMap(date) {
+    const map = {};
+    LS.get(LS_KEYS.BOOKINGS, []).forEach(b => {
+      if (b.type === 'table' && b.date === date && b.status !== 'cancelled') map[b.tableId] = true;
+    });
+    return map;
+  },
+  // 当前有效（未取消）预订数量
+  activeCount() {
+    return LS.get(LS_KEYS.BOOKINGS, []).filter(b => b.status !== 'cancelled').length;
   }
 };
 
