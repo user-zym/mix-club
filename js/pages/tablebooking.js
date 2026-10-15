@@ -56,11 +56,11 @@ const TableBookingPage = {
             <span>MIX CLUB · 在线订台</span>
           </div>
           <h2 class="tb-hero-title">挑一张<br>属于你的台</h2>
-          <p class="tb-hero-sub">散台 S · 卡座 K · 即点即订 · 锁定最佳视角</p>
+          <p class="tb-hero-sub">${t('heroSeatDesc')}</p>
           <div class="tb-hero-stats">
-            <div class="tb-hero-stat"><b>${stats.total}</b><small>总桌台</small></div>
-            <div class="tb-hero-stat"><b>${stats.free}</b><small>可选</small></div>
-            <div class="tb-hero-stat"><b>${stats.sold}</b><small>已订/售</small></div>
+            <div class="tb-hero-stat"><b>${stats.total}</b><small>${t('totalTables')}</small></div>
+            <div class="tb-hero-stat"><b>${stats.free}</b><small>${t('seatAvailable')}</small></div>
+            <div class="tb-hero-stat"><b>${stats.sold}</b><small>${t('statsBooked')}</small></div>
           </div>
         </div>
       </div>
@@ -68,7 +68,7 @@ const TableBookingPage = {
       <!-- 日期选择 -->
       <div class="tb-section">
         <div class="tb-section-head">
-          <h3 class="section-title">选择日期<small>${this.calendarMonthLabel()} · 先选日期再选座</small></h3>
+          <h3 class="section-title">${t('selectDate')}<small>${this.calendarMonthLabel()} · ${t('tapSeatHint')}</small></h3>
         </div>
         <div class="tb-calendar">
           <div class="tb-cal-weekdays">
@@ -81,17 +81,17 @@ const TableBookingPage = {
       <!-- 区域筛选 -->
       <div class="tb-section">
         <div class="tb-section-head">
-          <h3 class="section-title">筛选桌台<small>点击切换类型</small></h3>
+          <h3 class="section-title">${t('filterTables')}<small>${t('filterHint')}</small></h3>
         </div>
         <div class="tb-zone-filter">
           <button class="tb-zone-btn ${this.activeZone === 'all' ? 'active' : ''}" data-zone="all">
-            <span class="zone-ico">🗺️</span><b>全部</b><small>${this.countByZone('all')}</small>
+            <span class="zone-ico">🗺️</span><b>${t('allZone')}</b><small>${this.countByZone('all')}</small>
           </button>
           <button class="tb-zone-btn ${this.activeZone === 'ka' ? 'active' : ''}" data-zone="ka">
-            <span class="zone-ico">🛋️</span><b>卡座 K</b><small>${this.countByZone('ka')}</small>
+            <span class="zone-ico">🛋️</span><b>${t('zoneKa')}</b><small>${this.countByZone('ka')}</small>
           </button>
           <button class="tb-zone-btn ${this.activeZone === 'san' ? 'active' : ''}" data-zone="san">
-            <span class="zone-ico">🪑</span><b>散台 S</b><small>${this.countByZone('san')}</small>
+            <span class="zone-ico">🪑</span><b>${t('zoneSan')}</b><small>${this.countByZone('san')}</small>
           </button>
         </div>
       </div>
@@ -99,20 +99,20 @@ const TableBookingPage = {
       <!-- 座位图 -->
       <div class="tb-section">
         <div class="tb-section-head">
-          <h3 class="section-title">座位图<small>点击任意座位完成选座</small></h3>
+          <h3 class="section-title">${t('seatMapTitle')}<small>${t('tapSeatHint')}</small></h3>
         </div>
         <div class="tb-map">
-          <div class="tb-map-zone tb-map-stage">舞台</div>
-          <div class="tb-map-zone tb-map-dance">舞池</div>
-          <div class="tb-map-zone tb-map-bar">吧台</div>
+          <div class="tb-map-zone tb-map-stage">${t('stage')}</div>
+          <div class="tb-map-zone tb-map-dance">${t('danceFloor')}</div>
+          <div class="tb-map-zone tb-map-bar">${t('bar')}</div>
           ${this.renderMapSeats()}
         </div>
         <div class="tb-map-legend">
-          <span class="tb-map-legend-item"><i class="tb-map-dot dot-free"></i>可选</span>
-          <span class="tb-map-legend-item"><i class="tb-map-dot dot-sel"></i>已选</span>
-          <span class="tb-map-legend-item"><i class="tb-map-dot dot-booked"></i>已订</span>
-          <span class="tb-map-legend-item"><i class="tb-map-dot dot-sold"></i>已售</span>
-          <span class="tb-map-legend-item"><i class="tb-map-dot dot-vip"></i>VIP 卡座</span>
+          <span class="tb-map-legend-item"><i class="tb-map-dot dot-free"></i>${t('seatAvailable')}</span>
+          <span class="tb-map-legend-item"><i class="tb-map-dot dot-sel"></i>${t('seatSelected')}</span>
+          <span class="tb-map-legend-item"><i class="tb-map-dot dot-booked"></i>${t('seatBooked')}</span>
+          <span class="tb-map-legend-item"><i class="tb-map-dot dot-sold"></i>${t('seatSold')}</span>
+          <span class="tb-map-legend-item"><i class="tb-map-dot dot-vip"></i>${t('vipSeat')}</span>
         </div>
       </div>
 
@@ -136,8 +136,8 @@ const TableBookingPage = {
             <h4>订台须知</h4>
             <ul>
               <li>预订需提前 <b>2 小时</b>，订单保留至当晚营业结束</li>
-              <li>预订后到吧台/前台出示手机号或订单号核销</li>
-              <li>卡座含开台套餐（人均低消），散台免低消</li>
+              <li>${t('verifyHint1')}</li>
+              <li>${t('verifyHint2')}</li>
               <li>取消请提前 1 小时，逾期扣除定金 ¥100</li>
             </ul>
           </div>
@@ -147,7 +147,7 @@ const TableBookingPage = {
       <!-- 底部固定预订栏 -->
       ${this.renderBookingBar()}
 
-      <div class="page-footer">© 2026 MIX CLUB · 散台 / 卡座在线订台</div>
+      <div class="page-footer">© 2026 MIX CLUB · ${t('footerTableBooking')}</div>
     `;
   },
 
@@ -157,10 +157,10 @@ const TableBookingPage = {
       const isSel = this.selectedTable && this.selectedTable.id === t.id;
       const dim = this.activeZone !== 'all' && t.type !== this.activeZone;
       const st = this.getStatus(t);
-      const statusText = isSel ? '已选'
-                       : st === 'sold' ? '已售'
-                       : st === 'booked' ? '已订'
-                       : '可选';
+      const statusText = isSel ? t('seatSelected')
+                       : st === 'sold' ? t('seatSold')
+                       : st === 'booked' ? t('seatBooked')
+                       : t('seatAvailable');
 
       let cls = 'tb-seat ' + (t.type === 'ka' ? 'ka' : 'san');
       cls += st === 'available' ? ' free' : (st === 'booked' ? ' booked' : ' sold');
@@ -276,7 +276,7 @@ const TableBookingPage = {
     if (hasAll) {
       info = `<strong>${esc(this.selectedTable.name)}</strong><small>${esc(this.selectedDate)} · ${this.people}人 · ¥${this.selectedTable.price}</small>`;
     } else if (this.selectedTable) {
-      info = `<strong>${esc(this.selectedTable.name)}</strong><small>请选择日期</small>`;
+      info = `<strong>${esc(this.selectedTable.name)}</strong><small>${t('pickDateToast')}</small>`;
     } else {
       info = `<strong>请选择桌台</strong><small>点击座位图完成选座</small>`;
     }
@@ -295,7 +295,7 @@ const TableBookingPage = {
         <div class="tb-bar-foot">
           <div class="tb-bar-info">${info}</div>
           <button class="btn btn-primary tb-bar-btn" id="confirmTableBooking" ${hasAll ? '' : 'disabled'}>
-            ${hasAll ? '确认订台' : '去选择'}
+            ${hasAll ? t('confirmBooking') : t('goSelect')}
           </button>
         </div>
       </div>
@@ -309,7 +309,7 @@ const TableBookingPage = {
 
     const st = this.getStatus(t);
     if (st === 'sold') {
-      toast('该桌台已售，无法预订', 'error');
+      toast(t('soldToast'), 'error');
       return;
     }
     if (st === 'booked') {
@@ -441,7 +441,7 @@ const TableBookingPage = {
     LS.set(LS_KEYS.BOOKINGS, bookings);
 
     const t = this.selectedTable;
-    const tagText = t.type === 'ka' ? (t.vip ? 'VIP 卡座' : '卡座') : '散台';
+    const tagText = t.type === 'ka' ? (t.vip ? t('vipSeat') : t('zoneKa')) : t('zoneSan');
     openModal(`
       <div style="text-align:center;">
         <div style="font-size:50px;margin-bottom:10px;">🎉</div>
@@ -453,7 +453,7 @@ const TableBookingPage = {
           <div><span style="color:var(--text-3);">人数</span> <strong>${this.people} 人</strong></div>
           <div><span style="color:var(--text-3);">金额</span> <strong style="color:var(--gold-2);">¥${t.price}</strong></div>
         </div>
-        <p style="margin:14px 0 0;color:var(--text-3);font-size:11px;line-height:1.5;">到店后请到吧台或前台出示订单号 <b style="color:var(--gold-2);">${esc(id)}</b> 核销</p>
+        <p style="margin:14px 0 0;color:var(--text-3);font-size:11px;line-height:1.5;">${t('verifyHint1')} <b style="color:var(--gold-2);">${esc(id)}</b></p>
         <button class="btn btn-primary btn-block" style="margin-top:18px;" onclick="closeModal();navigate('profile');">查看我的预订</button>
       </div>
     `);
