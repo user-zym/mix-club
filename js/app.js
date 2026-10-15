@@ -9,18 +9,18 @@
   const TABS = ['home', 'menu', 'tablebooking', 'events', 'queue', 'profile'];
   const TITLES = {
     home: 'MIX CLUB',
-    menu: '在线点单',
-    booking: '包厢预订',
-    tablebooking: '订台选座',
-    events: '派对活动',
-    queue: '排队取号',
-    vip: 'VIP会员',
-    music: '驻场歌单',
-    cart: '购物车',
-    profile: '个人中心',
-    login: '登录',
-    register: '注册',
-    merchant: '门店管理'
+    menu: 'titleMenu',
+    booking: 'titleBooking',
+    tablebooking: 'titleTableBooking',
+    events: 'titleEvents',
+    queue: 'titleQueue',
+    vip: 'titleVip',
+    music: 'titleMusic',
+    cart: 'titleCart',
+    profile: 'titleProfile',
+    login: 'titleLogin',
+    register: 'titleRegister',
+    merchant: 'titleMerchant'
   };
 
   const PAGE_RENDERERS = {
@@ -46,7 +46,7 @@
   function setTitle(page) {
     const topTitle = document.getElementById('topBarTitle');
     const topBar = document.getElementById('topBar');
-    if (topTitle) topTitle.textContent = TITLES[page] || 'MIX CLUB';
+    if (topTitle) topTitle.textContent = page === 'home' ? 'MIX CLUB' : t(TITLES[page] || page);
     // login/register/music/cart/vip 这些非 tab 页隐藏 top-bar 返回
     const isFull = ['login', 'register', 'music'].includes(page);
     if (topBar) topBar.style.display = isFull ? 'none' : '';
@@ -173,7 +173,27 @@
     setActiveTab(prev);
   }
 
+  // 语言初始化：恢复上次语言，同步导航/启动页文案
+  function applyLangUI() {
+    const labels = {
+      tabLabelHome: t('tabHome'),
+      tabLabelMenu: t('tabMenu'),
+      tabLabelBooking: t('tabBooking'),
+      tabLabelMe: t('tabMe')
+    };
+    Object.keys(labels).forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.textContent = labels[id];
+    });
+    const sl = document.getElementById('splashLegal');
+    if (sl) sl.textContent = t('splashLegal');
+  }
+
   function init() {
+    // 语言初始化（必须最先执行：恢复上次语言并同步框架文案）
+    LangService.init();
+    applyLangUI();
+
     // Bind tab bar
     document.querySelectorAll('.tab-item').forEach(t => {
       t.addEventListener('click', e => {
@@ -287,12 +307,9 @@
     const app = document.getElementById('app');
     if (!splash) return;
 
-    const tips = [
-      '正在加载精彩内容...',
-      '正在调配招牌鸡尾酒...',
-      'DJ 已就位 · 灯光就绪...',
-      '派对即将开始...'
-    ];
+    const tips = LangService.isEn()
+      ? ['Loading...', 'Mixing signature cocktails...', 'DJ ready · lights on...', 'Party starting soon...']
+      : ['正在加载精彩内容...', '正在调配招牌鸡尾酒...', 'DJ 已就位 · 灯光就绪...', '派对即将开始...'];
 
     let progress = 0;
     let tipIdx = 0;
@@ -314,7 +331,7 @@
         progress = 100;
         if (tick) { clearInterval(tick); tick = null; }
         // 加载完毕，切换文案并淡出
-        if (tip) tip.textContent = '准备就绪 · 进入派对';
+        if (tip) tip.textContent = t('splashReady');
         setTimeout(finishSplash, 350);
       } else if (progress > (tipIdx + 1) * 25 && tipIdx < tips.length - 1) {
         tipIdx++;
@@ -340,7 +357,7 @@
   }
 
   // 暴露给全局
-  window.MIX_APP = { go, back, goBackSmart, navigate: (p) => go(p) };
+  window.MIX_APP = { go, back, goBackSmart, navigate: (p) => go(p), applyLangUI };
 
   // Boot
   if (document.readyState === 'loading') {
