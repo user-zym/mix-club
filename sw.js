@@ -3,7 +3,7 @@
    离线优先缓存：应用外壳 + 运行时资源（图片等）
    ============================================ */
 
-const CACHE_NAME = 'mix-club-v16';
+const CACHE_NAME = 'mix-club-v17';
 
 // 应用外壳：首装即缓存，保证离线可打开
 const APP_SHELL = [
@@ -27,7 +27,8 @@ const APP_SHELL = [
   './js/pages/music.js',
   './js/pages/cart.js',
   './js/pages/profile.js',
-  './js/pages/merchant.js'
+  './js/pages/merchant.js',
+  './js/pages/tablebooking.js'
 ];
 
 self.addEventListener('install', function (event) {
