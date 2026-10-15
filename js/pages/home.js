@@ -215,12 +215,12 @@ const HomePage = {
     }
   },
 
-  // 扫码点单：桌台绑定（演示：模拟扫描店主端桌台码）
+  // 扫码点单：桌台绑定（扫码店主端桌台码）
   showTableModal(root) {
     const tb = TableService.current();
     openModal(`
       <h3 style="margin:0 0 6px;font-size:17px;">🪑 扫码点单</h3>
-      <p style="margin:0 0 14px;color:var(--text-3);font-size:11px;">选择真实桌台号（K01-K06 · S01-S12）· 模拟扫描桌台码</p>
+      <p style="margin:0 0 14px;color:var(--text-3);font-size:11px;">选择桌台号（K01-K06 · S01-S12）· 扫码绑定桌台</p>
       <input id="tableNo" type="text" placeholder="${tb ? '当前桌台 ' + esc(tb.no) : '输入桌台号，如 S03'}" autocomplete="off"
         style="width:100%;background:var(--bg-3);border:1px solid var(--line);border-radius:8px;color:var(--text-1);padding:11px 12px;font-size:14px;outline:none;box-sizing:border-box;">
       <div class="ai-chips" style="margin:10px 0;">
