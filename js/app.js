@@ -94,7 +94,14 @@
       }
 
       // 切换显示
-      if (prevRoot) prevRoot.classList.remove('active');
+      if (prevRoot) {
+        prevRoot.classList.remove('active');
+      } else {
+        // 首次直达（如扫码 ?table=）：清除所有已激活页面，避免与目标页重叠
+        document.querySelectorAll('.page.active').forEach(el => {
+          if (el !== root) el.classList.remove('active');
+        });
+      }
       // 立即激活并淡入
       root.style.transform = 'translateX(20px)';
       root.style.opacity = '0';
@@ -319,13 +326,12 @@
     function finishSplash() {
       if (splash) splash.classList.add('hide');
       if (app) app.style.opacity = '1';
-      // 启动页结束：渲染首页内容
-      // 注：init() 末尾的 go('home') 会触发渲染，这里再加一层保险（页面如果仍为空，强制挂载）
+      // 启动页结束：兜底渲染——仅当当前激活页仍为空时（极端失败场景）强制挂载对应页面
       setTimeout(() => {
-        const homeRoot = document.querySelector('[data-page="home"]');
-        if (homeRoot && homeRoot.children.length === 0 && typeof HomePage !== 'undefined' && HomePage.mount) {
-          HomePage.mount(homeRoot);
-          if (currentPage !== 'home') currentPage = 'home';
+        const act = document.querySelector('.page.active');
+        if (act && act.children.length === 0) {
+          const r = PAGE_RENDERERS[currentPage];
+          if (r && r.mount) { try { r.mount(act); } catch (e) { /* ignore */ } }
         }
       }, 50);
       // 移除 DOM（动画结束后）
