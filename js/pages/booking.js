@@ -141,17 +141,17 @@ const BookingPage = {
         <div class="bk-room-card ${sel ? 'selected' : ''}" data-room="${esc(r.id)}">
           <div class="bk-room-img" style="background-image:url('${esc(r.img)}')">
             <div class="bk-room-img-overlay"></div>
-            <div class="bk-room-badge">${esc(r.tags[0] || '推荐')}</div>
+            <div class="bk-room-badge">${esc((LangService.isEn() ? (r.tagsEn || r.tags) : r.tags)[0] || (LangService.isEn() ? 'Recommend' : '推荐'))}</div>
             ${sel ? '<div class="bk-room-check"><span>✓</span></div>' : ''}
           </div>
           <div class="bk-room-body">
             <div class="bk-room-head">
-              <h4>${esc(r.name)}</h4>
-              <span class="bk-room-cap">${esc(r.capacity)}</span>
+              <h4>${esc(L(r.name, r.nameEn))}</h4>
+              <span class="bk-room-cap">${esc(L(r.capacity, r.capacityEn))}</span>
             </div>
-            <p class="bk-room-desc">${esc(r.desc)}</p>
+            <p class="bk-room-desc">${esc(L(r.desc, r.descEn))}</p>
             <div class="bk-room-tags">
-              ${r.tags.slice(1).map(t => `<span class="bk-tag">${esc(t)}</span>`).join('')}
+              ${(LangService.isEn() ? r.tagsEn : r.tags).slice(1).map(t => `<span class="bk-tag">${esc(t)}</span>`).join('')}
             </div>
             <div class="bk-room-foot">
               <div class="bk-room-price">
