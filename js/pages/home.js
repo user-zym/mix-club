@@ -103,7 +103,7 @@ const HomePage = {
               <strong>LIVE · DJ KUMA</strong>
               <small>霓虹极光 · 在线 1.2k</small>
             </div>
-            <span class="svc-card-go svc-card-go-gold">收听 →</span>
+            <span class="svc-card-go svc-card-go-gold">${t('listening')}</span>
           </div>
         </div>
       </div>
@@ -111,7 +111,7 @@ const HomePage = {
       <!-- Notices -->
       <div class="section" style="padding-top:0;">
         <div class="section-head">
-          <h3 class="section-title">最新动态<small>实时更新</small></h3>
+          <h3 class="section-title">${t('latestNews')}<small>${t('realtime')}</small></h3>
         </div>
         ${notices}
       </div>
@@ -119,8 +119,8 @@ const HomePage = {
       <!-- Featured Cocktails -->
       <div class="section">
         <div class="section-head">
-          <h3 class="section-title">招牌特调<small>调酒师精选</small></h3>
-          <a class="section-more" data-go="menu">查看更多 →</a>
+          <h3 class="section-title">${t('featured')}<small>${t('bartenderPick')}</small></h3>
+          <a class="section-more" data-go="menu">${t('viewMore')}</a>
         </div>
         <div class="cocktail-scroll">
           ${featured}
@@ -130,8 +130,8 @@ const HomePage = {
       <!-- Upcoming Events -->
       <div class="section">
         <div class="section-head">
-          <h3 class="section-title">近期派对<small>派对日历</small></h3>
-          <a class="section-more" data-go="events">全部活动 →</a>
+          <h3 class="section-title">${t('recentEvents')}<small>${t('partyCalendar')}</small></h3>
+          <a class="section-more" data-go="events">${t('allEvents')}</a>
         </div>
         ${APP_DATA.events.slice(0, 3).map(e => `
           <div class="event-card" data-go="events" data-event-id="${esc(e.id)}">
@@ -151,8 +151,8 @@ const HomePage = {
 
       <!-- Footer Signature -->
       <div class="page-footer">
-        © 2026 MIX CLUB · 城市夜生活新坐标
-        <div class="legal-line">理性饮酒 · 未成年人请勿饮酒 · 18+</div>
+        © 2026 MIX CLUB · ${t('footerHome')}
+        <div class="legal-line">${t('legalDrink')}</div>
       </div>
     `;
   },
