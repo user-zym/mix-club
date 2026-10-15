@@ -170,22 +170,22 @@ const APP_DATA = {
   vipCards: [
     { type: '钻石卡', num: '8888 6666 2222 ****', icon: '💎', desc: '主卡 · 2027.06 到期' },
     { type: '预付卡', num: '6200 1188 0055 ****', icon: '💳', desc: '余额 ¥2,388.00' },
-    { type: '积分卡', num: 'V-MIX-2024-251071', icon: '⭐', desc: '可用积分 12,860' }
+    { type: '积分卡', num: 'V-MIX-2026-8888', icon: '⭐', desc: '可用积分 12,860' }
   ],
 
   playlist: [
     { id: 's1', title: 'Neon Lights', artist: 'KUMA', dur: '3:42', img: 'images/霓虹极光.jpg' },
-    { id: 's2', title: 'Midnight City', artist: 'M83', dur: '4:03', img: 'images/东京夜樱.jpg' },
-    { id: 's3', title: 'Tokyo Drift', artist: 'Teriyaki Boyz', dur: '4:14', img: 'images/曼哈顿日落.jpg' },
-    { id: 's4', title: 'Faded', artist: 'Alan Walker', dur: '3:32', img: 'images/蓝色夏威夷.jpg' },
-    { id: 's5', title: 'Levitating', artist: 'Dua Lipa', dur: '3:24', img: 'images/威士忌酸.jpg' },
-    { id: 's6', title: 'Blinding Lights', artist: 'The Weeknd', dur: '3:20', img: 'images/Macallan 12.jpg' },
-    { id: 's7', title: 'Closer', artist: 'The Chainsmokers', dur: '4:05', img: 'images/Yamazaki 山崎.jpg' },
-    { id: 's8', title: 'Stay', artist: 'Kygo', dur: '3:58', img: 'images/Chateau红酒.jpg' }
+    { id: 's2', title: 'Midnight Drive', artist: 'NOVA', dur: '4:03', img: 'images/东京夜樱.jpg' },
+    { id: 's3', title: 'Tokyo Rush', artist: 'DJ RIFT', dur: '4:14', img: 'images/曼哈顿日落.jpg' },
+    { id: 's4', title: 'Neon Fade', artist: 'Astra', dur: '3:32', img: 'images/蓝色夏威夷.jpg' },
+    { id: 's5', title: 'Gravity', artist: 'VEGA', dur: '3:24', img: 'images/威士忌酸.jpg' },
+    { id: 's6', title: 'City Lights', artist: 'ORION', dur: '3:20', img: 'images/Macallan 12.jpg' },
+    { id: 's7', title: 'Afterglow', artist: 'KIRA', dur: '4:05', img: 'images/Yamazaki 山崎.jpg' },
+    { id: 's8', title: 'Late Drive', artist: 'LUNAR', dur: '3:58', img: 'images/Chateau红酒.jpg' }
   ],
 
   notices: [
-    '🎉 7月19日 EDM 狂潮之夜 · 早鸟票限时7折',
+    '🎉 EDM 狂潮之夜 · 早鸟票限时7折',
     '🍸 招牌鸡尾酒买二送一 · 仅限工作日 20:00-22:00',
     '👑 新用户首单立减 ¥50 · 钻石会员专属',
     '🎂 本月生日会员到店即享生日特调一杯'
@@ -257,10 +257,10 @@ const LS_KEYS = {
 // 将写死的活动日期改为"以今天为基准的未来周末"，
 // 避免过期活动与星期错位；同时为倒计时生成准确时间戳 e.ts。
 // 定制活动（weekday === '预约'）保持"定制"状态。
-// 基准时间锚定到 2026-11-01，使所有派对均落在 11 月。
+// 基准时间为今天，活动日期将落在最近的未来周末。
 // ============================================
 (function () {
-  var now = new Date(2026, 10, 1); // 2026 年 11 月 1 日（周日）
+  var now = new Date(); // 以今天为基准，动态生成未来周末
   var WEEK_CN = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
   var WEEK_NO = { '周日': 0, '周一': 1, '周二': 2, '周三': 3, '周四': 4, '周五': 5, '周六': 6 };
   var counter = {};
