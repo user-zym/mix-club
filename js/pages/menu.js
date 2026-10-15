@@ -30,7 +30,7 @@ const MenuPage = {
           <div class="menu-row">
             <div>
               <div class="menu-price"><span class="sym">¥</span>${p.price}${p.original ? `<span class="line">¥${p.original}</span>` : ''}</div>
-              <div class="menu-sales">已售 ${fmtNum(p.sales)}</div>
+              <div class="menu-sales">${t('soldText')} ${fmtNum(p.sales)}</div>
             </div>
             <button class="add-btn" data-add="${esc(p.id)}">+</button>
           </div>
@@ -42,8 +42,8 @@ const MenuPage = {
     return `
       ${tb ? `
       <div class="menu-table-bar">
-        <span class="mtb-info">🪑 当前桌台 <b>${esc(tb.no)}</b> · ${tb.type === 'ka' ? '卡座' : '散台'}</span>
-        <button class="mtb-switch" id="menuTableSwitch">更换</button>
+        <span class="mtb-info">🪑 ${t('curTableTxt')}<b>${esc(tb.no)}</b> · ${tb.type === 'ka' ? t('seatKa') : t('seatSan')}</span>
+        <button class="mtb-switch" id="menuTableSwitch">${t('switchBtn')}</button>
       </div>` : ''}
 
       <!-- Search -->
@@ -64,10 +64,10 @@ const MenuPage = {
               <span class="ai-orb-dot"></span>
             </div>
             <div class="ai-hero-text">
-              <strong>AI 调酒师 <i>Allan</i></strong>
-              <small>描述口味 / 场景 / 强度，3 秒帮你选酒</small>
+              <strong>${t('aiTitle')} <i>Allan</i></strong>
+              <small>${t('aiSub')}</small>
             </div>
-            <span class="ai-hero-go">开始 →</span>
+            <span class="ai-hero-go">${t('aiGo')}</span>
           </div>
           <div class="ai-presets" id="aiPresets">
             ${AiService.PRESETS.map(p => `
@@ -146,15 +146,15 @@ const MenuPage = {
   switchTable(root) {
     const tb = TableService.current();
     openModal(`
-      <h3 style="margin:0 0 6px;font-size:17px;">🪑 更换桌台</h3>
+      <h3 style="margin:0 0 6px;font-size:17px;">🪑 ${t('changeTable')}</h3>
       <p style="margin:0 0 12px;color:var(--text-3);font-size:11px;">选择桌台号（K01-K06 · S01-S12）· 扫码绑定桌台</p>
-      <input id="menuTableNo" type="text" placeholder="${tb ? '当前桌台 ' + esc(tb.no) : '输入桌台号，如 S03'}" autocomplete="off"
+      <input id="menuTableNo" type="text" placeholder="${tb ? t('curTableTxt') + esc(tb.no) : t('tablePlaceholder')}" autocomplete="off"
         style="width:100%;background:var(--bg-3);border:1px solid var(--line);border-radius:8px;color:var(--text-1);padding:11px 12px;font-size:14px;outline:none;box-sizing:border-box;">
       <div class="ai-chips" style="margin:10px 0;">
         ${APP_TABLES.map(t => `<button class="ai-chip" data-mtb="${t.id}">${t.id}</button>`).join('')}
       </div>
       <button class="btn btn-primary btn-block" id="menuBindTable">绑定桌台</button>
-      ${tb ? `<button class="btn btn-ghost btn-block" id="menuClearTable" style="margin-top:8px;">解绑当前桌台</button>` : ''}
+      ${tb ? `<button class="btn btn-ghost btn-block" id="menuClearTable" style="margin-top:8px;">${t('unbindTable')}</button>` : ''}
     `);
     document.querySelectorAll('[data-mtb]').forEach(c => {
       c.addEventListener('click', () => {
@@ -590,7 +590,7 @@ const MenuPage = {
           <div style="color:var(--gold-2);font-size:24px;font-weight:800;">¥${p.price}</div>
           ${p.original ? `<small style="color:var(--text-3);text-decoration:line-through;">原价 ¥${p.original}</small>` : ''}
         </div>
-        <div style="font-size:11px;color:var(--text-3);">已售 ${fmtNum(p.sales)} 杯</div>
+        <div style="font-size:11px;color:var(--text-3);">${t('soldText')} ${fmtNum(p.sales)}${LangService.isEn() ? ' cups' : ' 杯'}</div>
       </div>
       <button class="btn btn-primary btn-block btn-lg" id="modalAdd">加入购物车 · ¥${p.price}</button>
     `);
