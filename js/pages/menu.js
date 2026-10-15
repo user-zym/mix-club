@@ -89,11 +89,16 @@ const MenuPage = {
 
       <!-- List -->
       <div class="menu-list">
-        ${items || '<div style="text-align:center;padding:40px;color:var(--text-3);">暂无相关商品</div>'}
+        ${items || `<div class="empty-state" style="padding:44px 32px;">
+          <div class="es-ico">🍸</div>
+          <h3>暂无相关商品</h3>
+          <p>换个关键词或分类试试</p>
+        </div>`}
       </div>
 
       <div class="page-footer">
         © 2026 MIX CLUB · 精致夜生活
+        <div class="legal-line">理性饮酒 · 未成年人请勿饮酒 · 18+</div>
       </div>
     `;
   },
