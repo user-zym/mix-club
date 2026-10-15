@@ -289,7 +289,7 @@
       }
     }
 
-    // 进度条动画 - 总耗时约 2.5s
+    // 进度条动画 - 总耗时约 1.5s
     tick = setInterval(() => {
       progress += Math.random() * 12 + 4;
       if (progress >= 100) {
@@ -303,7 +303,7 @@
         if (tip) tip.textContent = tips[tipIdx];
       }
       if (bar) bar.style.width = progress + '%';
-    }, 120);
+    }, 80);
 
     function finishSplash() {
       if (splash) splash.classList.add('hide');
