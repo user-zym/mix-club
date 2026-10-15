@@ -187,7 +187,7 @@ const ProfilePage = {
       if (gateRegister) gateRegister.onclick = () => navigate('register');
       if (gateDemo) gateDemo.onclick = () => {
         Auth.reset();
-        toast('已登录体验账号');
+        toast(t('loginSuccess'));
         setTimeout(() => navigate('profile'), 400);
       };
       return;
