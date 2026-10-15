@@ -448,17 +448,17 @@ const CartPage = {
       ? '<svg viewBox="0 0 24 24" width="22" height="22" fill="#fff"><path d="M19 5H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2zm-9.5 3.5h6v.8c0 1.2-.4 2.2-1.1 2.9.7.4 1.3 1.1 1.6 2.1l1 2.6h-1.7l-.9-2.3c-.4-1-1-1.5-1.9-1.5h-.5v3.8H9.5V8.5zm1.5 1.2v2.7h2.5c1.1 0 1.6-.5 1.6-1.4 0-.8-.5-1.3-1.6-1.3H11z"/></svg>'
       : '<svg viewBox="0 0 24 24" width="22" height="22" fill="#fff"><path d="M2 8h7v8H2zM15 8h7v8h-7zM11 8h2v8h-2z"/></svg>';
     openModal(`
-      <div style="text-align:center;">
-        <div style="font-size:50px;margin-bottom:10px;">✅</div>
-        <h3 style="margin:0 0 6px;">${esc(method.success)}</h3>
-        <p style="margin:0 0 14px;color:var(--text-3);font-size:12px;">已支付 ¥${ctx.orderTotal} · 凭订单号 ${esc(ctx.orderId)} 到店核销<br><span style="font-size:10px;">（演示环境 · 模拟支付，不产生真实扣款）</span></p>
+      <div class="pay-success-modal">
+        <div class="ps-ico">✅</div>
+        <h3 class="ps-title">${esc(method.success)}</h3>
+        <p class="ps-sub">已支付 ¥${ctx.orderTotal} · 凭订单号 ${esc(ctx.orderId)} 到店核销<br><span style="font-size:10px;">（演示环境 · 模拟支付，不产生真实扣款）</span></p>
         <div style="display:inline-flex;align-items:center;gap:8px;background:${esc(method.color)};color:#fff;padding:8px 14px;border-radius:20px;margin-bottom:12px;font-size:13px;">
           ${iconSvg}
           <span>${esc(method.name)}</span>
         </div>
-        <div style="background:linear-gradient(135deg,#10b981,#22d3ee);color:#fff;padding:14px;border-radius:12px;margin-bottom:14px;">
-          <div style="font-size:11px;opacity:.85;">本次消费获得</div>
-          <div style="font-size:24px;font-weight:800;">+ ${ctx.points} 积分</div>
+        <div class="ps-points">
+          <small>本次消费获得</small>
+          <b>+ ${ctx.points} 积分</b>
         </div>
         <button class="btn btn-primary btn-block" id="goProfileAfterPay">查看我的订单</button>
       </div>
