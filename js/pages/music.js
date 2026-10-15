@@ -34,7 +34,7 @@ const MusicPage = {
           <div class="label">NOW PLAYING</div>
           <h3>${esc(cur.title)}</h3>
           <p>${esc(cur.artist)}</p>
-          <div style="display:inline-flex;align-items:center;gap:4px;margin-top:2px;font-size:10px;color:var(--text-3);background:var(--bg-3);padding:3px 8px;border-radius:10px;">🎧 模拟播放 · 演示音频</div>
+          <div style="display:inline-flex;align-items:center;gap:4px;margin-top:2px;font-size:10px;color:var(--text-3);background:var(--bg-3);padding:3px 8px;border-radius:10px;">🎧 在线播放 · 现场音频</div>
           <div class="music-progress">
             <div class="p" id="musicProgress" style="width:${this.progress}%"></div>
           </div>
