@@ -60,7 +60,7 @@ const VipPage = {
       <!-- Benefits -->
       <div class="vip-benefits">
         <div class="section-head">
-          <h3 class="section-title">会员权益</h3>
+          <h3 class="section-title">${t('vipBenefits')}</h3>
         </div>
         <div class="benefit-grid">${benefits}</div>
       </div>
@@ -68,7 +68,7 @@ const VipPage = {
       <!-- Cards -->
       <div class="vip-cards">
         <div class="section-head">
-          <h3 class="section-title">我的卡券</h3>
+          <h3 class="section-title">${t('myCards')}</h3>
         </div>
         ${cards}
       </div>
