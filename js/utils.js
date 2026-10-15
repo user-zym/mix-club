@@ -523,8 +523,8 @@ const Auth = {
   // 重置为默认演示账号
   reset() {
     User.data = {
-      name: '',
-      id: '',
+      name: 'KUMA',
+      id: 'V-MIX-8888',
       avatar: 'M',
       level: 3,
       points: 12860,
