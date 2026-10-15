@@ -12,7 +12,7 @@ const RegisterPage = {
           <button class="icon-btn" id="goBackFromRegister" aria-label="返回">
             <svg viewBox="0 0 24 24" width="22" height="22"><path d="M15 18l-6-6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </button>
-          <span class="auth-top-title">注册 MIX CLUB</span>
+          <span class="auth-top-title">${t('regTitle')}</span>
           <span style="width:36px;"></span>
         </div>
 
@@ -21,30 +21,30 @@ const RegisterPage = {
           <div class="auth-logo">
             <span>M</span>
           </div>
-          <h1>创建账号</h1>
-          <p>注册即送 100 积分 + 1 张新人大礼包</p>
+          <h1>${t('regSub')}</h1>
+          <p>${t('regBonus')}</p>
         </div>
 
         <!-- 表单 -->
         <div class="auth-form">
           <div class="auth-field">
-            <label>手机号</label>
+            <label>${t('phoneLabel')}</label>
             <div class="auth-input-wrap">
               <span class="auth-prefix">+86</span>
-              <input type="tel" inputmode="numeric" maxlength="11" id="regPhone" placeholder="请输入手机号" autocomplete="tel">
+              <input type="tel" inputmode="numeric" maxlength="11" id="regPhone" placeholder="${t('phPhone')}" autocomplete="tel">
             </div>
           </div>
 
           <div class="auth-field">
-            <label>验证码</label>
+            <label>${t('codeLabel')}</label>
             <div class="auth-input-wrap auth-code-wrap">
-              <input type="tel" inputmode="numeric" maxlength="6" id="regCode" placeholder="6 位短信验证码">
-              <button class="auth-code-btn" id="sendCodeBtn">获取验证码</button>
+              <input type="tel" inputmode="numeric" maxlength="6" id="regCode" placeholder="${t('phCode')}">
+              <button class="auth-code-btn" id="sendCodeBtn">${t('getCode')}</button>
             </div>
           </div>
 
           <div class="auth-field">
-            <label>设置密码</label>
+            <label>${t('setPwd')}</label>
             <div class="auth-input-wrap">
               <input type="password" id="regPwd" placeholder="6-16 位字母/数字" maxlength="16" autocomplete="new-password">
               <button class="auth-eye" id="regEye" type="button" aria-label="显示密码">
@@ -54,9 +54,9 @@ const RegisterPage = {
           </div>
 
           <div class="auth-field">
-            <label>昵称（可选）</label>
+            <label>${t('nickLabel')}</label>
             <div class="auth-input-wrap">
-              <input type="text" id="regName" placeholder="请输入昵称" maxlength="12">
+              <input type="text" id="regName" placeholder="${t('phNick')}" maxlength="12">
             </div>
           </div>
 
@@ -65,21 +65,21 @@ const RegisterPage = {
             <span class="auth-strength-bar" data-lv="1"></span>
             <span class="auth-strength-bar" data-lv="2"></span>
             <span class="auth-strength-bar" data-lv="3"></span>
-            <span class="auth-strength-label" id="strengthLabel">请输入密码</span>
+            <span class="auth-strength-label" id="strengthLabel">${t('enterPwd')}</span>
           </div>
 
           <!-- 协议 -->
           <label class="auth-check" style="margin:18px 0 22px;">
             <input type="checkbox" id="agreeTerms" checked>
-            <span>我已阅读并同意 <a class="auth-link">《用户协议》</a> 与 <a class="auth-link">《隐私政策》</a></span>
+            <span>${t('agreeTerms')}</span>
           </label>
 
-          <button class="btn btn-primary btn-block auth-submit" id="regSubmit">注 册</button>
+          <button class="btn btn-primary btn-block auth-submit" id="regSubmit">${t('regBtn')}</button>
         </div>
 
         <!-- 底部 -->
         <div class="auth-foot">
-          <span>已有账号?</span>
+          <span>${t('haveAccount')}</span>
           <a id="gotoLogin">立即登录</a>
         </div>
       </div>
@@ -140,18 +140,18 @@ const RegisterPage = {
     bars.forEach((b, i) => b.classList.toggle('on', i < lv));
     const text = ['', '弱', '中', '强'];
     const color = ['', '#ff4d4f', '#faad14', '#52c41a'];
-    label.textContent = text[lv] || '请输入密码';
+    label.textContent = text[lv] || t('enterPwd');
     label.style.color = color[lv] || '';
   },
 
   sendCode() {
     const phone = (document.getElementById('regPhone').value || '').trim();
     if (!/^1[3-9]\d{9}$/.test(phone)) {
-      toast('请先输入正确的手机号');
+      toast(t('tPhoneInvalid'));
       return;
     }
     if (Auth.accounts[phone]) {
-      toast('该手机号已注册，请直接登录');
+      toast(t('tRegExists'));
       return;
     }
     const btn = document.getElementById('sendCodeBtn');
@@ -160,14 +160,14 @@ const RegisterPage = {
     btn.textContent = `${n}s 后重发`;
     // 自动填充 6 位验证码
     document.getElementById('regCode').value = '888888';
-    toast('验证码已发送（888888）');
+    toast(t('tCodeSent'));
     const t = setInterval(() => {
       n--;
       btn.textContent = `${n}s 后重发`;
       if (n <= 0) {
         clearInterval(t);
         btn.disabled = false;
-        btn.textContent = '获取验证码';
+        btn.textContent = t('getCode');
       }
     }, 1000);
   },
@@ -179,12 +179,12 @@ const RegisterPage = {
     const name = (document.getElementById('regName').value || '').trim();
 
     if (code !== '888888') {
-      toast('验证码错误（请填 888888）');
+      toast(t('tCodeWrong'));
       return;
     }
 
     if (!document.getElementById('agreeTerms').checked) {
-      toast('请先同意用户协议');
+      toast(t('tAgreeFirst'));
       return;
     }
 
