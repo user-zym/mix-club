@@ -31,7 +31,7 @@
         <div class="splash-loader-bar" id="splashBar"></div>
       </div>
       <p class="splash-tip" id="splashTip">正在加载精彩内容...</p>
-      <p class="splash-legal">理性饮酒 · 未成年人禁止饮酒 · 18+</p>
+      <p class="splash-legal" id="splashLegal">理性饮酒 · 未成年人禁止饮酒 · 18+</p>
     </div>
     <div class="splash-footer">
       <span>v 2.8.0</span>
@@ -139,26 +139,26 @@
         <span class="tab-icon">
           <svg viewBox="0 0 24 24" width="22" height="22"><path d="M3 11l9-8 9 8v10a2 2 0 0 1-2 2h-4v-7H9v7H5a2 2 0 0 1-2-2V11z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
         </span>
-        <span class="tab-label">首页</span>
+        <span class="tab-label" id="tabLabelHome">首页</span>
       </a>
       <a class="tab-item" data-tab="menu" href="#menu">
         <span class="tab-icon">
           <svg viewBox="0 0 24 24" width="22" height="22"><path d="M4 3v18M9 3v18M15 3v18M20 3v18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
         </span>
-        <span class="tab-label">点餐</span>
+        <span class="tab-label" id="tabLabelMenu">点餐</span>
       </a>
       <a class="tab-item" data-tab="tablebooking" href="#tablebooking">
         <span class="tab-icon">
           <svg viewBox="0 0 24 24" width="22" height="22"><path d="M7 3l-2 5h14l-2-5M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8M9 13h6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </span>
-        <span class="tab-label">订台</span>
+        <span class="tab-label" id="tabLabelBooking">订台</span>
         <span class="tab-badge" id="tabTbBadge"></span>
       </a>
       <a class="tab-item" data-tab="profile" href="#profile">
         <span class="tab-icon">
           <svg viewBox="0 0 24 24" width="22" height="22"><circle cx="12" cy="8" r="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M4 21a8 8 0 0 1 16 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
         </span>
-        <span class="tab-label">我的</span>
+        <span class="tab-label" id="tabLabelMe">我的</span>
       </a>
     </nav>
 
@@ -180,9 +180,10 @@
   <script src="js/data.js?v=9"></script>
   <script src="js/qrcode.js?v=6"></script>
   <script src="js/utils.js?v=9"></script>
+  <script src="js/i18n.js?v=1"></script>
   <script src="js/echarts.min.js?v=1"></script>
-  <script src="js/pages/home.js?v=8"></script>
-  <script src="js/pages/menu.js?v=7"></script>
+  <script src="js/pages/home.js?v=9"></script>
+  <script src="js/pages/menu.js?v=8"></script>
   <script src="js/pages/booking.js?v=10"></script>
   <script src="js/pages/tablebooking.js?v=8"></script>
   <script src="js/pages/events.js?v=5"></script>
@@ -191,10 +192,10 @@
   <script src="js/pages/login.js?v=6"></script>
   <script src="js/pages/register.js?v=6"></script>
   <script src="js/pages/music.js?v=6"></script>
-  <script src="js/pages/cart.js?v=10"></script>
-  <script src="js/pages/profile.js?v=9"></script>
+  <script src="js/pages/cart.js?v=11"></script>
+  <script src="js/pages/profile.js?v=10"></script>
   <script src="js/pages/merchant.js?v=9"></script>
-  <script src="js/app.js?v=8"></script>
+  <script src="js/app.js?v=9"></script>
   <script>
     // PWA Service Worker 注册（仅 HTTPS 或 localhost 生效）
     if ('serviceWorker' in navigator && (location.protocol === 'https:' || ['localhost', '127.0.0.1'].indexOf(location.hostname) !== -1)) {
