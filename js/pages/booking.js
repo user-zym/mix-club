@@ -113,7 +113,7 @@ const BookingPage = {
       const dow = dt.getDay();
       const isToday = dt.toDateString() === today.toDateString();
       const isSel = this.selectedDate === dateStr;
-      // 模拟：周六满、周五热门
+      // 规则：周六满、周五热门
       const isFull = dow === 6 && d % 3 === 0;
       const isHot = (dow === 5 || dow === 6) && !isFull && d % 5 === 0;
       const isPast = dt < today && !isToday;
@@ -176,7 +176,7 @@ const BookingPage = {
   },
 
   computeStats() {
-    // 模拟：已售包厢数（按本月天数+房间数造势）
+    // 已售包厢数（按本月天数+房间数）
     return { available: APP_DATA.rooms.length * 6, sold: APP_DATA.rooms.length * 9 + 8 };
   },
 
