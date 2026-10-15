@@ -68,13 +68,13 @@ ul,ol{list-style:none;margin:0;padding:0;}
 .app-container{
   position:relative;
   width:100%;
-  max-width:375px;
-  /* 高度自适应：优先使用视口高度（dvh → vh → 回退），最大 812px */
+  max-width:100%;
+  /* 高度自适应：优先使用视口高度（dvh → vh → 回退），移动端全屏 */
   height:812px;
-  height:min(812px, 100vh);
-  height:min(812px, 100dvh);
+  height:100vh;
+  height:100dvh;
   min-height:0;
-  margin:0 auto;
+  margin:0;
   background:var(--bg-0);
   overflow:hidden;
   display:flex;
