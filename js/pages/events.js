@@ -13,8 +13,8 @@ const EventsPage = {
   },
 
   render() {
-    const tabs = APP_DATA.eventTypes.map(t =>
-      `<button class="event-tab ${t.id === this.curCat ? 'active' : ''}" data-cat="${esc(t.id)}">${esc(t.id === 'all' ? t('allEvents') : t.name)}</button>`
+    const tabs = APP_DATA.eventTypes.map(ev =>
+      `<button class="event-tab ${ev.id === this.curCat ? 'active' : ''}" data-cat="${esc(ev.id)}">${esc(ev.id === 'all' ? t('allEvents') : L(ev.name, ev.nameEn))}</button>`
     ).join('');
 
     const list = APP_DATA.events.filter(e => this.curCat === 'all' || e.cat === this.curCat);
@@ -23,16 +23,16 @@ const EventsPage = {
       <div class="event-big fade-in">
         <div class="event-big-img" style="background-image:url('${esc(e.img)}')"></div>
         <div class="event-big-info">
-          <h3>${esc(e.title)}</h3>
+          <h3>${esc(L(e.title, e.titleEn))}</h3>
           <div class="meta">
-            <span>📅 ${esc(e.date)} ${esc(e.weekday)}</span>
-            <span>⏰ ${esc(e.time)}</span>
-            <span>📍 ${esc(e.place)}</span>
+            <span>📅 ${esc(e.date === '定制' ? L(e.date, 'Custom') : e.date)} ${esc(L(e.weekday, ({周日:'Sun',周一:'Mon',周二:'Tue',周三:'Wed',周四:'Thu',周五:'Fri',周六:'Sat',预约:'Custom'})[e.weekday]))}</span>
+            <span>⏰ ${esc(e.time === '自定义' ? L(e.time, 'Custom') : e.time)}</span>
+            <span>📍 ${esc(L(e.place, e.placeEn))}</span>
           </div>
-          <p>${esc(e.desc)}</p>
+          <p>${esc(L(e.desc, e.descEn))}</p>
           ${e.countdown ? this.renderCountdown(e) : '<div style="font-size:11px;color:var(--purple-2);">' + t('customTip') + '</div>'}
           <div style="display:flex;gap:6px;margin-bottom:10px;">
-            ${e.tags.map(t => `<span class="chip pink">${esc(t)}</span>`).join('')}
+            ${(LangService.isEn() ? e.tagsEn : e.tags).map(tag => `<span class="chip pink">${esc(tag)}</span>`).join('')}
           </div>
           <div class="row">
             <div>
@@ -62,7 +62,7 @@ const EventsPage = {
       </div>
 
       <div class="page-footer">
-        © 2026 MIX CLUB · 派对永不眠
+        © 2026 MIX CLUB · ${LangService.isEn() ? 'Never-Stop Party' : '派对永不眠'}
       </div>
     `;
   },
