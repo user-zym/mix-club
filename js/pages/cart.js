@@ -452,7 +452,7 @@ const CartPage = {
         <div class="ps-ico">✅</div>
         <h3 class="ps-title">${esc(method.success)}</h3>
         <p class="ps-sub">已支付 ¥${ctx.orderTotal} · 凭订单号 ${esc(ctx.orderId)} 到店核销<br><span style="font-size:10px;">（演示环境 · 模拟支付，不产生真实扣款）</span></p>
-        <div style="display:inline-flex;align-items:center;gap:8px;background:${esc(method.color)};color:#fff;padding:8px 14px;border-radius:20px;margin-bottom:12px;font-size:13px;">
+        <div style="display:inline-flex;align-items:center;gap:6px;background:${esc(method.color)};color:#fff;padding:5px 12px;border-radius:16px;margin-bottom:10px;font-size:12px;">
           ${iconSvg}
           <span>${esc(method.name)}</span>
         </div>
