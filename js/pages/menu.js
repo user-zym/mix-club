@@ -50,7 +50,7 @@ const MenuPage = {
       <div class="menu-search">
         <div class="box">
           <svg viewBox="0 0 24 24" width="18" height="18"><circle cx="11" cy="11" r="7" fill="none" stroke="rgba(255,255,255,.4)" stroke-width="2"/><path d="M21 21l-4.3-4.3" stroke="rgba(255,255,255,.4)" stroke-width="2" stroke-linecap="round"/></svg>
-          <input type="text" placeholder="搜索鸡尾酒 / 套餐 / 调酒师..." id="menuSearch" value="${esc(this.keyword)}" />
+          <input type="text" placeholder="${t('searchPlaceholder')}" id="menuSearch" value="${esc(this.keyword)}" />
         </div>
       </div>
 
@@ -91,14 +91,14 @@ const MenuPage = {
       <div class="menu-list">
         ${items || `<div class="empty-state" style="padding:44px 32px;">
           <div class="es-ico">🍸</div>
-          <h3>暂无相关商品</h3>
-          <p>换个关键词或分类试试</p>
+          <h3>${t('menuEmpty')}</h3>
+          <p>${t('menuEmptyDesc')}</p>
         </div>`}
       </div>
 
       <div class="page-footer">
-        © 2026 MIX CLUB · 精致夜生活
-        <div class="legal-line">理性饮酒 · 未成年人请勿饮酒 · 18+</div>
+        © 2026 MIX CLUB · ${t('footerMenu')}
+        <div class="legal-line">${t('legalDrink')}</div>
       </div>
     `;
   },
