@@ -14,7 +14,7 @@ const EventsPage = {
 
   render() {
     const tabs = APP_DATA.eventTypes.map(t =>
-      `<button class="event-tab ${t.id === this.curCat ? 'active' : ''}" data-cat="${esc(t.id)}">${esc(t.name)}</button>`
+      `<button class="event-tab ${t.id === this.curCat ? 'active' : ''}" data-cat="${esc(t.id)}">${esc(t.id === 'all' ? t('allEvents') : t.name)}</button>`
     ).join('');
 
     const list = APP_DATA.events.filter(e => this.curCat === 'all' || e.cat === this.curCat);
@@ -30,7 +30,7 @@ const EventsPage = {
             <span>📍 ${esc(e.place)}</span>
           </div>
           <p>${esc(e.desc)}</p>
-          ${e.countdown ? this.renderCountdown(e) : '<div style="font-size:11px;color:var(--purple-2);">📌 接受预约定制</div>'}
+          ${e.countdown ? this.renderCountdown(e) : '<div style="font-size:11px;color:var(--purple-2);">' + t('customTip') + '</div>'}
           <div style="display:flex;gap:6px;margin-bottom:10px;">
             ${e.tags.map(t => `<span class="chip pink">${esc(t)}</span>`).join('')}
           </div>
@@ -38,9 +38,9 @@ const EventsPage = {
             <div>
               <div class="price"><span class="sym">¥</span>${e.price}</div>
               ${e.original ? `<small style="text-decoration:line-through;color:var(--text-3);">¥${e.original}</small>` : ''}
-              <small style="color:var(--text-3);display:block;font-size:10px;margin-top:2px;">已售 ${e.booked} / ${e.capacity}</small>
+              <small style="color:var(--text-3);display:block;font-size:10px;margin-top:2px;">${t('soldText')} ${e.booked} / ${e.capacity}</small>
             </div>
-            <button class="btn btn-primary" data-buy="${esc(e.id)}">立即购票</button>
+            <button class="btn btn-primary" data-buy="${esc(e.id)}">${t('buyNow')}</button>
           </div>
         </div>
       </div>
@@ -50,7 +50,7 @@ const EventsPage = {
       <!-- Hero -->
       <div class="events-hero">
         <div class="big-title">PARTY</div>
-        <div class="sub">MIX CLUB · 派对季</div>
+        <div class="sub">MIX CLUB · ${t('evEyebrow')}</div>
       </div>
 
       <!-- Tabs -->
@@ -77,9 +77,9 @@ const EventsPage = {
     const m = Math.floor((diff % 3600000) / 60000);
     return `
       <div class="countdown" data-target="${target}" data-eid="${esc(e.id)}">
-        <div class="cd"><b>${d}</b><span>天</span></div>
-        <div class="cd"><b>${h}</b><span>时</span></div>
-        <div class="cd"><b>${m}</b><span>分</span></div>
+        <div class="cd"><b>${d}</b><span>${t('cdDay')}</span></div>
+        <div class="cd"><b>${h}</b><span>${t('cdHour')}</span></div>
+        <div class="cd"><b>${m}</b><span>${t('cdMin')}</span></div>
       </div>
     `;
   },
