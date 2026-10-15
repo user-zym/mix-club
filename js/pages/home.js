@@ -73,7 +73,7 @@ const HomePage = {
       <!-- Quick Actions -->
       <div class="quick-section">
         <div class="section-head">
-          <h3 class="section-title">快捷服务<small>一键直达</small></h3>
+          <h3 class="section-title">${t('quickService')}<small>${t('oneClick')}</small></h3>
         </div>
         <div class="quick-grid">
           ${quick}
@@ -83,17 +83,17 @@ const HomePage = {
       <!-- 现场服务：扫码点单 + LIVE 热播 -->
       <div class="section" style="padding-top:0;">
         <div class="section-head">
-          <h3 class="section-title">现场服务<small>扫码点单 · 正在热播</small></h3>
+          <h3 class="section-title">${t('scanOrder')}<small>${t('liveNow')}</small></h3>
         </div>
         <div class="svc-grid">
           <div class="svc-card svc-table" id="tableEntry">
             <div class="svc-card-bg"></div>
             <div class="svc-card-ico">🪑</div>
             <div class="svc-card-body">
-              <strong id="tableEntryTitle">扫码点单</strong>
-              <small id="tableEntrySub">${tb ? '当前 ' + esc(tb.no) + (tb.type ? ' · ' + (tb.type === 'ka' ? '卡座' : '散台') : '') : '绑定桌台 · 自动关联'}</small>
+              <strong id="tableEntryTitle">${t('scanOrder')}</strong>
+              <small id="tableEntrySub">${tb ? t('currentTable') + ' ' + esc(tb.no) + (tb.type ? ' · ' + (tb.type === 'ka' ? 'VIP' : 'Table') : '') : t('bindTable')}</small>
             </div>
-            <span class="svc-card-go">${tb ? '换桌 →' : '绑定 →'}</span>
+            <span class="svc-card-go">${tb ? (LangService.isEn() ? 'Change →' : '换桌 →') : (LangService.isEn() ? 'Bind →' : '绑定 →')}</span>
           </div>
           <div class="svc-card svc-live" data-go="music">
             <div class="svc-card-bg"></div>
