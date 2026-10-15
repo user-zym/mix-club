@@ -312,7 +312,7 @@ const CartPage = {
 
     document.getElementById('confirmMethod').onclick = () => {
       if (!selectedMethod) return;
-      // 落库订单（在清空购物车前保留商品快照）
+      // 落库订单（待支付 pending，在清空购物车前保留商品快照）
       const order = OrderService.create({
         id: orderId,
         items: Cart.items.map(i => ({ id: i.id, name: i.name, price: i.price, qty: i.qty, img: i.img })),
@@ -321,7 +321,7 @@ const CartPage = {
         discount,
         total: orderTotal,
         method: selectedMethod,
-        status: 'paid',
+        status: ORDER_STATUS.PENDING,
         points,
         table: tb ? tb.no : null,
         qrSeed: orderId + '_' + selectedMethod,
@@ -334,8 +334,8 @@ const CartPage = {
       Cart.clear();
       this.coupon = null;
       if (finalRoot) this.mount(finalRoot);
-      // 支付完成后立即弹出支付成功弹窗
-      this.showPaySuccess(ctx);
+      // 进入扫码支付：确认到账后状态流转为已支付
+      this.showPayQR(ctx);
     };
   },
 
@@ -405,7 +405,11 @@ const CartPage = {
       if (scanTimer) clearTimeout(scanTimer);
       if (autoTimer) clearInterval(autoTimer);
       closeModal();
-      if (success) this.showPaySuccess(ctx);
+      if (success) {
+        // 状态机：待支付 → 已支付（待核销）
+        if (ctx.order) OrderService.updateStatus(ctx.order.id, ORDER_STATUS.PAID);
+        this.showPaySuccess(ctx);
+      }
     };
 
     document.getElementById('cancelPay').onclick = () => {
@@ -413,6 +417,8 @@ const CartPage = {
       if (scanTimer) clearTimeout(scanTimer);
       if (autoTimer) clearInterval(autoTimer);
       closeModal();
+      // 状态机：待支付 → 已取消
+      if (ctx.order) OrderService.updateStatus(ctx.order.id, ORDER_STATUS.CANCELLED);
       toast(`已取消${method.name}`);
     };
 
@@ -461,6 +467,7 @@ const CartPage = {
           <b>+ ${ctx.points} 积分</b>
         </div>
         <button class="btn btn-primary btn-block" id="goProfileAfterPay">查看我的订单</button>
+        <p style="margin:10px 0 0;font-size:10px;color:var(--text-4);">订单状态：已支付 · 待核销 · 凭订单号到店核销</p>
       </div>
     `);
     // 加积分
