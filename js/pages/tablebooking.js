@@ -449,7 +449,7 @@ const TableBookingPage = {
           <div><span style="color:var(--text-3);">金额</span> <strong style="color:var(--gold-2);">¥${t.price}</strong></div>
         </div>
         <p style="margin:14px 0 0;color:var(--text-3);font-size:11px;line-height:1.5;">到店后请到吧台或前台出示订单号 <b style="color:var(--gold-2);">${esc(id)}</b> 核销</p>
-        <button class="btn btn-primary btn-block" style="margin-top:18px;" onclick="closeModal()">查看我的预订</button>
+        <button class="btn btn-primary btn-block" style="margin-top:18px;" onclick="closeModal();navigate('profile');">查看我的预订</button>
       </div>
     `);
 
