@@ -18,9 +18,9 @@ const CartPage = {
       return `
         <div class="empty-state">
           <div class="es-ico">🛒</div>
-          <h3>购物车空空如也</h3>
-          <p>去菜单挑几款心仪的特调吧</p>
-          <button class="btn btn-primary" data-go="menu">去点单</button>
+          <h3>${t('cartEmpty')}</h3>
+          <p>${t('cartEmptyDesc')}</p>
+          <button class="btn btn-primary" data-go="menu">${t('goOrder')}</button>
         </div>
         <div class="page-footer">
           © 2026 MIX CLUB · YOUR CART
@@ -74,7 +74,7 @@ const CartPage = {
           <small>合计 ${Cart.count()} 件商品${this.coupon ? ` · 已优惠 ${CouponService.label(this.coupon)}` : ''}</small>
           <b>${fmtPrice(final)}</b>
         </div>
-        <button class="btn btn-primary btn-lg" id="checkoutBtn">去结算</button>
+        <button class="btn btn-primary btn-lg" id="checkoutBtn">${t('goCheckout')}</button>
       </div>
 
       <div class="page-footer">
@@ -236,10 +236,10 @@ const CartPage = {
     // 弹出支付方式选择 modal
     openModal(`
       <div class="pay-method-modal">
-        <div style="background:rgba(212,175,55,.12);border:1px solid rgba(212,175,55,.35);color:var(--gold-2);font-size:11px;padding:8px 10px;border-radius:8px;margin-bottom:12px;text-align:center;">🔒 安全支付 · 交易成功后凭订单号到店核销<br><span style="color:var(--text-4);font-weight:400;">🍸 理性饮酒 · 请勿酒后驾车</span></div>
+        <div style="background:rgba(212,175,55,.12);border:1px solid rgba(212,175,55,.35);color:var(--gold-2);font-size:11px;padding:8px 10px;border-radius:8px;margin-bottom:12px;text-align:center;">${t('securityPay')}<br><span style="color:var(--text-4);font-weight:400;">${t('drinkDriving')}</span></div>
         <div style="text-align:center;margin-bottom:14px;">
           <div style="font-size:42px;margin-bottom:6px;">💳</div>
-          <h3 style="margin:0 0 4px;font-size:17px;">选择支付方式</h3>
+          <h3 style="margin:0 0 4px;font-size:17px;">${t('payMethodTitle')}</h3>
           <p style="margin:0 0 6px;color:var(--text-3);font-size:12px;">订单号 ${orderId}</p>
           <div style="background:var(--bg-3);padding:10px;border-radius:10px;text-align:left;font-size:12px;line-height:1.9;margin-top:8px;">
             <div style="display:flex;justify-content:space-between;"><span style="color:var(--text-3);">商品数量</span><strong>${Cart.count()} 件</strong></div>
@@ -286,8 +286,8 @@ const CartPage = {
         </div>
 
         <div style="display:flex;gap:8px;margin-top:14px;">
-          <button class="btn btn-ghost btn-block" id="cancelCheckout">取消</button>
-          <button class="btn btn-primary btn-block" id="confirmMethod" disabled style="opacity:.5;">确认支付</button>
+          <button class="btn btn-ghost btn-block" id="cancelCheckout">${t('cancel')}</button>
+          <button class="btn btn-primary btn-block" id="confirmMethod" disabled style="opacity:.5;">${t('confirmPay')}</button>
         </div>
       </div>
     `);
@@ -462,7 +462,7 @@ const CartPage = {
           </svg>
         </div>
         <h3 class="ps-title">${esc(method.success)}</h3>
-        <p class="ps-sub">已支付 ¥${ctx.orderTotal} · 凭订单号 ${esc(ctx.orderId)} 到店核销<br><span style="font-size:10px;">（已支付 · 凭订单号到店核销）</span></p>
+        <p class="ps-sub">${t('paySuccessSub')} ¥${ctx.orderTotal} · ${t('verifyAtStore')} #${esc(ctx.orderId)}</p>
         <div style="display:inline-flex;align-items:center;gap:6px;background:${esc(method.color)};color:#fff;padding:5px 12px;border-radius:16px;margin-bottom:10px;font-size:12px;">
           ${iconSvg}
           <span>${esc(method.name)}</span>
@@ -471,8 +471,8 @@ const CartPage = {
           <small>本次消费获得</small>
           <b>+ ${ctx.points} 积分</b>
         </div>
-        <button class="btn btn-primary btn-block" id="goProfileAfterPay">查看我的订单</button>
-        <p style="margin:10px 0 0;font-size:10px;color:var(--text-4);">订单状态：已支付 · 待核销 · 凭订单号到店核销</p>
+        <button class="btn btn-primary btn-block" id="goProfileAfterPay">${t('viewOrder')}</button>
+        <p style="margin:10px 0 0;font-size:10px;color:var(--text-4);">${t('orderStatusPaid')} · ${t('verifyAtStore')}</p>
       </div>
     `);
     // 加积分
