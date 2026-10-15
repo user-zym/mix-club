@@ -13,7 +13,7 @@ const ProfilePage = {
           <p>登录后即可查看会员积分、订单、专属权益</p>
           <button class="btn btn-primary btn-block" id="gateLogin">立即登录</button>
           <button class="btn btn-ghost btn-block" id="gateRegister" style="margin-top:10px;">注册新账号</button>
-          <div class="auth-gate-demo" id="gateDemo">使用演示账号体验 →</div>
+          <div class="auth-gate-demo" id="gateDemo">使用体验账号登录 →</div>
         </div>
       `;
     }
@@ -133,7 +133,7 @@ const ProfilePage = {
         </div>
         <div class="menu-list-item" id="goMerchant">
           <div class="ico" style="background:rgba(212,175,55,.15);">📊</div>
-          <span class="text">门店管理（演示）</span>
+          <span class="text">门店管理</span>
           <span class="extra">看板 · 核销</span>
           <span class="arrow">›</span>
         </div>
@@ -175,7 +175,7 @@ const ProfilePage = {
       if (gateRegister) gateRegister.onclick = () => navigate('register');
       if (gateDemo) gateDemo.onclick = () => {
         Auth.reset();
-        toast('已进入演示账号');
+        toast('已登录体验账号');
         setTimeout(() => navigate('profile'), 400);
       };
       return;
@@ -294,8 +294,8 @@ const ProfilePage = {
             <div style="font-size:11px;color:var(--text-3);margin-bottom:6px;">到店核销码</div>
             ${typeof generateQRCodeSVG === 'function' ? generateQRCodeSVG(o.qrSeed || o.id, 150) : ''}
             <div style="font-size:16px;font-weight:800;letter-spacing:2px;margin-top:6px;">${esc(o.id)}</div>
-            <div style="font-size:10px;color:var(--text-3);margin-top:4px;">向店员出示本码 · 模拟核销（演示环境）</div>
-            <button class="btn btn-gold btn-block" id="completeOrder" style="margin-top:10px;">模拟核销 · 完成订单</button>
+            <div style="font-size:10px;color:var(--text-3);margin-top:4px;">向店员出示本码 · 到店核销</div>
+            <button class="btn btn-gold btn-block" id="completeOrder" style="margin-top:10px;">完成核销 · 订单完成</button>
             <button class="btn btn-ghost btn-block" id="cancelOrder" style="margin-top:6px;">取消订单</button>
           </div>
         ` : ''}
@@ -329,7 +329,7 @@ const ProfilePage = {
       <div style="text-align:center;">
         <div style="font-size:46px;margin-bottom:8px;">📅</div>
         <h3 style="margin:0 0 4px;font-size:17px;">每日签到</h3>
-        <p style="margin:0 0 16px;color:var(--text-3);font-size:12px;">连续签到得积分 · 兑换好礼（演示环境）</p>
+        <p style="margin:0 0 16px;color:var(--text-3);font-size:12px;">连续签到得积分 · 兑换好礼</p>
         <div style="background:var(--bg-3);padding:14px;border-radius:12px;margin-bottom:16px;">
           <div style="font-size:28px;font-weight:800;color:var(--gold-2);">+10</div>
           <small style="color:var(--text-3);">积分 / 次</small>
@@ -377,7 +377,7 @@ const ProfilePage = {
       </div>`).join('');
     openModal(`
       <h3 style="margin:0 0 4px;font-size:17px;">积分商城</h3>
-      <p style="margin:0 0 12px;color:var(--text-3);font-size:11px;">当前积分 <b style="color:var(--gold-2);">${User.data.points}</b> · 已兑换 ${records.length} 次（演示：兑换后到店领取）</p>
+      <p style="margin:0 0 12px;color:var(--text-3);font-size:11px;">当前积分 <b style="color:var(--gold-2);">${User.data.points}</b> · 已兑换 ${records.length} 次（兑换后到店领取）</p>
       <div style="max-height:56vh;overflow-y:auto;margin:0 -8px;padding:0 8px;">${list}</div>
     `);
     document.querySelectorAll('[data-mall]').forEach(b => {
@@ -390,7 +390,7 @@ const ProfilePage = {
             <div style="font-size:40px;margin-bottom:8px;">${esc(it.icon)}</div>
             <h3 style="margin:0 0 6px;font-size:17px;">确认兑换？</h3>
             <p style="margin:0 0 4px;color:var(--text-3);font-size:12px;">${esc(it.name)} · 消耗 ${it.cost} 积分</p>
-            <p style="margin:0 0 18px;color:var(--text-3);font-size:11px;">兑换后请到店出示领取（演示环境）</p>
+            <p style="margin:0 0 18px;color:var(--text-3);font-size:11px;">兑换后请到店出示领取</p>
             <div style="display:flex;gap:10px;">
               <button class="btn btn-ghost btn-block" style="flex:1;" onclick="closeModal()">取消</button>
               <button class="btn btn-primary btn-block" style="flex:1;" id="okRedeem">确认兑换</button>
@@ -419,12 +419,12 @@ const ProfilePage = {
       <div style="text-align:center;">
         <div style="font-size:46px;margin-bottom:8px;">📣</div>
         <h3 style="margin:0 0 4px;font-size:17px;">邀请好友 · 分享有礼</h3>
-        <p style="margin:0 0 14px;color:var(--text-3);font-size:12px;">好友注册成功，您得 200 积分；好友得新人券（演示环境）</p>
+        <p style="margin:0 0 14px;color:var(--text-3);font-size:12px;">好友注册成功，您得 200 积分；好友得新人券</p>
         <div style="display:flex;gap:8px;align-items:center;background:var(--bg-3);border:1px dashed var(--gold);border-radius:10px;padding:10px 12px;margin-bottom:14px;">
           <input id="inviteLink" type="text" readonly value="${esc(link)}" style="flex:1;background:transparent;border:none;color:var(--text-2);font-size:12px;outline:none;">
           <button class="btn btn-primary" id="copyLink" style="padding:6px 12px;font-size:12px;">复制</button>
         </div>
-        <button class="btn btn-gold btn-block" id="claimInvite">演示领取分享奖励 +20积分</button>
+        <button class="btn btn-gold btn-block" id="claimInvite">领取分享奖励 +20积分</button>
         <p style="margin:8px 0 0;font-size:10px;color:var(--text-4);">分享奖励每日限 3 次 · 注册后 24h 内有效</p>
       </div>
     `);
