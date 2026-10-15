@@ -16,8 +16,8 @@ const CartPage = {
     const items = Cart.items;
     if (items.length === 0) {
       return `
-        <div class="empty-cart">
-          <div class="ico">🛒</div>
+        <div class="empty-state">
+          <div class="es-ico">🛒</div>
           <h3>购物车空空如也</h3>
           <p>去菜单挑几款心仪的特调吧</p>
           <button class="btn btn-primary" data-go="menu">去点单</button>
@@ -236,7 +236,7 @@ const CartPage = {
     // 弹出支付方式选择 modal
     openModal(`
       <div class="pay-method-modal">
-        <div style="background:rgba(212,175,55,.12);border:1px solid rgba(212,175,55,.35);color:var(--gold-2);font-size:11px;padding:8px 10px;border-radius:8px;margin-bottom:12px;text-align:center;">🔒 安全支付 · 交易成功后凭订单号到店核销</div>
+        <div style="background:rgba(212,175,55,.12);border:1px solid rgba(212,175,55,.35);color:var(--gold-2);font-size:11px;padding:8px 10px;border-radius:8px;margin-bottom:12px;text-align:center;">🔒 安全支付 · 交易成功后凭订单号到店核销<br><span style="color:var(--text-4);font-weight:400;">🍸 理性饮酒 · 请勿酒后驾车</span></div>
         <div style="text-align:center;margin-bottom:14px;">
           <div style="font-size:42px;margin-bottom:6px;">💳</div>
           <h3 style="margin:0 0 4px;font-size:17px;">选择支付方式</h3>
@@ -455,7 +455,12 @@ const CartPage = {
       : '<svg viewBox="0 0 24 24" width="22" height="22" fill="#fff"><path d="M2 8h7v8H2zM15 8h7v8h-7zM11 8h2v8h-2z"/></svg>';
     openModal(`
       <div class="pay-success-modal">
-        <div class="ps-ico">✅</div>
+        <div class="ps-ico">
+          <svg viewBox="0 0 52 52" aria-hidden="true">
+            <circle class="ok-circle" cx="26" cy="26" r="24"></circle>
+            <path class="ok-check" d="M15 27l8 8 14-15"></path>
+          </svg>
+        </div>
         <h3 class="ps-title">${esc(method.success)}</h3>
         <p class="ps-sub">已支付 ¥${ctx.orderTotal} · 凭订单号 ${esc(ctx.orderId)} 到店核销<br><span style="font-size:10px;">（已支付 · 凭订单号到店核销）</span></p>
         <div style="display:inline-flex;align-items:center;gap:6px;background:${esc(method.color)};color:#fff;padding:5px 12px;border-radius:16px;margin-bottom:10px;font-size:12px;">
