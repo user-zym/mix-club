@@ -59,31 +59,31 @@ const MerchantPage = {
     return `
       <!-- 数据看板 -->
       <div class="merchant-head">
-        <div class="merchant-title">门店经营看板 <small>实时数据</small></div>
-        <div class="merchant-sub">MIX CLUB · 经营数据实时看板</div>
+        <div class="merchant-title">${t('merchantDashboard')} <small>${t('merchantRealtime')}</small></div>
+        <div class="merchant-sub">${t('merchantSub')}</div>
       </div>
 
       <div class="merchant-stats">
-        ${statCard('今日订单', s.today.length + ' 单', 'var(--gold)')}
-        ${statCard('今日销售', '¥' + s.todaySales, 'var(--green)')}
-        ${statCard('待核销', s.paid + ' 单', '#22d3ee')}
-        ${statCard('核销率', s.verifyRate + '%', 'var(--pink)')}
+        ${statCard(t('todayOrders'), s.today.length + ' ' + t('unitOrders'), 'var(--gold)')}
+        ${statCard(t('todaySales'), '¥' + s.todaySales, 'var(--green)')}
+        ${statCard(t('pendingVerify'), s.paid + ' ' + t('unitOrders'), '#22d3ee')}
+        ${statCard(t('verifyRate'), s.verifyRate + '%', 'var(--pink)')}
       </div>
 
       <!-- 核销台 -->
       <div class="merchant-card">
-        <h3 class="merchant-card-title">核销台 <small>输入顾客订单号 · 扫码核销</small></h3>
+        <h3 class="merchant-card-title">${t('verifyDesk')} <small>${t('verifyDeskSub')}</small></h3>
         <div class="merchant-verify">
           <input id="verifyInput" type="text" placeholder="输入订单号，如 MX2026092901" autocomplete="off"
             style="flex:1;background:var(--bg-3);border:1px solid var(--line);border-radius:8px;color:var(--text-1);padding:10px 12px;font-size:13px;outline:none;">
-          <button class="btn btn-primary" id="verifyBtn">核销</button>
+          <button class="btn btn-primary" id="verifyBtn">${t('verifyNow')}</button>
         </div>
-        <p style="margin:8px 0 0;font-size:10px;color:var(--text-3);">订单核销码由顾客端「我的订单」生成，本台输入订单号即可完成核销。</p>
+        <p style="margin:8px 0 0;font-size:10px;color:var(--text-3);">${t('verifyHintLine')}</p>
       </div>
 
       <!-- 桌台码 -->
       <div class="merchant-card">
-        <h3 class="merchant-card-title">桌台点单码 <small>顾客扫码 → 自动绑定桌台</small></h3>
+        <h3 class="merchant-card-title">${t('tableQr')} <small>${t('tableQrSub')}</small></h3>
         <div class="merchant-table">
           <div class="merchant-table-list" id="tableList">
             ${APP_TABLES.map(t => `
@@ -105,7 +105,7 @@ const MerchantPage = {
       <!-- 订单状态概览 -->
       <div class="merchant-flow-stats">
         <span>待支付 <b style="color:#facc15;">${s.pending}</b></span>
-        <span>待核销 <b style="color:#22d3ee;">${s.paid}</b></span>
+        <span>${t('pendingVerify')} <b style="color:#22d3ee;">${s.paid}</b></span>
         <span>已完成 <b style="color:#4ade80;">${s.completed}</b></span>
         <span>已取消 <b style="color:#9ca3af;">${s.cancelled}</b></span>
       </div>
@@ -120,7 +120,7 @@ const MerchantPage = {
         <div id="chartHour" style="height:200px;width:100%;"></div>
       </div>
       <div class="merchant-card">
-        <h3 class="merchant-card-title">桌台翻台率 <small>已核销桌台订单 ÷ 桌台总数</small></h3>
+        <h3 class="merchant-card-title">${t('turnoverTitle')} <small>${t('turnoverSub')}</small></h3>
         <div id="chartTurnover" style="height:170px;width:100%;"></div>
       </div>
 
@@ -286,12 +286,12 @@ const MerchantPage = {
     openModal(`
       <div style="text-align:center;padding:4px 2px;">
         <div style="font-size:42px;margin-bottom:10px;">📋</div>
-        <h3 style="margin:0 0 6px;font-size:17px;">确认核销订单？</h3>
+        <h3 style="margin:0 0 6px;font-size:17px;">${t('verifyConfirmTitle')}</h3>
         <p style="margin:0 0 4px;color:var(--text-3);font-size:12px;">订单号 ${esc(o.id)} · 实付 ¥${o.total}</p>
         <p style="margin:0 0 18px;color:var(--text-3);font-size:12px;">${o.items.map(it => `${esc(it.name)}×${it.qty}`).join('、')}</p>
         <div style="display:flex;gap:10px;">
           <button class="btn btn-ghost btn-block" style="flex:1;" onclick="closeModal()">取消</button>
-          <button class="btn btn-primary btn-block" style="flex:1;" id="okVerify">确认核销</button>
+          <button class="btn btn-primary btn-block" style="flex:1;" id="okVerify">${t('verifyConfirmBtn')}</button>
         </div>
       </div>
     `);
@@ -299,7 +299,7 @@ const MerchantPage = {
     if (ok) ok.onclick = () => {
       OrderService.updateStatus(o.id, 'completed');
       closeModal();
-      toast('核销成功 · 订单已完成');
+      toast(t('verifySuccess'));
       this.mount(root);
     };
   }
