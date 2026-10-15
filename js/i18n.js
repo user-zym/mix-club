@@ -100,7 +100,8 @@ const I18N_DICT = {
     soldText: '已售', seatKa: '卡座', seatSan: '散台', switchBtn: '更换', changeTable: '更换桌台',
     aiTitle: 'AI 调酒师', aiSub: '描述口味 / 场景 / 强度，3 秒帮你选酒', aiGo: '开始 →',
     evEyebrow: '派对季', buyNow: '立即购票', customTip: '📌 接受预约定制', cdDay: '天', cdHour: '时', cdMin: '分', allEvents: '全部活动',
-    myPlaylist: '我的歌单', songsUnit: '首', liveAudio: '🎧 在线播放 · 现场音频', housePlaylist: '驻场歌单'
+    myPlaylist: '我的歌单', songsUnit: '首', liveAudio: '🎧 在线播放 · 现场音频', housePlaylist: '驻场歌单',
+    bkNoticeTitle: '预订须知', bkNotice1: '预订需提前 2 小时，到店即安排入场', bkNotice2: '预订成功后将发送短信确认，VIP 会员享 8 折', bkNotice3: '取消请提前 1 小时，逾期扣除定金 ¥200'
   },
   en: {
     appName: 'MIX CLUB',
@@ -197,7 +198,8 @@ const I18N_DICT = {
     soldText: 'Sold', seatKa: 'VIP Booth', seatSan: 'Table', switchBtn: 'Change', changeTable: 'Change Table',
     aiTitle: 'AI Mixologist', aiSub: 'Describe taste / scene / strength, get a pick in 3s', aiGo: 'Start →',
     evEyebrow: 'Party Season', buyNow: 'Buy Now', customTip: '📌 Custom booking available', cdDay: 'd', cdHour: 'h', cdMin: 'm', allEvents: 'All Events',
-    myPlaylist: 'My Playlist', songsUnit: 'songs', liveAudio: '🎧 Live now · On-site audio', housePlaylist: 'House Playlist'
+    myPlaylist: 'My Playlist', songsUnit: 'songs', liveAudio: '🎧 Live now · On-site audio', housePlaylist: 'House Playlist',
+    bkNoticeTitle: 'Booking Notes', bkNotice1: 'Book at least 2h ahead; entry arranged on arrival', bkNotice2: 'SMS confirmation sent on success; VIP members enjoy 20% off', bkNotice3: 'Cancel 1h ahead or ¥200 deposit applies'
   }
 };
 
