@@ -1,19 +1,19 @@
 /* ============================================
-   MIX CLUB · Mock Data
+   MIX CLUB · Mock Data（双语：中文默认 / 英文 En 字段）
    ============================================ */
 
 const APP_DATA = {
   banners: [
-    { img: 'images/banner1.jpg',  title: '霓虹夜未眠',       sub: 'DJ KUMA 驻场 · 每周五六晚 22:00' },
-    { img: 'images/banner2.jpg',  title: '钻石会员日',       sub: '包厢8折 · 限定鸡尾酒买一送一' },
-    { img: 'images/banner3.jpg',  title: '「极光」系列',     sub: '调酒师 Allan 主理 · 限时供应' },
-    { img: 'images/banner4.jpg',  title: '周末电音之夜',     sub: '百大 DJ 阵容 · 三屏 VJ 视觉' },
-    { img: 'images/banner5.jpg',  title: '招牌鸡尾酒买二送一', sub: '工作日 20:00–22:00 专享' },
-    { img: 'images/banner6.jpg',  title: 'MIX CLUB 第二季',   sub: '全新主题包厢 · 璀璨启幕' },
-    { img: 'images/banner7.jpg',  title: '生日月专属特调',    sub: '凭身份证到店即享免费一杯' },
-    { img: 'images/banner8.jpg',  title: 'KUMA 现场点播',     sub: '每周更新 · 嗨到天亮' },
-    { img: 'images/banner9.jpg',  title: '在线排队免等候',    sub: '实时叫号 · 一键取号' },
-    { img: 'images/banner10.jpg', title: '调酒师限定特调',    sub: '「东京夜樱」· 微醺浪漫' }
+    { img: 'images/banner1.jpg',  title: '霓虹夜未眠', titleEn: 'Neon Nights Never Sleep', sub: 'DJ KUMA 驻场 · 每周五六晚 22:00', subEn: 'DJ KUMA Resident · Fri–Sat 10pm' },
+    { img: 'images/banner2.jpg',  title: '钻石会员日', titleEn: 'Diamond Member Day', sub: '包厢8折 · 限定鸡尾酒买一送一', subEn: '20% off rooms · 1-for-1 signature cocktails' },
+    { img: 'images/banner3.jpg',  title: '「极光」系列', titleEn: 'Aurora Series', sub: '调酒师 Allan 主理 · 限时供应', subEn: 'Mixologist Allan · Limited time' },
+    { img: 'images/banner4.jpg',  title: '周末电音之夜', titleEn: 'Weekend EDM Night', sub: '百大 DJ 阵容 · 三屏 VJ 视觉', subEn: 'Top-100 DJ lineup · Triple-screen VJ' },
+    { img: 'images/banner5.jpg',  title: '招牌鸡尾酒买二送一', titleEn: '2-for-1 Signature Cocktails', sub: '工作日 20:00–22:00 专享', subEn: 'Weekdays 8pm–10pm only' },
+    { img: 'images/banner6.jpg',  title: 'MIX CLUB 第二季', titleEn: 'MIX CLUB Season 2', sub: '全新主题包厢 · 璀璨启幕', subEn: 'Brand-new themed rooms · Grand opening' },
+    { img: 'images/banner7.jpg',  title: '生日月专属特调', titleEn: 'Birthday Month Special', sub: '凭身份证到店即享免费一杯', subEn: 'One free drink with your ID' },
+    { img: 'images/banner8.jpg',  title: 'KUMA 现场点播', titleEn: 'KUMA Live Requests', sub: '每周更新 · 嗨到天亮', subEn: 'Updated weekly · Party till dawn' },
+    { img: 'images/banner9.jpg',  title: '在线排队免等候', titleEn: 'Skip the Line Online', sub: '实时叫号 · 一键取号', subEn: 'Real-time call · One-tap queue' },
+    { img: 'images/banner10.jpg', title: '调酒师限定特调', titleEn: "Mixologist's Special", sub: '「东京夜樱」· 微醺浪漫', subEn: 'Tokyo Night Cherry · Tipsy romance' }
   ],
 
   quickActions: [
@@ -26,117 +26,122 @@ const APP_DATA = {
   ],
 
   featured: [
-    { id: 'f1', name: '霓虹极光', price: 88, tag: '招牌', img: 'images/霓虹极光.jpg' },
-    { id: 'f2', name: '东京夜樱', price: 108, tag: '新品', img: 'images/东京夜樱.jpg' },
-    { id: 'f3', name: '曼哈顿日落', price: 128, tag: '热销', img: 'images/曼哈顿日落.jpg' },
-    { id: 'f4', name: '蓝色夏威夷', price: 138, tag: '经典', img: 'images/蓝色夏威夷.jpg' },
-    { id: 'f5', name: '威士忌酸', price: 148, tag: '推荐', img: 'images/威士忌酸.jpg' }
+    { id: 'f1', name: '霓虹极光', nameEn: 'Neon Aurora', price: 88, tag: '招牌', tagEn: 'Signature', img: 'images/霓虹极光.jpg' },
+    { id: 'f2', name: '东京夜樱', nameEn: 'Tokyo Night Cherry', price: 108, tag: '新品', tagEn: 'New', img: 'images/东京夜樱.jpg' },
+    { id: 'f3', name: '曼哈顿日落', nameEn: 'Manhattan Sunset', price: 128, tag: '热销', tagEn: 'Hot', img: 'images/曼哈顿日落.jpg' },
+    { id: 'f4', name: '蓝色夏威夷', nameEn: 'Blue Hawaii', price: 138, tag: '经典', tagEn: 'Classic', img: 'images/蓝色夏威夷.jpg' },
+    { id: 'f5', name: '威士忌酸', nameEn: 'Whiskey Sour', price: 148, tag: '推荐', tagEn: 'Recommended', img: 'images/威士忌酸.jpg' }
   ],
 
   menuCategories: [
-    { id: 'all', name: '全部' },
-    { id: 'cocktail', name: '招牌鸡尾酒' },
-    { id: 'whisky', name: '威士忌' },
-    { id: 'wine', name: '葡萄酒' },
-    { id: 'beer', name: '精酿啤酒' },
-    { id: 'snack', name: '佐酒小食' },
-    { id: 'soft', name: '无酒精' }
+    { id: 'all', name: '全部', nameEn: 'All' },
+    { id: 'cocktail', name: '招牌鸡尾酒', nameEn: 'Signature Cocktails' },
+    { id: 'whisky', name: '威士忌', nameEn: 'Whisky' },
+    { id: 'wine', name: '葡萄酒', nameEn: 'Wine' },
+    { id: 'beer', name: '精酿啤酒', nameEn: 'Craft Beer' },
+    { id: 'snack', name: '佐酒小食', nameEn: 'Bar Snacks' },
+    { id: 'soft', name: '无酒精', nameEn: 'Non-Alcoholic' }
   ],
 
   // 18 images => products
   // 定价规则：价格区间 88~588，且全部以 8 结尾（高档酒吧定价惯例）
   products: [
-    { id: 'p01', cat: 'cocktail', name: '霓虹极光',   desc: 'GIN / 蓝柑橘 / 柠檬 / 蝶豆花 · 渐变梦幻口感', tags: ['招牌','热销'], price: 88,  original: 128, sales: 1280, img: 'images/霓虹极光.jpg',  hot: true, tastes: ['清爽','果味','微醺'] },
-    { id: 'p02', cat: 'cocktail', name: '东京夜樱',   desc: '清酒 / 樱花糖浆 / 樱花汽水 · 微醺浪漫',         tags: ['新品','限定'], price: 108, original: 148, sales: 956,  img: 'images/东京夜樱.jpg',  hot: true, tastes: ['果味','甜','微醺'] },
-    { id: 'p03', cat: 'cocktail', name: '曼哈顿日落', desc: '波本威士忌 / 甜苦艾 / 樱桃 · 经典美式',       tags: ['经典'],       price: 128, original: 168, sales: 2105, img: 'images/曼哈顿日落.jpg', tastes: ['浓郁','甜','烈'] },
-    { id: 'p04', cat: 'cocktail', name: '蓝色夏威夷', desc: '白朗姆 / 蓝柑橘 / 菠萝汁 · 海岛风情',         tags: ['人气'],       price: 138, original: 188, sales: 1890, img: 'images/蓝色夏威夷.jpg', tastes: ['果味','甜','清爽'] },
-    { id: 'p05', cat: 'cocktail', name: '威士忌酸',   desc: '波本 / 柠檬汁 / 糖浆 / 蛋清 · 丝滑醇厚',       tags: ['推荐'],       price: 148, original: 198, sales: 762,  img: 'images/威士忌酸.jpg',   tastes: ['酸','浓郁'] },
-    { id: 'p06', cat: 'whisky',   name: 'Macallan 12', desc: '苏格兰单一麦芽 · 雪莉桶 · 12年陈酿',         tags: ['高端','限定'], price: 488, original: 588, sales: 215, img: 'images/Macallan 12.jpg', tastes: ['浓郁','烈'] },
-    { id: 'p07', cat: 'whisky',   name: 'Yamazaki 山崎', desc: '日本威士忌 · 三得利旗舰款 · 入口柔顺',     tags: ['日威'],       price: 588, original: 688, sales: 138, img: 'images/Yamazaki 山崎.jpg', tastes: ['浓郁','微醺'] },
-    { id: 'p08', cat: 'wine',     name: 'Château 红酒', desc: '法国波尔多 · 2015年 · 浓郁黑果香',           tags: ['红酒'],       price: 288, original: 388, sales: 326, img: 'images/Chateau红酒.jpg', tastes: ['浓郁','酸'] },
-    { id: 'p09', cat: 'wine',     name: 'Moet 香槟',    desc: '酩悦 · 法国 · 庆典首选 · 果香清新',          tags: ['香槟'],       price: 328, original: 428, sales: 412, img: 'images/Moet香槟.jpg',    tastes: ['气泡','清爽','甜'] },
-    { id: 'p10', cat: 'beer',     name: 'Asahi 生啤',   desc: '朝日生啤 · 日本原装 · 500ml 扎啤',           tags: ['生啤'],       price: 88,  original: 108, sales: 1567, img: 'images/Asahi生啤.jpg', tastes: ['清爽','气泡'] },
-    { id: 'p11', cat: 'beer',     name: '1664 白啤',    desc: '法国1664 · 柑橘香 · 330ml · 顺滑口感',       tags: ['精酿'],       price: 88,  original: 108, sales: 2103, img: 'images/1664白啤.jpg',  tastes: ['清爽','气泡','果味'] },
+    { id: 'p01', cat: 'cocktail', name: '霓虹极光', nameEn: 'Neon Aurora', desc: 'GIN / 蓝柑橘 / 柠檬 / 蝶豆花 · 渐变梦幻口感', descEn: 'GIN / Blue Curacao / Lemon / Butterfly Pea · gradient dreamy taste', tags: ['招牌','热销'], tagsEn: ['Signature','Hot'], price: 88,  original: 128, sales: 1280, img: 'images/霓虹极光.jpg',  hot: true, tastes: ['清爽','果味','微醺'] },
+    { id: 'p02', cat: 'cocktail', name: '东京夜樱', nameEn: 'Tokyo Night Cherry', desc: '清酒 / 樱花糖浆 / 樱花汽水 · 微醺浪漫', descEn: 'Sake / Sakura syrup / Sakura soda · tipsy romance', tags: ['新品','限定'], tagsEn: ['New','Limited'], price: 108, original: 148, sales: 956,  img: 'images/东京夜樱.jpg',  hot: true, tastes: ['果味','甜','微醺'] },
+    { id: 'p03', cat: 'cocktail', name: '曼哈顿日落', nameEn: 'Manhattan Sunset', desc: '波本威士忌 / 甜苦艾 / 樱桃 · 经典美式', descEn: 'Bourbon / Sweet vermouth / Cherry · classic American', tags: ['经典'], tagsEn: ['Classic'], price: 128, original: 168, sales: 2105, img: 'images/曼哈顿日落.jpg', tastes: ['浓郁','甜','烈'] },
+    { id: 'p04', cat: 'cocktail', name: '蓝色夏威夷', nameEn: 'Blue Hawaii', desc: '白朗姆 / 蓝柑橘 / 菠萝汁 · 海岛风情', descEn: 'White rum / Blue curacao / Pineapple juice · island vibe', tags: ['人气'], tagsEn: ['Popular'], price: 138, original: 188, sales: 1890, img: 'images/蓝色夏威夷.jpg', tastes: ['果味','甜','清爽'] },
+    { id: 'p05', cat: 'cocktail', name: '威士忌酸', nameEn: 'Whiskey Sour', desc: '波本 / 柠檬汁 / 糖浆 / 蛋清 · 丝滑醇厚', descEn: 'Bourbon / Lemon juice / Syrup / Egg white · silky smooth', tags: ['推荐'], tagsEn: ['Recommended'], price: 148, original: 198, sales: 762,  img: 'images/威士忌酸.jpg',   tastes: ['酸','浓郁'] },
+    { id: 'p06', cat: 'whisky',   name: 'Macallan 12', nameEn: 'Macallan 12', desc: '苏格兰单一麦芽 · 雪莉桶 · 12年陈酿', descEn: 'Scottish single malt · Sherry cask · 12-year aged', tags: ['高端','限定'], tagsEn: ['Premium','Limited'], price: 488, original: 588, sales: 215, img: 'images/Macallan 12.jpg', tastes: ['浓郁','烈'] },
+    { id: 'p07', cat: 'whisky',   name: 'Yamazaki 山崎', nameEn: 'Yamazaki', desc: '日本威士忌 · 三得利旗舰款 · 入口柔顺', descEn: 'Japanese whisky · Suntory flagship · smooth entry', tags: ['日威'], tagsEn: ['Japan'], price: 588, original: 688, sales: 138, img: 'images/Yamazaki 山崎.jpg', tastes: ['浓郁','微醺'] },
+    { id: 'p08', cat: 'wine',     name: 'Château 红酒', nameEn: 'Château Rouge', desc: '法国波尔多 · 2015年 · 浓郁黑果香', descEn: 'Bordeaux France · 2015 · rich dark fruit', tags: ['红酒'], tagsEn: ['Red'], price: 288, original: 388, sales: 326, img: 'images/Chateau红酒.jpg', tastes: ['浓郁','酸'] },
+    { id: 'p09', cat: 'wine',     name: 'Moet 香槟', nameEn: 'Moët Champagne', desc: '酩悦 · 法国 · 庆典首选 · 果香清新', descEn: 'Moët · France · celebration pick · fresh fruit', tags: ['香槟'], tagsEn: ['Champagne'], price: 328, original: 428, sales: 412, img: 'images/Moet香槟.jpg',    tastes: ['气泡','清爽','甜'] },
+    { id: 'p10', cat: 'beer',     name: 'Asahi 生啤', nameEn: 'Asahi Draft', desc: '朝日生啤 · 日本原装 · 500ml 扎啤', descEn: 'Asahi draft · Japan · 500ml pint', tags: ['生啤'], tagsEn: ['Draft'], price: 88,  original: 108, sales: 1567, img: 'images/Asahi生啤.jpg', tastes: ['清爽','气泡'] },
+    { id: 'p11', cat: 'beer',     name: '1664 白啤', nameEn: '1664 Blanc', desc: '法国1664 · 柑橘香 · 330ml · 顺滑口感', descEn: 'French 1664 · citrus · 330ml · silky', tags: ['精酿'], tagsEn: ['Craft'], price: 88,  original: 108, sales: 2103, img: 'images/1664白啤.jpg',  tastes: ['清爽','气泡','果味'] },
 
-    { id: 'p12', cat: 'snack',    name: '美式炸鸡拼盘', desc: '原味鸡块 / 鸡翅 / 薯条 · 6件套',            tags: ['人气','炸物'], price: 98,  original: 138, sales: 1452, img: 'images/美式炸鸡拼盘.jpg' },
-    { id: 'p13', cat: 'snack',    name: '芝士焗薯条',   desc: '车达芝士 / 培根碎 / 香葱 · 现烤现做',        tags: ['热销'],       price: 118, original: 158, sales: 1289, img: 'images/芝士焗薯条.jpg?v=2' },
-    { id: 'p14', cat: 'snack',    name: '豪华果盘',     desc: '时令水果 · 草莓 / 哈密瓜 / 蓝莓 · 大份',     tags: ['拼盘'],       price: 138, original: 188, sales: 826,  img: 'images/豪华果盘.jpg?v=2' },
-    { id: 'p15', cat: 'snack',    name: '和牛粒炒饭',   desc: 'A5和牛 / 鸡蛋 / 葱花 · 主厨推荐',            tags: ['主厨'],       price: 188, original: 248, sales: 538,  img: 'images/和牛粒炒饭.jpg' },
-    { id: 'p16', cat: 'soft',     name: '莫吉托无酒精', desc: '薄荷 / 青柠 / 苏打 · 0酒精放心喝',           tags: ['无酒精'],     price: 128, original: 168, sales: 692,  img: 'images/莫吉托无酒精.jpg', tastes: ['清爽','无酒精'] },
-    { id: 'p17', cat: 'soft',     name: '鲜榨果汁',     desc: '当季鲜果现榨 · 橙汁 / 西瓜 / 苹果',          tags: ['健康'],       price: 108, original: 148, sales: 1124, img: 'images/鲜榨果汁.jpg', tastes: ['果味','无酒精','清爽'] },
-    { id: 'p18', cat: 'soft',     name: '精品气泡水',   desc: '巴黎水 / 圣培露 · 750ml · 佐酒必备',         tags: ['气泡'],       price: 98,  original: 138, sales: 988,  img: 'images/巴黎气泡水.jpg', tastes: ['气泡','无酒精','清爽'] }
+    { id: 'p12', cat: 'snack',    name: '美式炸鸡拼盘', nameEn: 'American Fried Chicken Platter', desc: '原味鸡块 / 鸡翅 / 薯条 · 6件套', descEn: 'Nuggets / wings / fries · 6 pcs', tags: ['人气','炸物'], tagsEn: ['Popular','Fried'], price: 98,  original: 138, sales: 1452, img: 'images/美式炸鸡拼盘.jpg' },
+    { id: 'p13', cat: 'snack',    name: '芝士焗薯条', nameEn: 'Cheesy Loaded Fries', desc: '车达芝士 / 培根碎 / 香葱 · 现烤现做', descEn: 'Cheddar / bacon bits / chives · freshly baked', tags: ['热销'], tagsEn: ['Hot'], price: 118, original: 158, sales: 1289, img: 'images/芝士焗薯条.jpg?v=2' },
+    { id: 'p14', cat: 'snack',    name: '豪华果盘', nameEn: 'Deluxe Fruit Platter', desc: '时令水果 · 草莓 / 哈密瓜 / 蓝莓 · 大份', descEn: 'Seasonal fruits · strawberry / melon / blueberry · large', tags: ['拼盘'], tagsEn: ['Platter'], price: 138, original: 188, sales: 826,  img: 'images/豪华果盘.jpg?v=2' },
+    { id: 'p15', cat: 'snack',    name: '和牛粒炒饭', nameEn: 'Wagyu Fried Rice', desc: 'A5和牛 / 鸡蛋 / 葱花 · 主厨推荐', descEn: "A5 wagyu / egg / scallion · chef's pick", tags: ['主厨'], tagsEn: ['Chef'], price: 188, original: 248, sales: 538,  img: 'images/和牛粒炒饭.jpg' },
+    { id: 'p16', cat: 'soft',     name: '莫吉托无酒精', nameEn: 'Virgin Mojito', desc: '薄荷 / 青柠 / 苏打 · 0酒精放心喝', descEn: 'Mint / lime / soda · zero alcohol', tags: ['无酒精'], tagsEn: ['Non-Alc'], price: 128, original: 168, sales: 692,  img: 'images/莫吉托无酒精.jpg', tastes: ['清爽','无酒精'] },
+    { id: 'p17', cat: 'soft',     name: '鲜榨果汁', nameEn: 'Fresh Juice', desc: '当季鲜果现榨 · 橙汁 / 西瓜 / 苹果', descEn: 'Seasonal fresh squeeze · orange / watermelon / apple', tags: ['健康'], tagsEn: ['Healthy'], price: 108, original: 148, sales: 1124, img: 'images/鲜榨果汁.jpg', tastes: ['果味','无酒精','清爽'] },
+    { id: 'p18', cat: 'soft',     name: '精品气泡水', nameEn: 'Premium Sparkling Water', desc: '巴黎水 / 圣培露 · 750ml · 佐酒必备', descEn: 'Perrier / San Pellegrino · 750ml', tags: ['气泡'], tagsEn: ['Sparkling'], price: 98,  original: 138, sales: 988,  img: 'images/巴黎气泡水.jpg', tastes: ['气泡','无酒精','清爽'] }
   ],
 
   eventTypes: [
-    { id: 'all', name: '全部活动' },
-    { id: 'weekend', name: '周末派对' },
-    { id: 'theme', name: '主题之夜' },
-    { id: 'dj', name: 'DJ专场' },
-    { id: 'private', name: '私人定制' }
+    { id: 'all', name: '全部活动', nameEn: 'All Events' },
+    { id: 'weekend', name: '周末派对', nameEn: 'Weekend Parties' },
+    { id: 'theme', name: '主题之夜', nameEn: 'Theme Nights' },
+    { id: 'dj', name: 'DJ专场', nameEn: 'DJ Nights' },
+    { id: 'private', name: '私人定制', nameEn: 'Private Custom' }
   ],
 
   events: [
     {
       id: 'e1', cat: 'dj',
-      title: 'EDM 狂潮之夜',
+      title: 'EDM 狂潮之夜', titleEn: 'EDM Rampage Night',
       img: 'images/EDM狂潮之夜.jpg',
       date: '07/19', weekday: '周六',
       time: '22:00 - 02:00',
-      place: 'MIX 主厅',
+      place: 'MIX 主厅', placeEn: 'MIX Main Hall',
       desc: '亚洲百大DJ KUMA 亲临现场，三屏联动VJ视觉，带你穿越音浪的极限。',
-      tags: ['DJ专场','电子'],
+      descEn: 'Asia top-100 DJ KUMA live, triple-screen VJ visuals, ride the sound wave.',
+      tags: ['DJ专场','电子'], tagsEn: ['DJ','EDM'],
       price: 188, original: 268,
       countdown: true,
       booked: 156, capacity: 300
     },
     {
       id: 'e2', cat: 'theme',
-      title: '霓虹复古 80s',
+      title: '霓虹复古 80s', titleEn: 'Neon Retro 80s',
       img: 'images/霓虹复古80s.jpg',
       date: '07/25', weekday: '周五',
       time: '21:00 - 01:00',
-      place: 'MIX 全场',
+      place: 'MIX 全场', placeEn: 'MIX Full Venue',
       desc: '穿越回80年代！复古Disco装扮可享鸡尾酒8折，DJ精选Disco金曲。',
-      tags: ['主题','复古'],
+      descEn: 'Back to the 80s! Retro disco outfits get 20% off cocktails, DJ spins disco classics.',
+      tags: ['主题','复古'], tagsEn: ['Theme','Retro'],
       price: 128, original: 168,
       countdown: true,
       booked: 89, capacity: 200
     },
     {
       id: 'e3', cat: 'weekend',
-      title: '嘻哈之夜',
+      title: '嘻哈之夜', titleEn: 'Hip-Hop Night',
       img: 'images/嘻哈之夜.jpg',
       date: '07/26', weekday: '周六',
       time: '22:30 - 03:00',
-      place: 'MIX 主厅',
+      place: 'MIX 主厅', placeEn: 'MIX Main Hall',
       desc: '国内顶尖Hip-hop DJ阵容，freestyle battle现场开战，嘻哈迷不可错过。',
-      tags: ['嘻哈','潮流'],
+      descEn: 'Top domestic hip-hop DJ lineup with a live freestyle battle — a must for hip-hop heads.',
+      tags: ['嘻哈','潮流'], tagsEn: ['Hip-Hop','Trend'],
       price: 158, original: 198,
       countdown: true,
       booked: 234, capacity: 350
     },
     {
       id: 'e4', cat: 'private',
-      title: '私人包场派对',
+      title: '私人包场派对', titleEn: 'Private Buyout Party',
       img: 'images/私人包场派对.jpg',
       date: '定制', weekday: '预约',
       time: '自定义',
-      place: 'VIP 包厢',
+      place: 'VIP 包厢', placeEn: 'VIP Rooms',
       desc: '20人起订，专属定制派对流程，明星同款DJ、生日/求婚/团建首选。',
-      tags: ['定制','高端'],
+      descEn: 'Book from 20 guests with a fully customized flow and celebrity-style DJ — birthdays, proposals, team events.',
+      tags: ['定制','高端'], tagsEn: ['Custom','Premium'],
       price: 5888, original: 8888,
       countdown: false,
       booked: 12, capacity: 50
     },
     {
       id: 'e5', cat: 'theme',
-      title: '七夕情人节专场',
+      title: '七夕情人节专场', titleEn: 'Qixi Valentine Special',
       img: 'images/七夕情人节专场.jpg',
       date: '08/10', weekday: '周日',
       time: '20:00 - 24:00',
-      place: 'MIX 露台',
+      place: 'MIX 露台', placeEn: 'MIX Terrace',
       desc: '星空露台+双人套餐+情侣鸡尾酒，浪漫之夜从MIX开始。',
-      tags: ['情人节','浪漫'],
+      descEn: "Starry terrace, couple set and lover's cocktails — romance starts at MIX.",
+      tags: ['情人节','浪漫'], tagsEn: ['Valentine','Romance'],
       price: 588, original: 888,
       countdown: true,
       booked: 67, capacity: 100
@@ -144,33 +149,33 @@ const APP_DATA = {
   ],
 
   rooms: [
-    { id: 'r1', name: '豪华大包厢', img: 'images/豪华大包厢.jpg', desc: 'KTV · 独立卫生间 · 30m²', price: 1980, capacity: '8-12人', tags: ['KTV','豪华'] },
-    { id: 'r2', name: '星空露台包', img: 'images/星空露台包厢.jpg', desc: '户外露台 · 夜景一流 · 25m²', price: 1680, capacity: '6-10人', tags: ['露台','夜景'] },
-    { id: 'r3', name: '小型派对房', img: 'images/MINI派对包厢.jpg', desc: '音响环绕 · 适合聚会 · 20m²', price: 1280, capacity: '4-8人', tags: ['聚会'] },
-    { id: 'r4', name: 'VIP钻石包', img: 'images/VIP钻石包厢.jpg', desc: '顶级音响 · 独立DJ台 · 40m²', price: 2880, capacity: '10-15人', tags: ['VIP','顶级'] }
+    { id: 'r1', name: '豪华大包厢', nameEn: 'Deluxe Room', img: 'images/豪华大包厢.jpg', desc: 'KTV · 独立卫生间 · 30m²', descEn: 'KTV · Private bath · 30m²', price: 1980, capacity: '8-12人', capacityEn: '8-12 pax', tags: ['KTV','豪华'], tagsEn: ['KTV','Deluxe'] },
+    { id: 'r2', name: '星空露台包', nameEn: 'Star Terrace', img: 'images/星空露台包厢.jpg', desc: '户外露台 · 夜景一流 · 25m²', descEn: 'Outdoor terrace · skyline view · 25m²', price: 1680, capacity: '6-10人', capacityEn: '6-10 pax', tags: ['露台','夜景'], tagsEn: ['Terrace','View'] },
+    { id: 'r3', name: '小型派对房', nameEn: 'Mini Party Room', img: 'images/MINI派对包厢.jpg', desc: '音响环绕 · 适合聚会 · 20m²', descEn: 'Surround sound · hangout-ready · 20m²', price: 1280, capacity: '4-8人', capacityEn: '4-8 pax', tags: ['聚会'], tagsEn: ['Party'] },
+    { id: 'r4', name: 'VIP钻石包', nameEn: 'VIP Diamond Room', img: 'images/VIP钻石包厢.jpg', desc: '顶级音响 · 独立DJ台 · 40m²', descEn: 'Top sound · private DJ booth · 40m²', price: 2880, capacity: '10-15人', capacityEn: '10-15 pax', tags: ['VIP','顶级'], tagsEn: ['VIP','Premium'] }
   ],
 
   vipLevels: [
-    { lvl: 1, name: '青铜会员', min: 0, max: 999, color: '#cd7f32' },
-    { lvl: 2, name: '白银会员', min: 1000, max: 4999, color: '#c0c0c0' },
-    { lvl: 3, name: '黄金会员', min: 5000, max: 19999, color: '#d4af37' },
-    { lvl: 4, name: '钻石会员', min: 20000, max: 99999, color: '#b9f2ff' },
-    { lvl: 5, name: '黑金至尊', min: 100000, max: Infinity, color: '#1a1a1a' }
+    { lvl: 1, name: '青铜会员', nameEn: 'Bronze Member', min: 0, max: 999, color: '#cd7f32' },
+    { lvl: 2, name: '白银会员', nameEn: 'Silver Member', min: 1000, max: 4999, color: '#c0c0c0' },
+    { lvl: 3, name: '黄金会员', nameEn: 'Gold Member', min: 5000, max: 19999, color: '#d4af37' },
+    { lvl: 4, name: '钻石会员', nameEn: 'Diamond Member', min: 20000, max: 99999, color: '#b9f2ff' },
+    { lvl: 5, name: '黑金至尊', nameEn: 'Obsidian Elite', min: 100000, max: Infinity, color: '#1a1a1a' }
   ],
 
   vipBenefits: [
-    { icon: '🎁', name: '生日礼遇', desc: '生日月免费鸡尾酒一杯', unlocked: true },
-    { icon: '💎', name: '积分双倍', desc: '消费积分 ×2', unlocked: true },
-    { icon: '🍾', name: '免费存酒', desc: '专属酒柜寄存服务', unlocked: true },
-    { icon: '🎟️', name: '包厢折扣', desc: '包厢预订8折', unlocked: true },
-    { icon: '👑', name: '专属管家', desc: '一对一专属服务', unlocked: false, need: '钻石会员' },
-    { icon: '🌟', name: '私享派对', desc: '年度私享派对入场券', unlocked: false, need: '钻石会员' }
+    { icon: '🎁', name: '生日礼遇', nameEn: 'Birthday Treat', desc: '生日月免费鸡尾酒一杯', descEn: 'Free cocktail in your birthday month', unlocked: true },
+    { icon: '💎', name: '积分双倍', nameEn: 'Double Points', desc: '消费积分 ×2', descEn: '×2 points on spending', unlocked: true },
+    { icon: '🍾', name: '免费存酒', nameEn: 'Free Storage', desc: '专属酒柜寄存服务', descEn: 'Private bottle locker service', unlocked: true },
+    { icon: '🎟️', name: '包厢折扣', nameEn: 'Room Discount', desc: '包厢预订8折', descEn: '20% off room bookings', unlocked: true },
+    { icon: '👑', name: '专属管家', nameEn: 'Butler Service', desc: '一对一专属服务', descEn: '1-on-1 dedicated service', unlocked: false, need: '钻石会员', needEn: 'Diamond' },
+    { icon: '🌟', name: '私享派对', nameEn: 'Private Parties', desc: '年度私享派对入场券', descEn: 'Annual private party pass', unlocked: false, need: '钻石会员', needEn: 'Diamond' }
   ],
 
   vipCards: [
-    { type: '钻石卡', num: '8888 6666 2222 ****', icon: '💎', desc: '主卡 · 2027.06 到期' },
-    { type: '预付卡', num: '6200 1188 0055 ****', icon: '💳', desc: '余额 ¥2,388.00' },
-    { type: '积分卡', num: 'V-MIX-2026-8888', icon: '⭐', desc: '可用积分 12,860' }
+    { type: '钻石卡', typeEn: 'Diamond', num: '8888 6666 2222 ****', icon: '💎', desc: '主卡 · 2027.06 到期', descEn: 'Main card · Expires 2027.06' },
+    { type: '预付卡', typeEn: 'Prepaid', num: '6200 1188 0055 ****', icon: '💳', desc: '余额 ¥2,388.00', descEn: 'Balance ¥2,388.00' },
+    { type: '积分卡', typeEn: 'Points', num: 'V-MIX-2026-8888', icon: '⭐', desc: '可用积分 12,860', descEn: 'Available points 12,860' }
   ],
 
   playlist: [
@@ -189,6 +194,13 @@ const APP_DATA = {
     '🍸 招牌鸡尾酒买二送一 · 仅限工作日 20:00-22:00',
     '👑 新用户首单立减 ¥50 · 钻石会员专属',
     '🎂 本月生日会员到店即享生日特调一杯'
+  ],
+
+  noticesEn: [
+    '🎉 EDM Rampage Night · Early-bird 30% off',
+    '🍸 2-for-1 signature cocktails · Weekdays 8–10pm only',
+    '👑 ¥50 off first order · Diamond members only',
+    '🎂 Birthday members enjoy a free special this month'
   ],
 
   // 排队取号页配置
