@@ -30,6 +30,7 @@ const MerchantPage = {
   render() {
     const s = this.stats();
     const tb = TableService.current();
+    const pEn = (nm) => LangService.isEn() ? ((APP_DATA.products.find(x => x.name === nm) || {}).nameEn || nm) : nm;
 
     const statCard = (label, val, color) => `
       <div class="merchant-stat">
@@ -39,7 +40,7 @@ const MerchantPage = {
 
     const topList = s.top.length ? s.top.map(t => `
       <div class="merchant-top-item">
-        <span class="n">${esc(t.name)}</span>
+        <span class="n">${esc(pEn(t.name))}</span>
         <span class="bar"><i style="width:${Math.max(12, Math.round(t.qty / s.maxQty * 100))}%"></i></span>
         <span class="q">×${t.qty}</span>
       </div>`).join('') : (LangService.isEn() ? '<p style="color:var(--text-3);font-size:12px;text-align:center;padding:10px 0;">No sales data yet</p>' : '<p style="color:var(--text-3);font-size:12px;text-align:center;padding:10px 0;">暂无销售数据</p>');
@@ -288,7 +289,7 @@ const MerchantPage = {
         <div style="font-size:42px;margin-bottom:10px;">📋</div>
         <h3 style="margin:0 0 6px;font-size:17px;">${t('verifyConfirmTitle')}</h3>
         <p style="margin:0 0 4px;color:var(--text-3);font-size:12px;">订单号 ${esc(o.id)} · 实付 ¥${o.total}</p>
-        <p style="margin:0 0 18px;color:var(--text-3);font-size:12px;">${o.items.map(it => `${esc(it.name)}×${it.qty}`).join('、')}</p>
+        <p style="margin:0 0 18px;color:var(--text-3);font-size:12px;">${o.items.map(it => `${esc(pEn(it.name))}×${it.qty}`).join(', ')}</p>
         <div style="display:flex;gap:10px;">
           <button class="btn btn-ghost btn-block" style="flex:1;" onclick="closeModal()">取消</button>
           <button class="btn btn-primary btn-block" style="flex:1;" id="okVerify">${t('verifyConfirmBtn')}</button>
