@@ -3,7 +3,7 @@
    离线优先缓存：应用外壳 + 运行时资源（图片等）
    ============================================ */
 
-const CACHE_NAME = 'mix-club-v36';
+const CACHE_NAME = 'mix-club-v31';
 
 // 应用外壳：首装即缓存，保证离线可打开
 const APP_SHELL = [
@@ -56,7 +56,7 @@ self.addEventListener('activate', function (event) {
   self.clients.claim();
 });
 
-// 网络优先：在线时永远拿最新（避免旧缓存卡住更新），离线回退缓存
+// 缓存优先：命中缓存直接返回，未命中则请求并写入缓存
 self.addEventListener('fetch', function (event) {
   const req = event.request;
   if (req.method !== 'GET') return;
@@ -64,17 +64,17 @@ self.addEventListener('fetch', function (event) {
   if (url.origin !== location.origin) return; // 跨域资源不做离线缓存
 
   event.respondWith(
-    fetch(req).then(function (res) {
-      if (res && res.ok) {
-        const copy = res.clone();
-        caches.open(CACHE_NAME).then(function (cache) {
-          cache.put(req, copy);
-        });
-      }
-      return res;
-    }).catch(function () {
-      return caches.match(req).then(function (cached) {
-        if (cached) return cached;
+    caches.match(req).then(function (cached) {
+      if (cached) return cached;
+      return fetch(req).then(function (res) {
+        if (res && res.ok) {
+          const copy = res.clone();
+          caches.open(CACHE_NAME).then(function (cache) {
+            cache.put(req, copy);
+          });
+        }
+        return res;
+      }).catch(function () {
         // 离线且未缓存：尝试返回应用外壳，避免白屏
         if (req.mode === 'navigate') return caches.match('./index.html');
         return Response.error();
