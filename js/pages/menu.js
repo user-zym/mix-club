@@ -9,7 +9,7 @@ const MenuPage = {
 
   render() {
     const tabs = APP_DATA.menuCategories.map(c =>
-      `<button class="menu-tab ${c.id === this.curCat ? 'active' : ''}" data-cat="${esc(c.id)}">${esc(c.name)}</button>`
+      `<button class="menu-tab ${c.id === this.curCat ? 'active' : ''}" data-cat="${esc(c.id)}">${esc(c.id === 'all' ? (LangService.isEn() ? 'All' : c.name) : c.name)}</button>`
     ).join('');
 
     const list = this.filterList();
