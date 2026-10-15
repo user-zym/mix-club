@@ -38,7 +38,14 @@ const MenuPage = {
       </div>
     `).join('');
 
+    const tb = TableService.current();
     return `
+      ${tb ? `
+      <div class="menu-table-bar">
+        <span class="mtb-info">🪑 当前桌台 <b>${esc(tb.no)}</b> · ${tb.type === 'ka' ? '卡座' : '散台'}</span>
+        <button class="mtb-switch" id="menuTableSwitch">更换</button>
+      </div>` : ''}
+
       <!-- Search -->
       <div class="menu-search">
         <div class="box">
@@ -130,7 +137,51 @@ const MenuPage = {
     setTimeout(() => el.classList.remove('flash-focus'), 2200);
   },
 
+  // 更换桌台（与首页扫码点单共用 TableService，桌台号 K01-K06 / S01-S12）
+  switchTable(root) {
+    const tb = TableService.current();
+    openModal(`
+      <h3 style="margin:0 0 6px;font-size:17px;">🪑 更换桌台</h3>
+      <p style="margin:0 0 12px;color:var(--text-3);font-size:11px;">选择桌台号（K01-K06 · S01-S12）· 扫码绑定桌台</p>
+      <input id="menuTableNo" type="text" placeholder="${tb ? '当前桌台 ' + esc(tb.no) : '输入桌台号，如 S03'}" autocomplete="off"
+        style="width:100%;background:var(--bg-3);border:1px solid var(--line);border-radius:8px;color:var(--text-1);padding:11px 12px;font-size:14px;outline:none;box-sizing:border-box;">
+      <div class="ai-chips" style="margin:10px 0;">
+        ${APP_TABLES.map(t => `<button class="ai-chip" data-mtb="${t.id}">${t.id}</button>`).join('')}
+      </div>
+      <button class="btn btn-primary btn-block" id="menuBindTable">绑定桌台</button>
+      ${tb ? `<button class="btn btn-ghost btn-block" id="menuClearTable" style="margin-top:8px;">解绑当前桌台</button>` : ''}
+    `);
+    document.querySelectorAll('[data-mtb]').forEach(c => {
+      c.addEventListener('click', () => {
+        const inp = document.getElementById('menuTableNo');
+        if (inp) inp.value = c.getAttribute('data-mtb');
+      });
+    });
+    const bind = document.getElementById('menuBindTable');
+    if (bind) bind.addEventListener('click', () => {
+      const inp = document.getElementById('menuTableNo');
+      const no = inp ? inp.value.trim() : '';
+      if (!no) { toast('请输入桌台号'); return; }
+      const res = TableService.bind(no);
+      if (!res.ok) { toast(res.msg, 'error'); return; }
+      closeModal();
+      toast('已绑定桌台 ' + res.t.no + ' · 下单自动关联');
+      this.mount(root);
+    });
+    const clear = document.getElementById('menuClearTable');
+    if (clear) clear.addEventListener('click', () => {
+      TableService.clear();
+      closeModal();
+      toast('已解绑桌台');
+      this.mount(root);
+    });
+  },
+
   bindEvents(root) {
+    // 桌台 badge：更换桌台
+    const mts = root.querySelector('#menuTableSwitch');
+    if (mts) mts.addEventListener('click', () => this.switchTable(root));
+
     // Tabs
     root.querySelectorAll('[data-cat]').forEach(t => {
       t.addEventListener('click', () => {
