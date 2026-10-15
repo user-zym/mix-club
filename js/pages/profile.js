@@ -9,11 +9,11 @@ const ProfilePage = {
       return `
         <div class="auth-gate">
           <div class="auth-gate-illu">🎤</div>
-          <h2>您还未登录</h2>
-          <p>登录后即可查看会员积分、订单、专属权益</p>
-          <button class="btn btn-primary btn-block" id="gateLogin">立即登录</button>
-          <button class="btn btn-ghost btn-block" id="gateRegister" style="margin-top:10px;">注册新账号</button>
-          <div class="auth-gate-demo" id="gateDemo">使用体验账号登录 →</div>
+          <h2>${t('notSignedIn')}</h2>
+          <p>${t('loginSub')}</p>
+          <button class="btn btn-primary btn-block" id="gateLogin">${t('signInNow')}</button>
+          <button class="btn btn-ghost btn-block" id="gateRegister" style="margin-top:10px;">${t('registerNow')}</button>
+          <div class="auth-gate-demo" id="gateDemo">${t('useGuest')} →</div>
         </div>
       `;
     }
@@ -30,15 +30,15 @@ const ProfilePage = {
         <div class="profile-top">
           <div class="profile-avatar">${esc(u.avatar)}</div>
           <div class="profile-info">
-            <h2 class="profile-name">${esc(u.name) || '用户'}</h2>
+            <h2 class="profile-name">${esc(u.name) || t('guestName')}</h2>
             <p>${esc(lv.name)} · ID ${esc(u.id) || '-'}</p>
           </div>
         </div>
         <div class="profile-stats">
-          <div class="stat"><b>${u.points}</b><small>积分</small></div>
-          <div class="stat"><b>${u.coupons}</b><small>优惠券</small></div>
-          <div class="stat"><b>${bookings.length}</b><small>预订</small></div>
-          <div class="stat"><b>${u.balance}</b><small>余额</small></div>
+          <div class="stat"><b>${u.points}</b><small>${t('points')}</small></div>
+          <div class="stat"><b>${u.coupons}</b><small>${t('coupons')}</small></div>
+          <div class="stat"><b>${bookings.length}</b><small>${t('reservations')}</small></div>
+          <div class="stat"><b>${u.balance}</b><small>${t('balance')}</small></div>
         </div>
       </div>
 
@@ -54,17 +54,17 @@ const ProfilePage = {
               <div class="event-thumb" style="background:linear-gradient(135deg,#d4af37,#7c3aed);display:flex;align-items:center;justify-content:center;font-size:24px;">📅</div>
               <div class="event-info">
                 <h4>${esc(b.room || b.table)}</h4>
-                <p>${esc(b.date)}${b.time ? ' ' + esc(b.time) : ''} · ${b.type === 'table' ? '桌台' : '包厢'}</p>
+                <p>${esc(b.date)}${b.time ? ' ' + esc(b.time) : ''} · ${b.type === 'table' ? t('table') : t('roomWord')}</p>
                 <div class="row">
                   ${b.status === 'cancelled'
-                    ? '<span class="chip" style="background:rgba(120,120,120,.15);color:#999;">已取消</span>'
-                    : '<span class="chip green">已确认</span>'}
+                    ? '<span class="chip" style="background:rgba(120,120,120,.15);color:#999;">' + t('cancelled') + '</span>'
+                    : '<span class="chip green">' + t('confirmed') + '</span>'}
                   <span style="color:var(--gold-2);font-weight:700;">¥${b.price}</span>
                 </div>
                 ${b.status !== 'cancelled' ? `
                 <div style="margin-top:8px;display:flex;gap:8px;">
-                  <button class="btn btn-ghost" style="padding:5px 12px;font-size:11px;" data-cancel-bk="${esc(b.id)}">取消预订</button>
-                  <span style="font-size:10px;color:var(--text-4);align-self:center;">${b.type === 'table' ? '取消后该桌台即时释放' : '取消后包厢即时释放'}</span>
+                  <button class="btn btn-ghost" style="padding:5px 12px;font-size:11px;" data-cancel-bk="${esc(b.id)}">${t('cancelBk')}</button>
+                  <span style="font-size:10px;color:var(--text-4);align-self:center;">${b.type === 'table' ? (LangService.isEn() ? 'Table released on cancel' : '取消后该桌台即时释放') : (LangService.isEn() ? 'Room released on cancel' : '取消后包厢即时释放')}</span>
                 </div>` : ''}
               </div>
             </div>
@@ -87,61 +87,61 @@ const ProfilePage = {
       <div class="menu-list-card">
         <div class="menu-list-item" id="goOrders">
           <div class="ico" style="background:rgba(7,193,96,.15);">🧾</div>
-          <span class="text">我的订单</span>
-          <span class="extra">${orders.length}单</span>
+          <span class="text">${t('myOrders')}</span>
+          <span class="extra">${orders.length}${LangService.isEn() ? ' orders' : '单'}</span>
           <span class="arrow">›</span>
         </div>
         <div class="menu-list-item" id="goSign">
           <div class="ico" style="background:rgba(250,204,21,.15);">📅</div>
-          <span class="text">每日签到</span>
+          <span class="text">${t('dailyCheckin')}</span>
           <span class="extra">+10积分/天</span>
           <span class="arrow">›</span>
         </div>
         <div class="menu-list-item" id="goMall">
           <div class="ico" style="background:rgba(16,185,129,.15);">🎁</div>
-          <span class="text">积分商城</span>
+          <span class="text">${t('pointsMall')}</span>
           <span class="extra">${this.mallItems().length} 件好礼</span>
           <span class="arrow">›</span>
         </div>
         <div class="menu-list-item" id="goInvite">
           <div class="ico" style="background:rgba(99,102,241,.15);">📣</div>
-          <span class="text">邀请好友</span>
+          <span class="text">${t('inviteFriends')}</span>
           <span class="extra">享 200 积分</span>
           <span class="arrow">›</span>
         </div>
         <div class="menu-list-item" id="goCoupons">
           <div class="ico" style="background:rgba(212,175,55,.15);">🎟️</div>
-          <span class="text">我的优惠券</span>
+          <span class="text">${t('myCoupons')}</span>
           <span class="extra">${u.coupons}张可用</span>
           <span class="arrow">›</span>
         </div>
         <div class="menu-list-item" id="goPoints">
           <div class="ico" style="background:rgba(124,58,237,.15);">⭐</div>
-          <span class="text">积分明细</span>
+          <span class="text">${t('pointsHistory')}</span>
           <span class="extra">${fmtNum(u.points)}</span>
           <span class="arrow">›</span>
         </div>
         <div class="menu-list-item" id="goWallet">
           <div class="ico" style="background:rgba(34,211,238,.15);">💳</div>
-          <span class="text">我的钱包</span>
+          <span class="text">${t('myWallet')}</span>
           <span class="extra">¥${u.balance}</span>
           <span class="arrow">›</span>
         </div>
         <div class="menu-list-item" id="goAddress">
           <div class="ico" style="background:rgba(16,185,129,.15);">📍</div>
-          <span class="text">收货地址</span>
+          <span class="text">${t('myAddress')}</span>
           <span class="arrow">›</span>
         </div>
         <div class="menu-list-item" id="goHelp">
           <div class="ico" style="background:rgba(255,45,111,.15);">💬</div>
-          <span class="text">在线客服</span>
+          <span class="text">${t('support')}</span>
           <span class="extra">7×24h</span>
           <span class="arrow">›</span>
         </div>
         <div class="menu-list-item" id="goMerchant">
           <div class="ico" style="background:rgba(212,175,55,.15);">📊</div>
-          <span class="text">门店管理</span>
-          <span class="extra">看板 · 核销</span>
+          <span class="text">${t('storeAdmin')}</span>
+          <span class="extra">${t('merchantDashboard')} · ${t('verifyNow')}</span>
           <span class="arrow">›</span>
         </div>
         <div class="menu-list-item" id="goAbout">
@@ -167,7 +167,7 @@ const ProfilePage = {
       </div>
 
       <div class="page-footer">
-        © 2026 MIX CLUB · 个人中心
+        © 2026 MIX CLUB · ${t('footerProfile')}
       </div>
     `;
   },
@@ -264,7 +264,7 @@ const ProfilePage = {
 
   // ---------- 订单中心 ----------
   orderStatusLabel(o) {
-    return { pending: '待支付', paid: '待核销', completed: '已完成', cancelled: '已取消' }[o.status] || '处理中';
+    return { pending: t('orderPending'), paid: t('orderStatusPaid'), completed: t('completed'), cancelled: t('cancelled') }[o.status] || t('orderProcessing');
   },
   orderChip(o) {
     const label = this.orderStatusLabel(o);
@@ -280,7 +280,7 @@ const ProfilePage = {
         <div class="event-thumb" style="background:linear-gradient(135deg,#07c160,#22d3ee);display:flex;align-items:center;justify-content:center;font-size:24px;">🧾</div>
         <div class="event-info">
           <h4>${esc(o.id)}</h4>
-          <p>${o.items.length} 件商品 · ${this.fmtDateTime(o.created)}</p>
+          <p>${o.items.reduce((s, i) => s + (i.qty || 1), 0)} ${t('items')} · ${this.fmtDateTime(o.created)}</p>
           <div class="row">
             ${this.orderChip(o)}
             <span style="color:var(--gold-2);font-weight:700;">¥${o.total}</span>
@@ -294,9 +294,9 @@ const ProfilePage = {
   },
   showOrders() {
     const orders = OrderService.list();
-    if (!orders.length) { toast('暂无订单，去点一杯吧'); return; }
+    if (!orders.length) { toast(t('noOrders')); return; }
     openModal(`
-      <h3 style="margin:0 0 14px;">我的订单 <small style="color:var(--text-3);font-weight:400;">${orders.length} 单</small></h3>
+      <h3 style="margin:0 0 14px;">${t('myOrders')} <small style="color:var(--text-3);font-weight:400;">${orders.length} ${LangService.isEn() ? 'orders' : '单'}</small></h3>
       <div style="max-height:60vh;overflow-y:auto;margin:0 -8px;padding:0 8px;">
         ${orders.map(o => this.orderCard(o)).join('')}
       </div>
@@ -307,19 +307,19 @@ const ProfilePage = {
   },
   showOrderDetail(id) {
     const o = OrderService.find(id);
-    if (!o) { toast('订单不存在'); return; }
-    const methodName = CartPage.payMethods[o.method] ? CartPage.payMethods[o.method].name : '其他';
+    if (!o) { toast(t('orderNotExist')); return; }
+    const methodName = CartPage.payMethods[o.method] ? CartPage.payMethods[o.method].name : t('payOther');
     openModal(`
       <div class="order-detail">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
-          <h3 style="margin:0;font-size:17px;">订单详情</h3>
+          <h3 style="margin:0;font-size:17px;">${t('orderDetail')}</h3>
           ${this.orderChip(o)}
         </div>
         <div style="background:var(--bg-3);padding:12px;border-radius:10px;font-size:12px;line-height:2;margin-bottom:12px;">
-          <div style="display:flex;justify-content:space-between;"><span style="color:var(--text-3);">订单号</span><strong>${esc(o.id)}</strong></div>
-          <div style="display:flex;justify-content:space-between;"><span style="color:var(--text-3);">支付方式</span><strong>${esc(methodName)}</strong></div>
-          ${o.table ? `<div style="display:flex;justify-content:space-between;"><span style="color:var(--text-3);">桌台</span><strong>${esc(o.table)}</strong></div>` : ''}
-          <div style="display:flex;justify-content:space-between;"><span style="color:var(--text-3);">下单时间</span><strong>${this.fmtDateTime(o.created)}</strong></div>
+          <div style="display:flex;justify-content:space-between;"><span style="color:var(--text-3);">${t('orderNo')}</span><strong>${esc(o.id)}</strong></div>
+          <div style="display:flex;justify-content:space-between;"><span style="color:var(--text-3);">${t('payMethod2')}</span><strong>${esc(methodName)}</strong></div>
+          ${o.table ? `<div style="display:flex;justify-content:space-between;"><span style="color:var(--text-3);">${t('table')}</span><strong>${esc(o.table)}</strong></div>` : ''}
+          <div style="display:flex;justify-content:space-between;"><span style="color:var(--text-3);">${t('orderTime')}</span><strong>${this.fmtDateTime(o.created)}</strong></div>
         </div>
         ${o.items.map(it => `
           <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--line);">
@@ -334,36 +334,36 @@ const ProfilePage = {
           </div>
         `).join('')}
         <div style="font-size:12px;line-height:1.9;padding:10px 0;">
-          <div style="display:flex;justify-content:space-between;"><span style="color:var(--text-3);">商品金额</span><span>¥${o.subtotal}</span></div>
+          <div style="display:flex;justify-content:space-between;"><span style="color:var(--text-3);">${t('itemsAmount')}</span><span>¥${o.subtotal}</span></div>
           ${o.coupon ? `<div style="display:flex;justify-content:space-between;"><span style="color:var(--text-3);">优惠券（${esc(o.coupon.name)}）</span><span style="color:var(--green);">-¥${o.discount}</span></div>` : ''}
-          <div style="display:flex;justify-content:space-between;"><span style="color:var(--text-3);">积分回馈</span><span style="color:var(--green);">+${o.points}</span></div>
+          <div style="display:flex;justify-content:space-between;"><span style="color:var(--text-3);">${t('pointsReward')}</span><span style="color:var(--green);">+${o.points}</span></div>
           <div style="display:flex;justify-content:space-between;border-top:1px solid var(--line);padding-top:8px;"><span>实付</span><strong style="color:var(--gold-2);">¥${o.total}</strong></div>
         </div>
         ${o.status === 'paid' ? `
           <div style="text-align:center;background:var(--bg-3);border-radius:12px;padding:12px;">
-            <div style="font-size:11px;color:var(--text-3);margin-bottom:6px;">到店核销码</div>
+            <div style="font-size:11px;color:var(--text-3);margin-bottom:6px;">${t('verifyCode')}</div>
             ${typeof generateQRCodeSVG === 'function' ? generateQRCodeSVG(o.qrSeed || o.id, 150) : ''}
             <div style="font-size:16px;font-weight:800;letter-spacing:2px;margin-top:6px;">${esc(o.id)}</div>
-            <div style="font-size:10px;color:var(--text-3);margin-top:4px;">向店员出示本码 · 到店核销</div>
-            <button class="btn btn-gold btn-block" id="completeOrder" style="margin-top:10px;">完成核销 · 订单完成</button>
-            <button class="btn btn-ghost btn-block" id="cancelOrder" style="margin-top:6px;">取消订单</button>
+            <div style="font-size:10px;color:var(--text-3);margin-top:4px;">${t('showToStaff')}</div>
+            <button class="btn btn-gold btn-block" id="completeOrder" style="margin-top:10px;">${t('completeVerify')}</button>
+            <button class="btn btn-ghost btn-block" id="cancelOrder" style="margin-top:6px;">${t('cancelOrder')}</button>
           </div>
         ` : ''}
-        <div style="text-align:center;margin-top:12px;"><button class="btn btn-ghost btn-block" onclick="closeModal()">关闭</button></div>
+        <div style="text-align:center;margin-top:12px;"><button class="btn btn-ghost btn-block" onclick="closeModal()">${t('closeBtn')}</button></div>
       </div>
     `);
     const done = document.getElementById('completeOrder');
     if (done) done.onclick = () => {
       OrderService.updateStatus(o.id, 'completed');
       closeModal();
-      toast('订单已完成核销');
+      toast(t('doneToast'));
       this.refresh();
     };
     const cancel = document.getElementById('cancelOrder');
     if (cancel) cancel.onclick = () => {
       OrderService.updateStatus(o.id, 'cancelled');
       closeModal();
-      toast('订单已取消');
+      toast(t('cancelToast'));
       this.refresh();
     };
   },
