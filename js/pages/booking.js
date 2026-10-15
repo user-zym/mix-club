@@ -20,7 +20,7 @@ const BookingPage = {
             <span class="bk-hero-dot"></span>
             <span>MIX CLUB · ${t('titleBooking')}</span>
           </div>
-          <h2 class="bk-hero-title">专属你的<br>派对之夜</h2>
+          <h2 class="bk-hero-title">${t('bkHero1')}<br>${t('bkHero2')}</h2>
           <p class="bk-hero-sub">${t('bookingDiscount')}</p>
           <div class="bk-hero-stats">
             <div class="bk-hero-stat">
@@ -43,7 +43,7 @@ const BookingPage = {
         </div>
         <div class="bk-calendar">
           <div class="bk-cal-weekdays">
-            ${['日','一','二','三','四','五','六'].map(d => `<span>${esc(d)}</span>`).join('')}
+            ${(LangService.isEn() ? ['Su','Mo','Tu','We','Th','Fr','Sa'] : ['日','一','二','三','四','五','六']).map(d => `<span>${esc(d)}</span>`).join('')}
           </div>
           <div class="bk-cal-grid" id="bkCalGrid">
             ${this.renderCalendar()}
@@ -93,7 +93,7 @@ const BookingPage = {
 
   calendarMonthLabel() {
     const d = new Date();
-    return `${d.getFullYear()} 年 ${d.getMonth() + 1} 月`;
+    return LangService.isEn() ? `${d.getFullYear()}/${d.getMonth() + 1}` : `${d.getFullYear()} 年 ${d.getMonth() + 1} 月`;
   },
 
 
@@ -155,10 +155,10 @@ const BookingPage = {
             </div>
             <div class="bk-room-foot">
               <div class="bk-room-price">
-                <span class="sym">¥</span><b>${r.price}</b><span class="unit">/晚</span>
+                <span class="sym">¥</span><b>${r.price}</b><span class="unit">${t('perNight')}</span>
               </div>
               <button class="btn ${sel ? 'btn-primary' : 'btn-ghost'} bk-room-btn" data-select-room="${esc(r.id)}">
-                ${sel ? '✓ 已选' : '选择'}
+                ${sel ? '✓ ' + t('roomPicked') : t('roomPick')}
               </button>
             </div>
           </div>
@@ -191,7 +191,7 @@ const BookingPage = {
     let infoContent = '';
     if (this.selectedRoom) {
       const room = APP_DATA.rooms.find(r => r.id === this.selectedRoom);
-      infoContent = `<strong>${room.name}</strong><small>${this.selectedDate || ''} · ${this.people}人</small>`;
+      infoContent = `<strong>${room.name}</strong><small>${this.selectedDate || ''} · ${this.people}${t('peopleUnit')}</small>`;
     } else {
       infoContent = `<strong>${t('pickRoomFirst')}</strong><small>${t('pickRoomHint')}</small>`;
     }
