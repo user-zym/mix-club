@@ -17,12 +17,12 @@ const APP_DATA = {
   ],
 
   quickActions: [
-    { id: 'queue',   icon: '🎫', label: '排队取号', sub: '实时叫号 · 在线排队',  cls: 'q9', link: 'queue' },
-    { id: 'reserve', icon: '🛋️', label: '包厢预订', sub: '豪华大包 / 露台 / 派对', cls: 'q1', link: 'booking' },
-    { id: 'table',   icon: '🍸', label: '在线点单', sub: '鸡尾酒 / 酒水 / 小食',  cls: 'q2', link: 'menu' },
-    { id: 'event',   icon: '🎉', label: '派对活动', sub: '每周精彩不断',         cls: 'q3', link: 'events' },
-    { id: 'vip',     icon: '👑', label: 'VIP 会员',  sub: '钻石卡专属权益',       cls: 'q4', link: 'vip' },
-    { id: 'music',   icon: '🎵', label: '驻场歌单',  sub: 'DJ 现场 · 嗨到天亮',   cls: 'q5', link: 'music' }
+    { id: 'queue',   icon: '🎫', label: '排队取号', labelEn: 'Queue', sub: '实时叫号 · 在线排队', subEn: 'Live queue · skip the line', cls: 'q9', link: 'queue' },
+    { id: 'reserve', icon: '🛋️', label: '包厢预订', labelEn: 'Rooms', sub: '豪华大包 / 露台 / 派对', subEn: 'VIP booths & terraces', cls: 'q1', link: 'booking' },
+    { id: 'table',   icon: '🍸', label: '在线点单', labelEn: 'Order', sub: '鸡尾酒 / 酒水 / 小食', subEn: 'Cocktails · Drinks · Snacks', cls: 'q2', link: 'menu' },
+    { id: 'event',   icon: '🎉', label: '派对活动', labelEn: 'Events', sub: '每周精彩不断', subEn: 'Fresh parties weekly', cls: 'q3', link: 'events' },
+    { id: 'vip',     icon: '👑', label: 'VIP 会员',  labelEn: 'VIP', sub: '钻石卡专属权益', subEn: 'Diamond benefits', cls: 'q4', link: 'vip' },
+    { id: 'music',   icon: '🎵', label: '驻场歌单',  labelEn: 'Playlist', sub: 'DJ 现场 · 嗨到天亮', subEn: 'Live DJ · till dawn', cls: 'q5', link: 'music' }
   ],
 
   featured: [
@@ -206,6 +206,13 @@ const APP_DATA = {
       'VIP 排队通道优先安排散座与卡座，无需等待包厢排队',
       '取号后可在「我的取号」中查看实时进度并主动取消',
       '每日 21:00-23:00 为高峰时段，建议提前 30 分钟取号'
+    ],
+    rulesEn: [
+      'Please fill in accurate party size and contact so we can seat you properly',
+      'Arrive within 5 minutes when called; you will be moved 3 places back otherwise',
+      'VIP lane prioritizes tables & booths, no need to wait for room queues',
+      'Track your live status under My Queue and cancel anytime',
+      'Peak hours 21:00-23:00 daily; we suggest taking a ticket 30 min earlier'
     ]
   }
 };
