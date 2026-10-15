@@ -298,7 +298,7 @@ const BookingPage = {
         <div style="background:var(--bg-3);padding:14px;border-radius:12px;text-align:left;font-size:13px;line-height:1.9;">
           ${detailHtml}
         </div>
-        <button class="btn btn-primary btn-block" style="margin-top:18px;" onclick="closeModal()">查看我的预订</button>
+        <button class="btn btn-primary btn-block" style="margin-top:18px;" onclick="closeModal();navigate('profile');">查看我的预订</button>
       </div>
     `);
 
