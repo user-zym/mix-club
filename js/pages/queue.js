@@ -55,7 +55,7 @@ const QueuePage = {
         ${this.renderRules()}
         ${this.renderHistory()}
         <div class="page-footer">
-          © 2026 MIX CLUB · 排队取号
+          © 2026 MIX CLUB · ${t('titleQueue')}
         </div>
       </div>
     `;
@@ -69,9 +69,9 @@ const QueuePage = {
       <div class="queue-hero">
         <div class="queue-hero-bg"></div>
         <div class="queue-hero-content">
-          <span class="queue-hero-tag">实时排队</span>
-          <h3>当前排队 · <strong>${ahead}</strong> 位</h3>
-          <p>预计等待 <strong>${this.fmtWaitTime(waitMin)}</strong> · 平均 ${cfg.avgSeatMin} 分钟/桌</p>
+          <span class="queue-hero-tag">${t('qLiveTag')}</span>
+          <h3>${t('qCurrent')} · <strong>${ahead}</strong> ${t('qAhead')}</h3>
+          <p>${t('estWait')} <strong>${this.fmtWaitTime(waitMin)}</strong> · ${cfg.avgSeatMin} ${t('avgPerTable')}</p>
           <div class="queue-hero-bar">
             <div class="queue-hero-bar-fill" style="width:${this.barPct(ahead)}%"></div>
           </div>
@@ -87,12 +87,12 @@ const QueuePage = {
     if (!this.form.phone && User.data && User.data.phone) this.form.phone = User.data.phone;
 
     const types = [
-      { id: 'normal', icon: '🍸', name: '普通排队', desc: '散座 / 卡座，按序安排' },
-      { id: 'vip',    icon: '👑', name: 'VIP 通道', desc: '优先安排，钻石会员专属' }
+      { id: 'normal', icon: '🍸', name: t('qNormal'), desc: t('qDescNormal') },
+      { id: 'vip',    icon: '👑', name: t('qVip'), desc: t('qDescVip') }
     ];
 
     const peopleBtns = [1, 2, 3, 4, 5, 6, 8].map(n => `
-      <div class="q-people ${this.form.people === n ? 'active' : ''}" data-people="${n}">${n}人</div>
+      <div class="q-people ${this.form.people === n ? 'active' : ''}" data-people="${n}">${n}${LangService.isEn() ? '' : '人'}</div>
     `).join('');
 
     const typeCards = types.map(t => `
@@ -108,29 +108,29 @@ const QueuePage = {
     return `
       <div class="queue-form">
         <div class="q-section">
-          <h4>选择人数</h4>
+          <h4>${t('qPeople')}</h4>
           <div class="q-people-grid">${peopleBtns}</div>
         </div>
 
         <div class="q-section">
-          <h4>排队通道</h4>
+          <h4>${t('qChannel')}</h4>
           <div class="q-type-grid">${typeCards}</div>
         </div>
 
         <div class="q-section">
-          <h4>联系方式 <small style="font-size:11px;color:var(--text-3);font-weight:400;">叫号时会通知您</small></h4>
+          <h4>${t('qPhone')} <small style="font-size:11px;color:var(--text-3);font-weight:400;">${t('qNotify')}</small></h4>
           <div class="q-field">
-            <label>姓名</label>
+            <label>${t('qName')}</label>
             <input id="qName" type="text" placeholder="请输入您的姓名" value="${esc(this.form.name)}" maxlength="20" />
           </div>
           <div class="q-field">
-            <label>手机号</label>
+            <label>${t('phoneLabel')}</label>
             <input id="qPhone" type="tel" inputmode="numeric" placeholder="11 位手机号" value="${esc(this.form.phone)}" maxlength="11" />
           </div>
         </div>
 
-        <button class="btn btn-primary btn-block" id="qSubmit" style="margin-top:8px;">立即取号</button>
-        <small style="display:block;text-align:center;color:var(--text-4);margin-top:8px;font-size:11px;">提交即视为同意《排队规则》</small>
+        <button class="btn btn-primary btn-block" id="qSubmit" style="margin-top:8px;">${t('qSubmit')}</button>
+        <small style="display:block;text-align:center;color:var(--text-4);margin-top:8px;font-size:11px;">${t('qRulesAgree')}</small>
       </div>
     `;
   },
@@ -143,7 +143,7 @@ const QueuePage = {
       <div class="queue-ticket">
         <div class="qt-head">
           <div class="qt-no">
-            <span>您的排队序号</span>
+            <span>${t('qYourNo')}</span>
             <strong>A${String(this.myNo).padStart(3, '0')}</strong>
           </div>
           <div class="qt-pulse"><span></span><span></span><span></span></div>
@@ -151,8 +151,8 @@ const QueuePage = {
 
         <div class="qt-info">
           <div class="qt-info-item">
-            <small>排队类型</small>
-            <strong>${this.ticket.type === 'vip' ? '👑 VIP 通道' : '🍸 普通排队'}</strong>
+            <small>${t('qQueueType')}</small>
+            <strong>${this.ticket.type === 'vip' ? t('qVip') : t('qNormal')}</strong>
           </div>
           <div class="qt-info-item">
             <small>人数</small>
@@ -183,11 +183,11 @@ const QueuePage = {
 
         <div class="qt-actions">
           <button class="btn btn-ghost" id="qRefresh">刷新进度</button>
-          <button class="btn btn-primary" id="qCancel">取消取号</button>
+          <button class="btn btn-primary" id="qCancel">${t('qCancel')}</button>
         </div>
 
         <div class="qt-tip">
-          🔔 到号提醒 · 叫号后请 5 分钟内到店核销，过号顺延 3 位
+          ${t('qRemind')}
         </div>
       </div>
     `;
@@ -199,7 +199,7 @@ const QueuePage = {
     `).join('');
     return `
       <div class="q-section q-rules">
-        <h4>排队规则</h4>
+        <h4>${t('qRules')}</h4>
         <ol class="q-rules-list">${items}</ol>
       </div>
     `;
@@ -210,7 +210,7 @@ const QueuePage = {
     if (!past.length) {
       return `
         <div class="q-section q-history">
-          <h4>历史取号</h4>
+          <h4>${t('qHistory')}</h4>
           <div class="q-empty">暂无历史记录</div>
         </div>
       `;
@@ -232,7 +232,7 @@ const QueuePage = {
     `).join('');
     return `
       <div class="q-section q-history">
-        <h4>历史取号</h4>
+        <h4>${t('qHistory')}</h4>
         <div class="q-history-list">${rows}</div>
       </div>
     `;
@@ -240,7 +240,7 @@ const QueuePage = {
 
   // ---------- 工具 ----------
   fmtWaitTime(min) {
-    if (min <= 0) return '即将叫号';
+    if (min <= 0) return t('qSoon');
     if (min < 60) return `${min} 分钟`;
     const h = Math.floor(min / 60);
     const m = min % 60;
@@ -256,9 +256,9 @@ const QueuePage = {
 
   barLabel(remaining) {
     if (remaining === 0) return '就绪 · 即将为您安排座位';
-    if (remaining <= 5) return '即将叫号，请保持手机畅通';
+    if (remaining <= 5) return t('qSoon2');
     if (remaining <= 15) return '即将到来，建议就近等候';
-    return '排队高峰，可先点单节省时间';
+    return t('qHigh');
   },
 
   nextNo() {
@@ -315,7 +315,7 @@ const QueuePage = {
     if (refresh) refresh.addEventListener('click', () => {
       // 刷新相当于手动触发一次 tick
       self.advanceQueue(root);
-      toast('已刷新最新排队进度');
+      toast(t('qFreshOk'));
     });
   },
 
@@ -348,7 +348,7 @@ const QueuePage = {
     this.remaining = remaining;
     this.form = { people: 2, type: 'normal', name: '', phone: '' };
 
-    toast('取号成功 · A' + String(no).padStart(3, '0'));
+    toast(t('qSuccess') + ' · A' + String(no).padStart(3, '0'));
     root.innerHTML = this.render();
     this.bindEvents(root);
     this.startTicker(root);
@@ -357,7 +357,7 @@ const QueuePage = {
   cancelTicket(root) {
     if (!this.ticket) return;
     openModal(`
-      <h3 style="margin:0 0 10px;">确认取消取号？</h3>
+      <h3 style="margin:0 0 10px;">${t('qCancelConfirm')}</h3>
       <p style="margin:0 0 16px;color:var(--text-3);font-size:13px;">序号 <strong>A${String(this.ticket.no).padStart(3, '0')}</strong> 取消后将无法恢复。</p>
       <div style="display:flex;gap:10px;">
         <button class="btn btn-ghost" style="flex:1;" onclick="closeModal()">再等等</button>
@@ -374,7 +374,7 @@ const QueuePage = {
       closeModal();
       const r = document.querySelector('[data-page="queue"]');
       if (r) { r.innerHTML = this.render(); this.bindEvents(r); }
-      toast('已取消取号');
+      toast(t('qCancelDone'));
     });
   },
 
@@ -421,7 +421,7 @@ const QueuePage = {
     if (cancel) cancel.addEventListener('click', () => this.cancelTicket(root));
     if (refresh) refresh.addEventListener('click', () => {
       this.advanceQueue(root);
-      toast('已刷新最新排队进度');
+      toast(t('qFreshOk'));
     });
   },
 
