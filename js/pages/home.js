@@ -41,7 +41,7 @@ const HomePage = {
     const quick = APP_DATA.quickActions.map(a => `
       <a class="quick-item" data-go="${esc(a.link)}">
         <span class="quick-icon ${esc(a.cls)}">${quickIcons[a.id] || esc(a.icon)}</span>
-        <strong class="quick-label">${esc(a.label)}</strong>
+        <strong class="quick-label">${esc(LangService.isEn() ? (a.labelEn || a.label) : a.label)}</strong>
       </a>
     `).join('');
 
@@ -58,7 +58,7 @@ const HomePage = {
     `).join('');
 
     const notices = APP_DATA.notices.map(n =>
-      `<div class="notice-bar" style="margin-bottom:8px;"><span class="nt-tag">公告</span><span class="scroll">${esc(n)}</span></div>`
+      `<div class="notice-bar" style="margin-bottom:8px;"><span class="nt-tag">${t('announcement')}</span><span class="scroll">${esc(n)}</span></div>`
     ).join('');
 
     return `
@@ -220,15 +220,15 @@ const HomePage = {
   showTableModal(root) {
     const tb = TableService.current();
     openModal(`
-      <h3 style="margin:0 0 6px;font-size:17px;">🪑 扫码点单</h3>
+      <h3 style="margin:0 0 6px;font-size:17px;">🪑 ${t('scanOrder')}</h3>
       <p style="margin:0 0 14px;color:var(--text-3);font-size:11px;">选择桌台号（K01-K06 · S01-S12）· 扫码绑定桌台</p>
-      <input id="tableNo" type="text" placeholder="${tb ? '当前桌台 ' + esc(tb.no) : '输入桌台号，如 S03'}" autocomplete="off"
+      <input id="tableNo" type="text" placeholder="${tb ? t('curTableTxt') + esc(tb.no) : t('tablePlaceholder')}" autocomplete="off"
         style="width:100%;background:var(--bg-3);border:1px solid var(--line);border-radius:8px;color:var(--text-1);padding:11px 12px;font-size:14px;outline:none;box-sizing:border-box;">
       <div class="ai-chips" style="margin:10px 0;">
         ${APP_TABLES.map(t => `<button class="ai-chip" data-tb="${t.id}">${t.id}</button>`).join('')}
       </div>
       <button class="btn btn-primary btn-block" id="bindTable">绑定桌台</button>
-      ${tb ? `<button class="btn btn-ghost btn-block" id="clearTable" style="margin-top:8px;">解绑当前桌台</button>` : ''}
+      ${tb ? `<button class="btn btn-ghost btn-block" id="clearTable" style="margin-top:8px;">${t('unbindTable')}</button>` : ''}
     `);
     document.querySelectorAll('[data-tb]').forEach(c => {
       c.addEventListener('click', () => {
