@@ -604,7 +604,7 @@ const ProfilePage = {
         <h3 style="margin:0 0 4px;">MIX CLUB</h3>
         <p style="margin:0 0 14px;color:var(--text-3);font-size:12px;">城市夜生活新坐标 · v${APP_VERSION}</p>
         <div style="background:var(--bg-3);padding:14px;border-radius:12px;text-align:left;font-size:12px;line-height:1.9;color:var(--text-2);">
-          MIX CLUB 创立于2018年，是上海知名的精品酒吧品牌，融合电子音乐、潮流文化与精致调酒，致力于为都市青年打造高品质夜生活体验。<br><br>
+          MIX CLUB 创立于2018年，是上海知名的精品娱乐品牌，融合电子音乐、潮流文化与精致调酒，致力于为都市青年打造高品质夜生活体验。<br><br>
           <span style="color:var(--gold-2);">地址：</span>上海市黄浦区南京东路 666 号<br>
           <span style="color:var(--gold-2);">营业：</span>每日 19:00 - 03:00<br>
           <span style="color:var(--gold-2);">电话：</span>400-888-6666
