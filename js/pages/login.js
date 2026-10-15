@@ -85,10 +85,10 @@ const LoginPage = {
           <a id="gotoRegister">立即注册</a>
         </div>
 
-        <!-- 演示账号提示 -->
+        <!-- 体验账号提示 -->
         <div class="auth-demo">
-          <p>📌 演示账号：13800000000 / 123456</p>
-          <p>或点击 <a id="useDemo">直接使用演示账号登录</a></p>
+          <p>📌 体验账号：13800000000 / 123456</p>
+          <p>或点击 <a id="useDemo">直接使用体验账号登录</a></p>
         </div>
       </div>
     `;
@@ -147,7 +147,7 @@ const LoginPage = {
       };
     }
 
-    // 第三方登录（演示）
+    // 第三方登录
     root.querySelectorAll('[data-third]').forEach(el => {
       el.onclick = () => {
         const which = el.getAttribute('data-third');
@@ -171,7 +171,7 @@ const LoginPage = {
       return;
     }
 
-    // 演示账号直接走演示数据
+    // 体验账号直接走预置数据
     if (phone === '13800000000' && pwd === '123456') {
       Auth.reset();
       toast('登录成功，欢迎回来 👋');
