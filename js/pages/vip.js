@@ -37,23 +37,23 @@ const VipPage = {
       <div class="vip-hero">
         <div class="lvl">CURRENT LEVEL <b>${cur.name}</b></div>
         <h2>${cur.name}</h2>
-        <div class="points"><b>${fmtNum(u.points)}</b> 积分</div>
+        <div class="points"><b>${fmtNum(u.points)}</b> ${t('vipPts')}</div>
         <div class="vip-progress">
           <div class="bar" style="width:${progress}%"></div>
         </div>
         <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text-3);position:relative;">
           <span>${cur.name}</span>
-          <span>${next ? `距离 ${esc(next.name)} 还差 ${fmtNum(toNext)} 积分` : '已达最高等级'}</span>
+          <span>${next ? (LangService.isEn() ? `Only ${fmtNum(toNext)} pts to ${esc(next.name)}` : `距离 ${esc(next.name)} 还差 ${fmtNum(toNext)} 积分`) : t('vipMax')}</span>
         </div>
       </div>
 
       <!-- Stats -->
       <div class="section" style="margin-bottom:18px;">
         <div class="profile-stats" style="background:var(--bg-2);border:1px solid var(--line);padding:14px;border-radius:var(--radius-l);">
-          <div class="stat"><b>${u.points}</b><small>可用积分</small></div>
-          <div class="stat"><b>${u.coupons}</b><small>优惠券</small></div>
-          <div class="stat"><b>¥${u.balance}</b><small>储值余额</small></div>
-          <div class="stat"><b>${u.expiring}</b><small>即将过期(天)</small></div>
+          <div class="stat"><b>${u.points}</b><small>${t('vipAvail')}</small></div>
+          <div class="stat"><b>${u.coupons}</b><small>${t('vipCoupons')}</small></div>
+          <div class="stat"><b>¥${u.balance}</b><small>${t('vipBalance')}</small></div>
+          <div class="stat"><b>${u.expiring}</b><small>${t('vipExpiring')}</small></div>
         </div>
       </div>
 
