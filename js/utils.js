@@ -410,29 +410,29 @@ const SignService = {
 };
 
 // ============================================
-// 邀请服务：分享有礼（演示）
+// 邀请服务：分享有礼
 // ============================================
 const InviteService = {
-  // 生成邀请链接（演示：基于当前账号）
+  // 生成邀请链接（基于当前账号）
   link() {
     const phone = User.data.phone || '13800000000';
     const code = 'MIX' + phone.slice(-6);
     return '#register?ref=' + code;
   },
-  // 领取演示奖励（每日限 3 次）
+  // 领取分享奖励（每日限 3 次）
   claim() {
     const rec = LS.get(LS_KEYS.INVITE, { date: '', count: 0 });
     const d = new Date();
     const today = d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
     if (rec.date !== today) { rec.date = today; rec.count = 0; }
-    if (rec.count >= 3) return { ok: false, msg: '今日分享奖励已领完（演示每日 3 次）' };
+    if (rec.count >= 3) return { ok: false, msg: '今日分享奖励已领完（每日 3 次）' };
     rec.count += 1;
     LS.set(LS_KEYS.INVITE, rec);
-    return { ok: true, points: 20, msg: '分享成功 +20 积分（演示）' };
+    return { ok: true, points: 20, msg: '分享成功 +20 积分' };
   }
 };
 
-// 演示级密码摘要（FNV 双种子摘要，避免明文落盘；非加密级，仅作演示用途）
+// 轻量密码摘要（FNV 双种子摘要，避免明文落盘；非加密级）
 function hashPwd(pwd) {
   const s = String(pwd);
   let h1 = 0x811c9dc5, h2 = 0x01000193;
@@ -520,7 +520,7 @@ const Auth = {
     setTimeout(() => navigate('login'), 350);
   },
 
-  // 重置为默认演示账号
+  // 重置为默认体验账号
   reset() {
     User.data = {
       name: 'KUMA',
