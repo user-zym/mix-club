@@ -152,6 +152,7 @@ const HomePage = {
       <!-- Footer Signature -->
       <div class="page-footer">
         © 2026 MIX CLUB · 城市夜生活新坐标
+        <div class="legal-line">理性饮酒 · 未成年人请勿饮酒 · 18+</div>
       </div>
     `;
   },
