@@ -31,7 +31,7 @@ const ProfilePage = {
           <div class="profile-avatar">${esc(u.avatar)}</div>
           <div class="profile-info">
             <h2 class="profile-name">${esc(u.name) || t('guestName')}</h2>
-            <p>${esc(lv.name)} · ID ${esc(u.id) || '-'}</p>
+            <p>${esc(L(lv.name, lv.nameEn))} · ID ${esc(u.id) || '-'}</p>
           </div>
         </div>
         <div class="profile-stats">
@@ -94,25 +94,25 @@ const ProfilePage = {
         <div class="menu-list-item" id="goSign">
           <div class="ico" style="background:rgba(250,204,21,.15);">📅</div>
           <span class="text">${t('dailyCheckin')}</span>
-          <span class="extra">+10积分/天</span>
+          <span class="extra">${LangService.isEn() ? '+10 pts/day' : '+10积分/天'}</span>
           <span class="arrow">›</span>
         </div>
         <div class="menu-list-item" id="goMall">
           <div class="ico" style="background:rgba(16,185,129,.15);">🎁</div>
           <span class="text">${t('pointsMall')}</span>
-          <span class="extra">${this.mallItems().length} 件好礼</span>
+          <span class="extra">${this.mallItems().length} ${LangService.isEn() ? 'rewards' : '件好礼'}</span>
           <span class="arrow">›</span>
         </div>
         <div class="menu-list-item" id="goInvite">
           <div class="ico" style="background:rgba(99,102,241,.15);">📣</div>
           <span class="text">${t('inviteFriends')}</span>
-          <span class="extra">享 200 积分</span>
+          <span class="extra">${LangService.isEn() ? 'Earn 200 pts' : '享 200 积分'}</span>
           <span class="arrow">›</span>
         </div>
         <div class="menu-list-item" id="goCoupons">
           <div class="ico" style="background:rgba(212,175,55,.15);">🎟️</div>
           <span class="text">${t('myCoupons')}</span>
-          <span class="extra">${u.coupons}张可用</span>
+          <span class="extra">${u.coupons}${LangService.isEn() ? ' available' : '张可用'}</span>
           <span class="arrow">›</span>
         </div>
         <div class="menu-list-item" id="goPoints">
@@ -188,7 +188,12 @@ const ProfilePage = {
       if (gateDemo) gateDemo.onclick = () => {
         Auth.reset();
         toast(t('loginSuccess'));
-        setTimeout(() => navigate('profile'), 400);
+        setTimeout(() => {
+          // app.js 同页 navigate 早退，需直接重挂载当前页
+          const act = document.querySelector('.page.active');
+          if (act && act.dataset.page === 'profile' && ProfilePage.mount) ProfilePage.mount(act);
+          else navigate('profile');
+        }, 400);
       };
       return;
     }
@@ -588,7 +593,7 @@ const ProfilePage = {
     openModal(`
       <h3 style="margin:0 0 14px;">🔐 隐私说明</h3>
       <div style="font-size:12px;color:var(--text-3);line-height:1.8;">
-        <p style="margin:0 0 8px;">· 本应用仅将您的偏好设置与订单记录保存在本机，用于提供点单、订台、会员等服务。</p>
+        <p style="margin:0 0 8px;">· ${LangService.isEn() ? 'Your preferences and order history are stored locally to power ordering, table booking, membership and more.' : '本应用仅将您的偏好设置与订单记录保存在本机，用于提供点单、订台、会员等服务。'}</p>
         <p style="margin:0 0 8px;">· 我们不会将您的个人信息分享给任何第三方。</p>
         <p style="margin:0 0 8px;">· 您可以在「设置」中随时清除本地数据。</p>
         <p style="margin:0;">· 如对隐私保护有任何疑问，欢迎联系门店工作人员。</p>
@@ -660,7 +665,7 @@ const ProfilePage = {
       <div style="text-align:center;padding:6px 4px;">
         <div style="width:60px;height:60px;margin:0 auto 14px;border-radius:50%;background:rgba(255,45,111,.12);display:flex;align-items:center;justify-content:center;font-size:28px;">👋</div>
         <h3 style="margin:0 0 8px;font-size:17px;">确认退出登录?</h3>
-        <p style="margin:0 0 22px;color:var(--text-3);font-size:12px;line-height:1.6;">退出后部分功能将不可用<br>如会员积分、订单记录等</p>
+        <p style="margin:0 0 22px;color:var(--text-3);font-size:12px;line-height:1.6;">${LangService.isEn() ? 'Some features become unavailable after sign-out, e.g. points and order history' : '退出后部分功能将不可用<br>如会员积分、订单记录等'}</p>
         <div style="display:flex;gap:10px;">
           <button class="btn btn-ghost btn-block" id="cancelLogoutBtn" style="flex:1;">取消</button>
           <button class="btn btn-primary btn-block" id="confirmLogoutBtn" style="flex:1;">确认退出</button>
