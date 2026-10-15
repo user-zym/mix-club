@@ -155,15 +155,15 @@ const QueuePage = {
             <strong>${this.ticket.type === 'vip' ? t('qVip') : t('qNormal')}</strong>
           </div>
           <div class="qt-info-item">
-            <small>人数</small>
-            <strong>${this.ticket.people} 人</strong>
+            <small>${t('qtPeople')}</small>
+            <strong>${this.ticket.people}${t('peopleUnit')}</strong>
           </div>
           <div class="qt-info-item">
-            <small>前方等待</small>
-            <strong class="qt-ahead">${this.remaining} 位</strong>
+            <small>${t('qtAhead')}</small>
+            <strong class="qt-ahead">${this.remaining}${LangService.isEn() ? '' : ' 位'}</strong>
           </div>
           <div class="qt-info-item">
-            <small>预计等待</small>
+            <small>${t('qtWait')}</small>
             <strong>${this.fmtWaitTime(waitMin)}</strong>
           </div>
         </div>
@@ -182,7 +182,7 @@ const QueuePage = {
         </div>
 
         <div class="qt-actions">
-          <button class="btn btn-ghost" id="qRefresh">刷新进度</button>
+          <button class="btn btn-ghost" id="qRefresh">${t('qRefresh')}</button>
           <button class="btn btn-primary" id="qCancel">${t('qCancel')}</button>
         </div>
 
@@ -194,8 +194,9 @@ const QueuePage = {
   },
 
   renderRules() {
+    const rs = APP_DATA.queueConfig.rulesEn || [];
     const items = APP_DATA.queueConfig.rules.map((r, i) => `
-      <li><span class="qt-rule-idx">${i + 1}</span>${esc(r)}</li>
+      <li><span class="qt-rule-idx">${i + 1}</span>${esc(LangService.isEn() ? (rs[i] || r) : r)}</li>
     `).join('');
     return `
       <div class="q-section q-rules">
@@ -211,7 +212,7 @@ const QueuePage = {
       return `
         <div class="q-section q-history">
           <h4>${t('qHistory')}</h4>
-          <div class="q-empty">暂无历史记录</div>
+          <div class="q-empty">${t('qEmpty')}</div>
         </div>
       `;
     }
@@ -219,7 +220,7 @@ const QueuePage = {
       <div class="q-history-item">
         <div>
           <strong>A${String(h.no).padStart(3, '0')}</strong>
-          <small>${h.people} 人 · ${h.type === 'vip' ? 'VIP' : '普通'} · ${esc(h.name)}</small>
+          <small>${h.people}${t('peopleUnit')} · ${h.type === 'vip' ? 'VIP' : t('qHistoryNormal')} · ${esc(h.name)}</small>
         </div>
         <div class="q-history-right">
           <span class="q-status ${h.status}">${
@@ -241,10 +242,10 @@ const QueuePage = {
   // ---------- 工具 ----------
   fmtWaitTime(min) {
     if (min <= 0) return t('qSoon');
-    if (min < 60) return `${min} 分钟`;
+    if (min < 60) return `${min}${LangService.isEn() ? ' min' : ' 分钟'}`;
     const h = Math.floor(min / 60);
     const m = min % 60;
-    return m === 0 ? `${h} 小时` : `${h} 小时 ${m} 分钟`;
+    return LangService.isEn() ? (m === 0 ? `${h}h` : `${h}h ${m}m`) : (m === 0 ? `${h} 小时` : `${h} 小时 ${m} 分钟`);
   },
 
   barPct(remaining) {
@@ -454,7 +455,7 @@ const QueuePage = {
       <div style="text-align:center;">
         <div style="font-size:50px;margin-bottom:10px;">🎉</div>
         <h3 style="margin:0 0 6px;">到您啦！</h3>
-        <p style="margin:0 0 18px;color:var(--text-3);font-size:12px;">序号 A${String(this.myNo).padStart(3, '0')} · 请在 5 分钟内到店核销</p>
+        <p style="margin:0 0 18px;color:var(--text-3);font-size:12px;">${t('qYourNo')} A${String(this.myNo).padStart(3, '0')} · ${t('qArriveNote')}</p>
         <div style="background:var(--bg-3);padding:14px;border-radius:12px;text-align:left;font-size:13px;line-height:1.9;">
           <div><span style="color:var(--text-3);">排队类型</span> <strong>${this.ticket?.type === 'vip' ? 'VIP 通道' : '普通排队'}</strong></div>
           <div><span style="color:var(--text-3);">人数</span> <strong>${this.ticket?.people || 0} 人</strong></div>
