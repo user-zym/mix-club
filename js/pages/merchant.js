@@ -42,7 +42,7 @@ const MerchantPage = {
         <span class="n">${esc(t.name)}</span>
         <span class="bar"><i style="width:${Math.max(12, Math.round(t.qty / s.maxQty * 100))}%"></i></span>
         <span class="q">×${t.qty}</span>
-      </div>`).join('') : '<p style="color:var(--text-3);font-size:12px;text-align:center;padding:10px 0;">暂无销售数据</p>';
+      </div>`).join('') : (LangService.isEn() ? '<p style="color:var(--text-3);font-size:12px;text-align:center;padding:10px 0;">No sales data yet</p>' : '<p style="color:var(--text-3);font-size:12px;text-align:center;padding:10px 0;">暂无销售数据</p>');
 
     const flow = s.orders.length ? s.orders.slice(0, 8).map(o => `
       <div class="merchant-flow-item" data-mf="${esc(o.id)}">
@@ -153,7 +153,7 @@ const MerchantPage = {
     const hasData = s.orders.length > 0;
     const fallback = (el) => {
       if (!el) return;
-      el.innerHTML = '<p style="color:var(--text-3);font-size:12px;text-align:center;padding:64px 0;">暂无数据 · 完成第一笔订单后自动生成</p>';
+      el.innerHTML = '<p style="color:var(--text-3);font-size:12px;text-align:center;padding:64px 0;">' + (LangService.isEn() ? 'No data yet · auto-generated after your first order' : '暂无数据 · 完成第一笔订单后自动生成') + '</p>';
     };
     if (typeof echarts === 'undefined') {
       ['chartRevenue', 'chartHour', 'chartTurnover'].forEach(id => fallback(root.querySelector('#' + id)));
