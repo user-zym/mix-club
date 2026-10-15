@@ -241,3 +241,8 @@ const LangService = {
 function t(key) {
   return LangService.t(key);
 }
+
+// 双语数据取值：英文模式优先返回 vEn，否则回退 v
+function L(v, vEn) {
+  return LangService.isEn() ? (vEn || v) : v;
+}
