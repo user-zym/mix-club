@@ -19,8 +19,8 @@ const HomePage = {
     const slides = banners.map(b => `
       <div class="banner-slide" style="background-image:url('${esc(b.img)}')">
         <div class="banner-content">
-          <h1 class="banner-title">${esc(b.title)}</h1>
-          <p class="banner-sub">${esc(b.sub)}</p>
+          <h1 class="banner-title">${esc(L(b.title, b.titleEn))}</h1>
+          <p class="banner-sub">${esc(L(b.sub, b.subEn))}</p>
         </div>
       </div>
     `).join('');
@@ -48,16 +48,16 @@ const HomePage = {
     const featured = APP_DATA.featured.map(f => `
       <div class="cocktail-card" data-product-id="${esc(f.id)}">
         <div class="cocktail-img" style="background-image:url('${esc(f.img)}')">
-          <span class="cocktail-name">${esc(f.name)}</span>
+          <span class="cocktail-name">${esc(L(f.name, f.nameEn))}</span>
         </div>
         <div class="cocktail-info">
           <span class="cocktail-price"><span class="sym">¥</span>${f.price}<span class="unit">/杯</span></span>
-          <span class="cocktail-tag">${esc(f.tag)}</span>
+          <span class="cocktail-tag">${esc(L(f.tag, f.tagEn))}</span>
         </div>
       </div>
     `).join('');
 
-    const notices = APP_DATA.notices.map(n =>
+    const notices = (LangService.isEn() ? APP_DATA.noticesEn : APP_DATA.notices).map(n =>
       `<div class="notice-bar" style="margin-bottom:8px;"><span class="nt-tag">${t('announcement')}</span><span class="scroll">${esc(n)}</span></div>`
     ).join('');
 
@@ -101,7 +101,7 @@ const HomePage = {
             <div class="svc-card-ico svc-card-ico-live">🎧</div>
             <div class="svc-card-body">
               <strong>LIVE · DJ KUMA</strong>
-              <small>霓虹极光 · 在线 1.2k</small>
+              <small>${LangService.isEn() ? 'Neon Aurora · 1.2k listening' : '霓虹极光 · 在线 1.2k'}</small>
             </div>
             <span class="svc-card-go svc-card-go-gold">${t('listening')}</span>
           </div>
@@ -139,10 +139,10 @@ const HomePage = {
               <span class="date">${esc(e.date)}</span>
             </div>
             <div class="event-info">
-              <h4>${esc(e.title)}</h4>
-              <p>${esc(e.desc.slice(0, 36))}...</p>
+              <h4>${esc(L(e.title, e.titleEn))}</h4>
+              <p>${esc(L(e.desc, e.descEn).slice(0, 36))}...</p>
               <div class="row">
-                ${e.tags.map(t => `<span class="chip">${esc(t)}</span>`).join('')}
+                ${(LangService.isEn() ? e.tagsEn : e.tags).map(t => `<span class="chip">${esc(t)}</span>`).join('')}
               </div>
             </div>
           </div>
