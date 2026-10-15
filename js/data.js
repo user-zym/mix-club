@@ -195,7 +195,7 @@ const APP_DATA = {
   queueConfig: {
     // 平均每位客人就坐耗时（分钟），用于估算等待时长
     avgSeatMin: 12,
-    // 当前模拟队列中的人数（不包含本人）
+    // 当前队列中的人数（不包含本人）
     baseWaiting: 18,
     // 实时进度条用：每 5 秒推进 1 位
     tickSec: 5,
