@@ -48,13 +48,13 @@ const MerchantPage = {
       <div class="merchant-flow-item" data-mf="${esc(o.id)}">
         <div>
           <b style="font-size:12px;">${esc(o.id)}</b>
-          <small style="color:var(--text-3);display:block;">${esc(this.payName(o.method))} · ${o.items.length}件 · ${fmtDate(o.created)}</small>
+          <small style="color:var(--text-3);display:block;">${esc(this.payName(o.method))} · ${o.items.reduce((s, i) => s + (i.qty || 1), 0)} ${t('items')} · ${fmtDate(o.created)}</small>
         </div>
         <div style="text-align:right;">
           <strong style="color:var(--gold-2);">¥${o.total}</strong>
           <span class="merchant-status st-${esc(o.status)}">${esc(ProfilePage.orderStatusLabel(o))}</span>
         </div>
-      </div>`).join('') : '<p style="color:var(--text-3);font-size:12px;text-align:center;padding:10px 0;">暂无订单流水</p>';
+      </div>`).join('') : '<p style="color:var(--text-3);font-size:12px;text-align:center;padding:10px 0;">' + t('flowEmpty') + '</p>';
 
     return `
       <!-- 数据看板 -->
@@ -90,33 +90,33 @@ const MerchantPage = {
               <button class="table-chip" data-table="${t.id}">${t.id}</button>`).join('')}
           </div>
           <div class="merchant-table-qr" id="tableQrBox">
-            <div style="color:var(--text-3);font-size:12px;padding:20px 0;">选择桌号生成点单码</div>
+            <div style="color:var(--text-3);font-size:12px;padding:20px 0;">${t('pickTableQr')}</div>
           </div>
         </div>
-        <p style="margin:8px 0 0;font-size:10px;color:var(--text-3);">顾客使用微信/相机扫描桌台码，自动绑定桌台并进入点餐；也可在首页「扫码点单」手动输入桌号。</p>
+        <p style="margin:8px 0 0;font-size:10px;color:var(--text-3);">${t('qrDesc')}</p>
       </div>
 
       <!-- 销量 Top -->
       <div class="merchant-card">
-        <h3 class="merchant-card-title">热销商品 Top5</h3>
+        <h3 class="merchant-card-title">${t('hotTop5')}</h3>
         ${topList}
       </div>
 
       <!-- 订单状态概览 -->
       <div class="merchant-flow-stats">
-        <span>待支付 <b style="color:#facc15;">${s.pending}</b></span>
+        <span>${t('orderPending')} <b style="color:#facc15;">${s.pending}</b></span>
         <span>${t('pendingVerify')} <b style="color:#22d3ee;">${s.paid}</b></span>
-        <span>已完成 <b style="color:#4ade80;">${s.completed}</b></span>
-        <span>已取消 <b style="color:#9ca3af;">${s.cancelled}</b></span>
+        <span>${t('completed')} <b style="color:#4ade80;">${s.completed}</b></span>
+        <span>${t('cancelled')} <b style="color:#9ca3af;">${s.cancelled}</b></span>
       </div>
 
       <!-- 经营图表 -->
       <div class="merchant-card">
-        <h3 class="merchant-card-title">近 7 日营收趋势 <small>按订单实付汇总</small></h3>
+        <h3 class="merchant-card-title">${t('revTitle')} <small>${t('revSub')}</small></h3>
         <div id="chartRevenue" style="height:200px;width:100%;"></div>
       </div>
       <div class="merchant-card">
-        <h3 class="merchant-card-title">时段客流分布 <small>营业时段 19:00–03:00</small></h3>
+        <h3 class="merchant-card-title">${t('peakTitle')} <small>${t('peakSub')}</small></h3>
         <div id="chartHour" style="height:200px;width:100%;"></div>
       </div>
       <div class="merchant-card">
@@ -126,16 +126,16 @@ const MerchantPage = {
 
       <!-- 订单流水 -->
       <div class="merchant-card">
-        <h3 class="merchant-card-title">订单流水 <small>共 ${s.orders.length} 单</small></h3>
+        <h3 class="merchant-card-title">${t('flowTitle')} <small>${LangService.isEn() ? s.orders.length + ' orders' : '共 ' + s.orders.length + ' 单'}</small></h3>
         ${flow}
       </div>
 
-      ${tb ? `<div class="merchant-tb-badge">顾客端当前绑定桌台：<b>${esc(tb.no)}</b></div>` : ''}
+      ${tb ? `<div class="merchant-tb-badge">${t('tbBadge')}<b>${esc(tb.no)}</b></div>` : ''}
     `;
   },
 
   payName(m) {
-    const n = { wechat: '微信支付', alipay: '支付宝', unionpay: '银联支付' }[m];
+    const n = { wechat: t('payWechat'), alipay: t('payAlipay'), unionpay: t('payUnion') }[m];
     return n || '其他';
   },
 
