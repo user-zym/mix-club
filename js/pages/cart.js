@@ -384,11 +384,11 @@ const CartPage = {
           <span id="payStatusText">${esc(method.tip)}</span>
         </div>
 
-        <div class="pay-timer" id="payTimer">${remainSec}s 后自动确认到账</div>
+        <div class="pay-timer" id="payTimer">${LangService.isEn() ? remainSec + 's auto-confirm' : remainSec + ' 秒后自动确认到账'}</div>
 
         <div style="display:flex;gap:8px;margin-top:14px;">
-          <button class="btn btn-ghost btn-block" id="cancelPay">取消支付</button>
-          <button class="btn btn-primary btn-block" id="confirmPaid" style="background:${esc(method.color)};border-color:${esc(method.color)};">我已支付</button>
+          <button class="btn btn-ghost btn-block" id="cancelPay">${t('cancelPay')}</button>
+          <button class="btn btn-primary btn-block" id="confirmPaid" style="background:${esc(method.color)};border-color:${esc(method.color)};">${t('paidDone')}</button>
         </div>
       </div>
     `);
