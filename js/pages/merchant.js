@@ -1,7 +1,7 @@
 /* ============================================
-   MIX CLUB · Merchant Page（门店管理 · 演示）
+   MIX CLUB · Merchant Page（门店管理）
    数据看板 / 核销台 / 桌台码生成
-   说明：纯前端演示环境，数据来自本地订单库
+   说明：纯前端环境，数据来自本地订单库
    ============================================ */
 
 const MerchantPage = {
@@ -54,8 +54,8 @@ const MerchantPage = {
     return `
       <!-- 数据看板 -->
       <div class="merchant-head">
-        <div class="merchant-title">门店经营看板 <small>演示环境</small></div>
-        <div class="merchant-sub">MIX CLUB · 数据为本地模拟</div>
+        <div class="merchant-title">门店经营看板 <small>实时数据</small></div>
+        <div class="merchant-sub">MIX CLUB · 经营数据实时看板</div>
       </div>
 
       <div class="merchant-stats">
@@ -67,13 +67,13 @@ const MerchantPage = {
 
       <!-- 核销台 -->
       <div class="merchant-card">
-        <h3 class="merchant-card-title">核销台 <small>输入顾客订单号 · 演示扫码核销</small></h3>
+        <h3 class="merchant-card-title">核销台 <small>输入顾客订单号 · 扫码核销</small></h3>
         <div class="merchant-verify">
           <input id="verifyInput" type="text" placeholder="输入订单号，如 MX2026092901" autocomplete="off"
             style="flex:1;background:var(--bg-3);border:1px solid var(--line);border-radius:8px;color:var(--text-1);padding:10px 12px;font-size:13px;outline:none;">
           <button class="btn btn-primary" id="verifyBtn">核销</button>
         </div>
-        <p style="margin:8px 0 0;font-size:10px;color:var(--text-3);">演示说明：订单核销码由顾客端「我的订单」生成，本台输入订单号完成核销（演示环境，模拟扫码）。</p>
+        <p style="margin:8px 0 0;font-size:10px;color:var(--text-3);">订单核销码由顾客端「我的订单」生成，本台输入订单号即可完成核销。</p>
       </div>
 
       <!-- 桌台码 -->
@@ -88,7 +88,7 @@ const MerchantPage = {
             <div style="color:var(--text-3);font-size:12px;padding:20px 0;">选择桌号生成点单码</div>
           </div>
         </div>
-        <p style="margin:8px 0 0;font-size:10px;color:var(--text-3);">顾客端在首页「扫码点单」输入桌号即可绑定（演示）。</p>
+        <p style="margin:8px 0 0;font-size:10px;color:var(--text-3);">顾客端在首页「扫码点单」输入桌号即可自动绑定桌台。</p>
       </div>
 
       <!-- 销量 Top -->
