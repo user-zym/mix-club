@@ -321,10 +321,10 @@ const AiService = {
 
   // 一键预设（首页快捷）
   PRESETS: [
-    { id: 'sweetgirl', name: '甜妹首选', emoji: '🍑', tastes: ['甜', '果味'], scene: 'date',  strength: 'soft' },
-    { id: 'partyhot',  name: '派对热场', emoji: '🎉', tastes: ['气泡', '清爽'], scene: 'party', strength: 'mid'  },
-    { id: 'solo',      name: '独酌深夜', emoji: '🌙', tastes: ['浓郁', '烈'], scene: 'solo',  strength: 'hard' },
-    { id: 'noface',    name: '不喝酒星', emoji: '🫧', tastes: ['无酒精', '果味'], scene: 'date', strength: 'soft' }
+    { id: 'sweetgirl', name: '甜妹首选', nameEn: 'Sweet Girl', emoji: '🍑', tastes: ['甜', '果味'], scene: 'date',  strength: 'soft' },
+    { id: 'partyhot',  name: '派对热场', nameEn: 'Party Starter', emoji: '🎉', tastes: ['气泡', '清爽'], scene: 'party', strength: 'mid'  },
+    { id: 'solo',      name: '独酌深夜', nameEn: 'Midnight Solo', emoji: '🌙', tastes: ['浓郁', '烈'], scene: 'solo',  strength: 'hard' },
+    { id: 'noface',    name: '不喝酒星', nameEn: 'No-Booze Zone', emoji: '🫧', tastes: ['无酒精', '果味'], scene: 'date', strength: 'soft' }
   ],
 
   // 推断产品强度（无显式字段，按 tags + cat 推断）
@@ -607,7 +607,7 @@ const Auth = {
     setTimeout(() => navigate('login'), 350);
   },
 
-  // 重置为默认体验账号
+  // 重置为默认会员身份
   reset() {
     User.data = {
       name: 'KUMA',
