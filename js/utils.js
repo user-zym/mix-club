@@ -594,9 +594,8 @@ function closeModal() {
   if (m) m.classList.remove('show');
   mask.classList.remove('show');
   setTimeout(() => {
-    const mm = mask.querySelector('.modal');
-    if (mm) mm.remove();
-    // 静态 mask (app-container 内) 保留，仅清理弹出的 modal
+    // 只移除本次关闭的 modal；若期间已打开新弹窗（旧 modal 已被 openModal 移除），则不动
+    if (m && m.parentElement === mask) m.remove();
   }, 300);
 }
 
