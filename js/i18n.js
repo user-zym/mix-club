@@ -79,7 +79,8 @@ const I18N_DICT = {
     showToStaff: '向店员出示本码 · 到店核销', completeVerify: '完成核销 · 订单完成', cancelOrder: '取消订单',
     closeBtn: '关闭', doneToast: '订单已完成核销', cancelToast: '订单已取消',
     qPeople: '选择人数', qName: '姓名', qNotify: '叫号时会通知您', qDescNormal: '散座 / 卡座，按序安排', qDescVip: '优先安排，钻石会员专属',
-    estWait: '预计等待', avgPerTable: '分钟/桌', qPhoneLabel: '11 位手机号'
+    estWait: '预计等待', avgPerTable: '分钟/桌', qPhoneLabel: '11 位手机号',
+    loginSuccess: '已登录会员账号', accountHint: '会员账号：', accountFree: '13800000000 / 123456'
   },
   en: {
     appName: 'MIX CLUB',
@@ -155,7 +156,8 @@ const I18N_DICT = {
     showToStaff: 'Show this code at the counter', completeVerify: 'Complete Verify', cancelOrder: 'Cancel Order',
     closeBtn: 'Close', doneToast: 'Order verified', cancelToast: 'Order cancelled',
     qPeople: 'Party Size', qName: 'Name', qNotify: 'We will notify you when called', qDescNormal: 'Tables & booths, in order', qDescVip: 'Priority, diamond members only',
-    estWait: 'Est. wait', avgPerTable: 'min/table', qPhoneLabel: '11-digit phone'
+    estWait: 'Est. wait', avgPerTable: 'min/table', qPhoneLabel: '11-digit phone',
+    loginSuccess: 'Signed in as member', accountHint: 'Member account: ', accountFree: '13800000000 / 123456'
   }
 };
 
