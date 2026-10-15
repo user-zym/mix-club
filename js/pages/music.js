@@ -23,8 +23,8 @@ const MusicPage = {
         <button class="icon-btn" id="musicBackBtn" aria-label="返回">
           <svg viewBox="0 0 24 24" width="22" height="22"><path d="M15 18l-6-6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
-        <span class="music-top-title">我的歌单</span>
-        <span class="music-top-meta">${APP_DATA.playlist.length} 首</span>
+        <span class="music-top-title">${t('myPlaylist')}</span>
+        <span class="music-top-meta">${APP_DATA.playlist.length} ${t('songsUnit')}</span>
       </div>
 
       <!-- Now Playing -->
@@ -34,7 +34,7 @@ const MusicPage = {
           <div class="label">NOW PLAYING</div>
           <h3>${esc(cur.title)}</h3>
           <p>${esc(cur.artist)}</p>
-          <div style="display:inline-flex;align-items:center;gap:4px;margin-top:2px;font-size:10px;color:var(--text-3);background:var(--bg-3);padding:3px 8px;border-radius:10px;">🎧 在线播放 · 现场音频</div>
+          <div style="display:inline-flex;align-items:center;gap:4px;margin-top:2px;font-size:10px;color:var(--text-3);background:var(--bg-3);padding:3px 8px;border-radius:10px;">${t('liveAudio')}</div>
           <div class="music-progress">
             <div class="p" id="musicProgress" style="width:${this.progress}%"></div>
           </div>
@@ -57,8 +57,8 @@ const MusicPage = {
       <!-- Playlist -->
       <div class="playlist">
         <h4>
-          <span>驻场歌单</span>
-          <small>${APP_DATA.playlist.length} 首 · LIVE SET</small>
+          <span>${t('housePlaylist')}</span>
+          <small>${APP_DATA.playlist.length} ${t('songsUnit')} · LIVE SET</small>
         </h4>
         ${APP_DATA.playlist.map((s, i) => `
           <div class="song ${i === this.curIdx ? 'active' : ''}" data-idx="${esc(i)}">
