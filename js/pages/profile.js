@@ -220,19 +220,6 @@ const ProfilePage = {
       if (el) el.addEventListener('click', map[id]);
     });
 
-    // 语言切换（设置弹窗内）
-    const applyLang = (lang) => {
-      LangService.set(lang);
-      closeModal();
-      if (window.MIX_APP && MIX_APP.applyLangUI) MIX_APP.applyLangUI();
-      toast(lang === 'en' ? t('langSwitchedEn') : t('langSwitchedZh'));
-      const r = document.querySelector('[data-page="profile"]');
-      if (r) this.mount(r);
-    };
-    const langZh = document.getElementById('langZhBtn');
-    if (langZh) langZh.addEventListener('click', () => applyLang('zh'));
-    const langEn = document.getElementById('langEnBtn');
-    if (langEn) langEn.addEventListener('click', () => applyLang('en'));
 
     // 订单卡片 → 详情
     root.querySelectorAll('[data-order]').forEach(el => {
@@ -652,6 +639,20 @@ const ProfilePage = {
         </div>
       `).join('')}
     `);
+
+    // 语言切换（弹窗已渲染，此刻绑定才生效）
+    const applyLang = (lang) => {
+      LangService.set(lang);
+      closeModal();
+      if (window.MIX_APP && MIX_APP.applyLangUI) MIX_APP.applyLangUI();
+      toast(lang === 'en' ? t('langSwitchedEn') : t('langSwitchedZh'));
+      const r = document.querySelector('[data-page="profile"]');
+      if (r) this.mount(r);
+    };
+    const langZh = document.getElementById('langZhBtn');
+    if (langZh) langZh.addEventListener('click', () => applyLang('zh'));
+    const langEn = document.getElementById('langEnBtn');
+    if (langEn) langEn.addEventListener('click', () => applyLang('en'));
   },
 
   logout() {
