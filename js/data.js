@@ -59,8 +59,8 @@ const APP_DATA = {
     { id: 'p11', cat: 'beer',     name: '1664 白啤',    desc: '法国1664 · 柑橘香 · 330ml · 顺滑口感',       tags: ['精酿'],       price: 88,  original: 108, sales: 2103, img: 'images/1664白啤.jpg',  tastes: ['清爽','气泡','果味'] },
 
     { id: 'p12', cat: 'snack',    name: '美式炸鸡拼盘', desc: '原味鸡块 / 鸡翅 / 薯条 · 6件套',            tags: ['人气','炸物'], price: 98,  original: 138, sales: 1452, img: 'images/美式炸鸡拼盘.jpg' },
-    { id: 'p13', cat: 'snack',    name: '芝士焗薯条',   desc: '车达芝士 / 培根碎 / 香葱 · 现烤现做',        tags: ['热销'],       price: 118, original: 158, sales: 1289, img: 'images/芝士焗薯条.jpg' },
-    { id: 'p14', cat: 'snack',    name: '豪华果盘',     desc: '时令水果 · 草莓 / 哈密瓜 / 蓝莓 · 大份',     tags: ['拼盘'],       price: 138, original: 188, sales: 826,  img: 'images/豪华果盘.jpg' },
+    { id: 'p13', cat: 'snack',    name: '芝士焗薯条',   desc: '车达芝士 / 培根碎 / 香葱 · 现烤现做',        tags: ['热销'],       price: 118, original: 158, sales: 1289, img: 'images/芝士焗薯条.jpg?v=2' },
+    { id: 'p14', cat: 'snack',    name: '豪华果盘',     desc: '时令水果 · 草莓 / 哈密瓜 / 蓝莓 · 大份',     tags: ['拼盘'],       price: 138, original: 188, sales: 826,  img: 'images/豪华果盘.jpg?v=2' },
     { id: 'p15', cat: 'snack',    name: '和牛粒炒饭',   desc: 'A5和牛 / 鸡蛋 / 葱花 · 主厨推荐',            tags: ['主厨'],       price: 188, original: 248, sales: 538,  img: 'images/和牛粒炒饭.jpg' },
     { id: 'p16', cat: 'soft',     name: '莫吉托无酒精', desc: '薄荷 / 青柠 / 苏打 · 0酒精放心喝',           tags: ['无酒精'],     price: 128, original: 168, sales: 692,  img: 'images/莫吉托无酒精.jpg', tastes: ['清爽','无酒精'] },
     { id: 'p17', cat: 'soft',     name: '鲜榨果汁',     desc: '当季鲜果现榨 · 橙汁 / 西瓜 / 苹果',          tags: ['健康'],       price: 108, original: 148, sales: 1124, img: 'images/鲜榨果汁.jpg', tastes: ['果味','无酒精','清爽'] },
